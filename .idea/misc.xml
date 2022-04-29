@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/border_layout.xml" value="0.162" />
+        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/changing_background.xml" value="0.162" />
         <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/custom_boder.xml" value="0.1" />
+        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/gradient_color.xml" value="0.162" />
+        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
         <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/boder_layout.xml" value="0.25" />
+        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/component_playlist.xml" value="0.10989583333333333" />
         <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/custom_control_view.xml" value="0.2" />
+        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/fragment_search.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/background_edittext.xml" value="0.166" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/gradient_color.xml" value="0.14" />
