@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    >
+
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_above="@+id/meow_bot_nav"
+        android:layout_marginBottom="-73dp" />
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/meow_bot_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:mbn_backgroundBottomColor="#34E83C"
+        app:mbn_circleColor="#353535"
+        app:mbn_countBackgroundColor="#ff6f00"
+        app:mbn_countTextColor="#6720AE"
+        app:mbn_defaultIconColor="#0C0C0C"
+        app:mbn_rippleColor="#23A128"
+        app:mbn_selectedIconColor="#FFFFFF"
+        app:mbn_shadowColor="#1f212121"
+
+        />
+
+
+</RelativeLayout>
