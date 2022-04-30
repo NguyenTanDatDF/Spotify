@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_premium_check.xml" value="0.225" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_setting.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_user.xml" value="0.225" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_album.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/item_user.xml" value="0.264" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/background_edittext.xml" value="0.166" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/gradient_color.xml" value="0.14" />
