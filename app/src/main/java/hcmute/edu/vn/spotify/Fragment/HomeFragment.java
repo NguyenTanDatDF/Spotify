@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
+import hcmute.edu.vn.spotify.Adapter.ListAdapter;
+import hcmute.edu.vn.spotify.Adapter.PlaylistAdapter;
 import hcmute.edu.vn.spotify.Model.Album;
+import hcmute.edu.vn.spotify.Model.MusicPlaylist;
 import hcmute.edu.vn.spotify.R;
 
 
@@ -36,10 +40,16 @@ public class HomeFragment extends Fragment {
 
     RecyclerView rcvUser2;
     private AlbumAdapter userAdapter2;
+
+    RecyclerView rcvListMusic;
+    private ListAdapter listAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        //set data for album list
         rcvUser = view.findViewById(R.id.recycleView);
         userAdapter = new AlbumAdapter((getActivity()));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
@@ -61,6 +71,9 @@ public class HomeFragment extends Fragment {
         userAdapter2.setData(getListUser());
         rcvUser2.setAdapter(userAdapter2);
 
+
+        //Set welcome text
+
         Calendar now = Calendar.getInstance();
         int hour = now.get((Calendar.HOUR_OF_DAY));
 
@@ -69,6 +82,16 @@ public class HomeFragment extends Fragment {
         if(hour <= 11) welcome.setText("Chào buổi sáng");
         else if (hour <= 17) welcome.setText("Chào buổi chiều");
         else welcome.setText("Chào buổi tối");
+
+        //set data for music list
+        rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);
+        listAdapter = new ListAdapter((getActivity()));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvListMusic.setLayoutManager(gridLayoutManager);
+
+        listAdapter.setData(getListMusic());
+        rcvListMusic.setAdapter(listAdapter);
 
         return view;
     }
@@ -84,4 +107,18 @@ public class HomeFragment extends Fragment {
 
         return list;
     }
+    private List<MusicPlaylist> getListMusic()
+    {
+        List<MusicPlaylist> list = new ArrayList<>();
+        list.add(new MusicPlaylist(R.drawable.album1, "Nghe chán nghe tiếp"));
+        list.add(new MusicPlaylist(R.drawable.album2, "Nghe chán khỏi nghe"));
+        list.add(new MusicPlaylist(R.drawable.album3, "Nghe chán thì thôi"));
+        list.add(new MusicPlaylist(R.drawable.album4, "Nghe chán nghỉ"));
+        list.add(new MusicPlaylist(R.drawable.album5, "Nghe chán nữa"));
+        list.add(new MusicPlaylist(R.drawable.album6, "Nghe chán thì ngủ"));
+
+        return list;
+    }
+
+
 }
