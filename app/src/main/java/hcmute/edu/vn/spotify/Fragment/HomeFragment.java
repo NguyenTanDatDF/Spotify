@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
@@ -19,11 +21,11 @@ import hcmute.edu.vn.spotify.R;
 
 public class HomeFragment extends Fragment {
 
+    TextView welcome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     RecyclerView rcvUser;
@@ -58,6 +60,15 @@ public class HomeFragment extends Fragment {
         rcvUser2.setLayoutManager(linearLayoutManager2);
         userAdapter2.setData(getListUser());
         rcvUser2.setAdapter(userAdapter2);
+
+        Calendar now = Calendar.getInstance();
+        int hour = now.get((Calendar.HOUR_OF_DAY));
+
+        welcome = view.findViewById(R.id.welcome);
+
+        if(hour <= 11) welcome.setText("Chào buổi sáng");
+        else if (hour <= 17) welcome.setText("Chào buổi chiều");
+        else welcome.setText("Chào buổi tối");
 
         return view;
     }
