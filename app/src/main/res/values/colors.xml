@@ -11,4 +11,12 @@
     <color name="light_grey">#515151</color>
     <color name="green">#1ED760</color>
     <color name="grey">#242424</color>
+    <color name="orange">#E13300</color>
+    <color name="dark_blue">#1E3264</color>
+    <color name="pastel_purple">#8C67AC</color>
+    <color name="darkdark_blue">#477D95</color>
+    <color name="dark_purple">#B02896</color>
+    <color name="pink">#E8125C</color>
+    <color name="dark_orange">#C72B2F</color>
+    <color name="dark_green">#158A08</color>
 </resources>

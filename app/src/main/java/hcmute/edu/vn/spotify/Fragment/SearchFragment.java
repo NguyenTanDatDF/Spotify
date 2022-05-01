@@ -3,63 +3,81 @@ package hcmute.edu.vn.spotify.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hcmute.edu.vn.spotify.Adapter.TopicAdapter;
+import hcmute.edu.vn.spotify.Model.Artist;
+import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Model.Topic;
 import hcmute.edu.vn.spotify.R;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SearchFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RestaurantFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    RecyclerView rcvTopic;
+    private TopicAdapter topicAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view =  inflater.inflate(R.layout.fragment_search, container, false);
+
+        //Set data for topic
+
+        rcvTopic = view.findViewById(R.id.fragmentSearch_topicsRv);
+        topicAdapter = new TopicAdapter((getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvTopic.setLayoutManager(gridLayoutManager);
+        topicAdapter.setData(getListTopic());
+        rcvTopic.setAdapter(topicAdapter);
+        return view;
+    }
+
+    private List<Topic> getListTopic() {
+        List<Topic> list = new ArrayList<>();
+        int colorGreen = R.color.green;
+        int colorOrange = R.color.orange;
+        int colorDarkBlue = R.color.dark_blue;
+        int colorPastelPurple = R.color.pastel_purple;
+        int colorDarkDarkBlue = R.color.darkdark_blue;
+        int colorDarkPurple = R.color.dark_purple;
+        int colorPink = R.color.pink;
+        int colorDarkOrange = R.color.dark_orange;
+        int colorDarkGreen = R.color.dark_green;
+
+        int[] colors = new int[]{colorGreen, colorOrange, colorDarkBlue, colorPastelPurple, colorDarkDarkBlue, colorDarkPurple, colorPink, colorDarkOrange, colorDarkGreen };
+
+        list.add(new Topic(colors[getNumber()], "Pop", R.drawable.album));
+        list.add(new Topic(colors[getNumber()], "Rock", R.drawable.album1));
+        list.add(new Topic(colors[getNumber()], "Ở nhà", R.drawable.album2));
+        list.add(new Topic(colors[getNumber()], "Mới phát hành", R.drawable.album3));
+        list.add(new Topic(colors[getNumber()], "Tâm trạng", R.drawable.album4));
+        list.add(new Topic(colors[getNumber()], "K-pop", R.drawable.album1));
+        list.add(new Topic(colors[getNumber()], "Buỗi diễn", R.drawable.album3));
+        list.add(new Topic(colors[getNumber()], "Pride", R.drawable.album2));
+        list.add(new Topic(colors[getNumber()], "Sức khỏe", R.drawable.album4));
+        list.add(new Topic(colors[getNumber()], "League of legends", R.drawable.album));
+        list.add(new Topic(colors[getNumber()], "Trên xe", R.drawable.album1));
+        list.add(new Topic(colors[getNumber()], "Gym", R.drawable.album2));
+
+
+
+        return list;
+    }
+    private int getNumber() {
+        double rand = (Math.random()) * (8 + 1) + 0;
+        return (int) rand;
     }
 }
