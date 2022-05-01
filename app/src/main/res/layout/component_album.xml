@@ -14,10 +14,11 @@
         <TextView
             android:id="@+id/componentAlbum_albumNameTv"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:autoSizeTextType="uniform"
             android:text="Triệu năm ánh sáng"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:gravity="center"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:lineHeight="40dp"/>

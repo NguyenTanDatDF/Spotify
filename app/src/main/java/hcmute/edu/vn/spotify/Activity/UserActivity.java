@@ -30,18 +30,16 @@ public class UserActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvPlaylist.setLayoutManager(linearLayoutManager);
 
-        playlistAdapter.setData(getListUser());
+        playlistAdapter.setData(getListPlaylist());
         rcvPlaylist.setAdapter(playlistAdapter);
     }
-    private List<Playlist> getListUser() {
+    private List<Playlist> getListPlaylist() {
         List<Playlist> list = new ArrayList<>();
 
         list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
         list.add(new Playlist(R.drawable.playlist, "My first play", "Tien"));
         list.add(new Playlist(R.drawable.playlist, "dancin", "Dat"));
         list.add(new Playlist(R.drawable.playlist, "EDM", "Luan"));
-
-
         return list;
     }
 }

@@ -3,17 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/background_edittext.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/changing_background.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/custom_boder.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/gradient_color.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_arrow_left.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_bell_solid.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_cart.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_clear.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_clock_rotate_left_solid.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_dot.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_gear_solid.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_home.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_more.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_music.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_notifications.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_plus.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_rercent.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_setting.xml" value="0.1445" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/ic_spotify.xml" value="0.1445" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_rectangle.xml" value="0.2" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_premium_check.xml" value="0.225" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_setting.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_user.xml" value="0.225" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_album.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_artist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_list.xml" value="0.264" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_music.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_playlist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_playlist_horizontal.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/custom_control_view.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_library.xml" value="0.16" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/item_user.xml" value="0.264" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/background_edittext.xml" value="0.166" />
