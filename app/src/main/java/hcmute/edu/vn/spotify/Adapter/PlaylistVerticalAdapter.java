@@ -10,17 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import hcmute.edu.vn.spotify.R;
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.R;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
+public class PlaylistVerticalAdapter extends RecyclerView.Adapter<PlaylistVerticalAdapter.PlaylistVerticalViewHolder> {
 
     private Context pContext;
     private List<Playlist> pPlaylist;
 
-    public PlaylistAdapter(Context pContext) {
+    public PlaylistVerticalAdapter(Context pContext) {
         this.pContext = pContext;
     }
 
@@ -31,13 +31,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
     @NonNull
     @Override
-    public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_playlist_horizontal, parent, false);
-        return new PlaylistViewHolder(view);
+    public PlaylistVerticalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_playlist, parent, false);
+        return new PlaylistVerticalViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaylistVerticalViewHolder holder, int position) {
         Playlist playlist = pPlaylist.get(position);
         if(playlist == null){
             return;
@@ -55,18 +55,17 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
         return 0;
     }
 
-    public class PlaylistViewHolder extends RecyclerView.ViewHolder {
+    public class PlaylistVerticalViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView playlistImage;
         private TextView playlistName;
         private TextView playlistCreator;
 
-        public PlaylistViewHolder(@NonNull View itemView) {
+        public PlaylistVerticalViewHolder(@NonNull View itemView) {
             super(itemView);
-            playlistImage = itemView.findViewById(R.id.componentPlaylistHorizontal_imageIv);
-            playlistName = itemView.findViewById(R.id.componentPlaylistHorizontal_nameTv);
-            playlistCreator = itemView.findViewById(R.id.componentPlaylistHorizontal_creatorTv);
-
+            playlistImage = itemView.findViewById(R.id.componentPlayList_imageIv);
+            playlistName = itemView.findViewById(R.id.componentPlayList_playlistNameTv);
+            playlistCreator = itemView.findViewById(R.id.componentPlayList_creatorTv);
         }
     }
 }

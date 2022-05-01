@@ -28,9 +28,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         this.albumList = list;
         notifyDataSetChanged();
     }
-
-
-
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.AlbumViewHolder holder, int position) {
         Album album = albumList.get(position);

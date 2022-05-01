@@ -26,12 +26,6 @@ import hcmute.edu.vn.spotify.R;
 public class HomeFragment extends Fragment {
 
     TextView welcome;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     RecyclerView rcvUser;
     private AlbumAdapter userAdapter;
 
@@ -43,6 +37,12 @@ public class HomeFragment extends Fragment {
 
     RecyclerView rcvListMusic;
     private ListAdapter listAdapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

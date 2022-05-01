@@ -3,63 +3,89 @@ package hcmute.edu.vn.spotify.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
+import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
+import hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter;
+import hcmute.edu.vn.spotify.Model.Artist;
+import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.R;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LibraryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class LibraryFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public LibraryFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FoodFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LibraryFragment newInstance(String param1, String param2) {
-        LibraryFragment fragment = new LibraryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    RecyclerView rcvPlaylist;
+    RecyclerView rcvArtist;
+    private PlaylistVerticalAdapter playlistVerticalAdapter;
+    private ArtistAdapter artistAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library, container, false);
+        View view = inflater.inflate(R.layout.fragment_library, container, false);
+
+        //set data for playlist
+        rcvPlaylist = view.findViewById(R.id.fragmentLibrary_playlistRv);
+        playlistVerticalAdapter = new PlaylistVerticalAdapter((getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvPlaylist.setLayoutManager(gridLayoutManager);
+        playlistVerticalAdapter.setData(getListPlaylist());
+        rcvPlaylist.setAdapter(playlistVerticalAdapter);
+
+        //set data for artist
+        rcvArtist = view.findViewById(R.id.fragmentLibrary_artistRv);
+        artistAdapter = new ArtistAdapter((getActivity()));
+        GridLayoutManager gridArtistayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvArtist.setLayoutManager(gridArtistayoutManager);
+        artistAdapter.setData(getListArtist());
+        rcvArtist.setAdapter(artistAdapter);
+
+        return view;
+    }
+    private List<Playlist> getListPlaylist() {
+        List<Playlist> list = new ArrayList<>();
+
+        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
+        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
+        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
+        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
+        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
+        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
+        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
+        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
+        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
+        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
+        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
+        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
+        return list;
+    }
+
+    private List<Artist> getListArtist() {
+        List<Artist> list = new ArrayList<>();
+
+        list.add(new Artist(R.drawable.cardi, "Cardi A"));
+        list.add(new Artist(R.drawable.cardi, "Cardi B"));
+        list.add(new Artist(R.drawable.cardi, "Cardi C"));
+        list.add(new Artist(R.drawable.cardi, "Cardi D"));
+        list.add(new Artist(R.drawable.cardi, "Cardi E"));
+        list.add(new Artist(R.drawable.cardi, "Cardi F"));
+        list.add(new Artist(R.drawable.cardi, "Cardi G"));
+        list.add(new Artist(R.drawable.cardi, "Cardi H"));
+
+        return list;
     }
 }
