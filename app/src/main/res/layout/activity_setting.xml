@@ -12,7 +12,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="60dp"
             android:background="@drawable/rectangle_background"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="Cài đặt"
                 android:textColor="@color/white"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
