@@ -1,9 +1,11 @@
 package hcmute.edu.vn.spotify.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ListAdapter;
 import hcmute.edu.vn.spotify.Adapter.PlaylistAdapter;
@@ -27,6 +30,7 @@ public class HomeFragment extends Fragment {
 
     TextView welcome;
     RecyclerView rcvUser;
+    ImageView settingIv;
     private AlbumAdapter userAdapter;
 
     RecyclerView rcvUser1;
@@ -92,6 +96,16 @@ public class HomeFragment extends Fragment {
 
         listAdapter.setData(getListMusic());
         rcvListMusic.setAdapter(listAdapter);
+
+        //go to setting activity
+        settingIv = view.findViewById(R.id.icon_setting);
+        settingIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent user_activity = new Intent(getActivity(), SettingActivity.class);
+                startActivity(user_activity);
+            }
+        });
 
         return view;
     }
