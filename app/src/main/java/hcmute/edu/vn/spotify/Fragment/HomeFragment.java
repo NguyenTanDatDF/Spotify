@@ -54,21 +54,21 @@ public class HomeFragment extends Fragment {
         userAdapter = new AlbumAdapter((getActivity()));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
         rcvUser.setLayoutManager(linearLayoutManager);
-        userAdapter.setData(getListUser());
+        userAdapter.setData(getListAlbum());
         rcvUser.setAdapter(userAdapter);
 
         rcvUser1 = view.findViewById(R.id.recycleView1);
         userAdapter1 = new AlbumAdapter((getActivity()));
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
         rcvUser1.setLayoutManager(linearLayoutManager1);
-        userAdapter1.setData(getListUser());
+        userAdapter1.setData(getListAlbum());
         rcvUser1.setAdapter(userAdapter1);
 
         rcvUser2 = view.findViewById(R.id.recycleView2);
         userAdapter2 = new AlbumAdapter((getActivity()));
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
         rcvUser2.setLayoutManager(linearLayoutManager2);
-        userAdapter2.setData(getListUser());
+        userAdapter2.setData(getListAlbum());
         rcvUser2.setAdapter(userAdapter2);
 
 
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-    private List<Album> getListUser()
+    private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
         list.add(new Album("Chill" ,R.drawable.album1, "MCK, K-ICM, LowG"));

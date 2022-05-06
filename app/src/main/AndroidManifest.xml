@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestMeo">
         <activity
-            android:name="hcmute.edu.vn.spotify.Activity.ArtistMusicActivity"
+            android:name="hcmute.edu.vn.spotify.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
