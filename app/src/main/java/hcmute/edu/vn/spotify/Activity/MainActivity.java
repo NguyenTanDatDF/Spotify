@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigation.setCount(1, "10");
-        bottomNavigation.show(2, true);
+        bottomNavigation.show(1, true);
 
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/track1.mp3?alt=media&token=8d5a909e-c56d-44ad-9ad5-8f148039e2d1";
+        String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20Mixtape%20%C4%90i%20C%C3%B9ng%20N%C4%83m%20Th%C3%A1ng%20%20TayNguyenSound%20Full.mp3?alt=media&token=b36c5b88-9e24-4d18-b490-4f37328dd34a";
         PlayMedia(url);
     }
     private void replace(Fragment fragment) {
@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         pvMain.showController();
         pvMain.setControllerHideOnTouch(false);
-
-
     }
 
 

@@ -1,5 +1,6 @@
 package hcmute.edu.vn.spotify.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import hcmute.edu.vn.spotify.Activity.SettingActivity;
+import hcmute.edu.vn.spotify.Activity.UserActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
 import hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter;
@@ -25,6 +29,7 @@ public class LibraryFragment extends Fragment {
 
     RecyclerView rcvPlaylist;
     RecyclerView rcvArtist;
+    CircleImageView avatarIv;
     private PlaylistVerticalAdapter playlistVerticalAdapter;
     private ArtistAdapter artistAdapter;
 
@@ -53,6 +58,16 @@ public class LibraryFragment extends Fragment {
         rcvArtist.setLayoutManager(gridArtistayoutManager);
         artistAdapter.setData(getListArtist());
         rcvArtist.setAdapter(artistAdapter);
+
+        //Click on user detail information
+        avatarIv = view.findViewById(R.id.fragmentLibrary_avatarIv);
+        avatarIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent user_activity = new Intent(getActivity(), SettingActivity.class);
+                startActivity(user_activity);
+            }
+        });
 
         return view;
     }
