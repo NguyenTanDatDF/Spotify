@@ -34,7 +34,7 @@ public class AdminMusicFragment extends Fragment {
         //set data for artist admin
         rcvTrack = view.findViewById(R.id.music_playlist);
         trackAdapter = new TrackAdapter(getActivity());
-        GridLayoutManager gridArtistayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager gridArtistayoutManager = new GridLayoutManager(getActivity(),1, GridLayoutManager.VERTICAL, false);
         rcvTrack.setLayoutManager(gridArtistayoutManager);
         trackAdapter.setData(getListTrack());
         rcvTrack.setAdapter(trackAdapter);
