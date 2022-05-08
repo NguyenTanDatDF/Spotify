@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestMeo">
-        <activity android:name=".Activity.MainActivity"
+        <activity android:name=".Activity.AdminActivity"
             android:exported="true">
         </activity>
         <activity android:name=".Activity.SigninActivity"
@@ -35,7 +35,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name="hcmute.edu.vn.spotify.Activity.AdminActivity"
+            android:name="hcmute.edu.vn.spotify.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
