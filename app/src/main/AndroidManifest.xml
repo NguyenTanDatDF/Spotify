@@ -35,7 +35,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name="hcmute.edu.vn.spotify.Activity.WelcomeActivity"
+            android:name="hcmute.edu.vn.spotify.Activity.AdminActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
