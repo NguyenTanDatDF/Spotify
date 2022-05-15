@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.NotificationsActivity;
 import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ListAdapter;
@@ -31,6 +32,7 @@ public class HomeFragment extends Fragment {
     TextView welcome;
     RecyclerView rcvUser;
     ImageView settingIv;
+    ImageView notificationIv;
     private AlbumAdapter userAdapter;
 
     RecyclerView rcvUser1;
@@ -106,6 +108,17 @@ public class HomeFragment extends Fragment {
                 startActivity(user_activity);
             }
         });
+
+        //go to notifications activity
+        notificationIv = view.findViewById(R.id.icon_notify);
+        notificationIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent notification_activity = new Intent(getActivity(), NotificationsActivity.class);
+                startActivity(notification_activity);
+            }
+        });
+
 
         return view;
     }
