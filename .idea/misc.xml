@@ -3,14 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/ic_heart_fill.xml" value="0.135" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/ic_not_heart.xml" value="0.1" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/ic_play.xml" value="0.1" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/rounded_image.xml" value="0.1685" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/drawable/rounded_rectangle.xml" value="0.1685" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/activity_detail_track.xml" value="0.25" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Learning/Mobile Programing/Final_Project_Mobile/Spotify/app/src/main/res/layout/custom_control_view.xml" value="0.4" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/gradient_color_grey.xml" value="0.127" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1445" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/rectangle_input.xml" value="0.1555" />
@@ -52,6 +44,7 @@
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_signin.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_user.xml" value="0.225" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_welcome.xml" value="0.24615384615384617" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_album.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_artist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_list.xml" value="0.264" />
@@ -59,26 +52,14 @@
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_playlist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_playlist_horizontal.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/component_topic.xml" value="0.3700787401574803" />
-        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/custom_control_view.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/custom_control_view.xml" value="0.4" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_artist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_library.xml" value="0.2" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_music.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_user.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/item_user.xml" value="0.264" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_admin.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_artist_music.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_edit_user.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_main.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_premium_check.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_search.xml" value="0.19655797101449277" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/activity_setting.xml" value="0.19655797101449277" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_artist.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_home.xml" value="0.275" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_library.xml" value="0.19655797101449277" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_music.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_search.xml" value="0.19655797101449277" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/fragment_user.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/layout/layout_header.xml" value="0.25" />
-        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Spotify/app/src/main/res/menu/drawer_menu.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/background_edittext.xml" value="0.166" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/gradient_color.xml" value="0.14" />
