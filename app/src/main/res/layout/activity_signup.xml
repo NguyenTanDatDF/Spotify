@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/activitySignup_usernameEt"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -87,11 +87,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/activitySignup_usernameEt"
         app:layout_constraintVertical_bias="0.05" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/activitySignup_passwordEt"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
@@ -106,6 +106,7 @@
         app:layout_constraintVertical_bias="0.02" />
 
     <Button
+        android:id="@+id/activitySignup_signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button"
@@ -114,7 +115,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/editText4"
+        app:layout_constraintTop_toBottomOf="@+id/activitySignup_passwordEt"
         app:layout_constraintVertical_bias="0.1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
