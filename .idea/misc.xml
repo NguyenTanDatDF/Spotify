@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/gradient_color_grey.xml" value="0.127" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1445" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable-v24/rectangle_input.xml" value="0.1555" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/background_edittext.xml" value="0.1445" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_background.xml" value="0.206" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_button.xml" value="0.206" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_rectangle.xml" value="0.2" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_add_playlist.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_artist_music.xml" value="0.22231404958677686" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_main.xml" value="0.25" />

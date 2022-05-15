@@ -40,6 +40,9 @@
         <activity android:name=".Activity.SearchActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".Activity.NewPlaylistActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name="hcmute.edu.vn.spotify.Activity.MainActivity"
             android:exported="true">

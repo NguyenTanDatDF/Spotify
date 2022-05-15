@@ -2,6 +2,7 @@ package hcmute.edu.vn.spotify.Activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -28,11 +29,16 @@ public class SearchActivity extends AppCompatActivity {
     private ArtistAdapter artistAdapter;
     private TrackAdapter trackAdapter;
     ImageView backIv;
+    EditText searchEt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        //focus on search
+        searchEt = findViewById(R.id.activitySearch_searchEt);
+        searchEt.requestFocus();
 
         //Set Data for new album
         rcvArtist = findViewById(R.id.activitySearch_artistsRv);

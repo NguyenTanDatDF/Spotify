@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import hcmute.edu.vn.spotify.Activity.NewPlaylistActivity;
 import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Activity.UserActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
@@ -30,6 +32,7 @@ public class LibraryFragment extends Fragment {
     RecyclerView rcvPlaylist;
     RecyclerView rcvArtist;
     CircleImageView avatarIv;
+    ImageView addPlaylistIv;
     private PlaylistVerticalAdapter playlistVerticalAdapter;
     private ArtistAdapter artistAdapter;
 
@@ -66,6 +69,15 @@ public class LibraryFragment extends Fragment {
             public void onClick(View view) {
                 Intent user_activity = new Intent(getActivity(), SettingActivity.class);
                 startActivity(user_activity);
+            }
+        });
+
+        addPlaylistIv = view.findViewById(R.id.fragmentLibrary_addPlaylistIv);
+        addPlaylistIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addPlaylist_activity = new Intent(getActivity(), NewPlaylistActivity.class);
+                startActivity(addPlaylist_activity);
             }
         });
 
