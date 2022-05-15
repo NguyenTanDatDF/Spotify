@@ -34,7 +34,9 @@
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_button.xml" value="0.206" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/drawable/rounded_rectangle.xml" value="0.2" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_add_playlist.xml" value="0.25" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_admin.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_artist_music.xml" value="0.22231404958677686" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_detail_track.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/activity_notifications.xml" value="0.16" />
@@ -60,6 +62,7 @@
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/fragment_user.xml" value="0.25" />
         <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/item_user.xml" value="0.264" />
+        <entry key="..\:/Nam3_Ki2/mobile/Spotify_clone/Spotify/app/src/main/res/layout/layout_header.xml" value="0.25" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/background_edittext.xml" value="0.166" />
         <entry key="..\:/Users/datdr/TestMeo/app/src/main/res/drawable/gradient_color.xml" value="0.14" />
