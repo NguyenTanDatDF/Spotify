@@ -20,7 +20,7 @@
         android:id="@+id/pv_main"
 
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_above="@id/meow_bot_nav"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
