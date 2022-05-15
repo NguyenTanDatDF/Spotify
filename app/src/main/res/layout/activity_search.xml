@@ -21,13 +21,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/editText"
+            app:layout_constraintEnd_toStartOf="@+id/activitySearch_searchEt"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/activitySearch_searchEt"
             android:layout_width="280dp"
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
