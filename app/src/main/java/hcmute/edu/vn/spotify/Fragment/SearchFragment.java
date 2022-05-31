@@ -1,7 +1,9 @@
 package hcmute.edu.vn.spotify.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.SearchActivity;
+import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.TopicAdapter;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.Playlist;
@@ -22,6 +26,7 @@ import hcmute.edu.vn.spotify.R;
 public class SearchFragment extends Fragment {
 
     RecyclerView rcvTopic;
+    CardView searchCV;
     private TopicAdapter topicAdapter;
 
     @Override
@@ -42,6 +47,17 @@ public class SearchFragment extends Fragment {
         rcvTopic.setLayoutManager(gridLayoutManager);
         topicAdapter.setData(getListTopic());
         rcvTopic.setAdapter(topicAdapter);
+
+        //Go to search activity
+        searchCV = view.findViewById(R.id.fragmentSearch_searchCv);
+        searchCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent search_activity = new Intent(getActivity(), SearchActivity.class);
+                startActivity(search_activity);
+            }
+        });
+
         return view;
     }
 
