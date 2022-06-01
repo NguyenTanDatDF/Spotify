@@ -4,12 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -118,6 +125,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
         });
+        ImageView imgv_track = findViewById(R.id.imgv_track);
+        imgv_track.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PlayTrackActivity.class);
+                startActivity(intent);
+                Animatoo.animateSlideUp(MainActivity.this);
+            }
+        });
+
     }
     private void replace(Fragment fragment) {
     FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction();
