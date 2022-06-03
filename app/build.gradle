@@ -50,4 +50,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.github.mohammadatif:Animatoo:master'
+    implementation 'cn.zhaiyifan:lyricview:1.0.1'
+    implementation 'com.github.zhengken:LyricViewDemo:v1.2'
+
 }

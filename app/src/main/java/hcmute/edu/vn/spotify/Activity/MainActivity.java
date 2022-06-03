@@ -39,8 +39,8 @@ import kotlin.jvm.functions.Function1;
 
 public class MainActivity extends AppCompatActivity {
     MeowBottomNavigation bottomNavigation;
-    SimpleExoPlayer absPlayerInternal;
-    PlayerView pvMain;
+    public static SimpleExoPlayer absPlayerInternal;
+    public static PlayerView pvMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20Mixtape%20%C4%90i%20C%C3%B9ng%20N%C4%83m%20Th%C3%A1ng%20%20TayNguyenSound%20Full.mp3?alt=media&token=b36c5b88-9e24-4d18-b490-4f37328dd34a";
+        String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20Martin%20Garrix%20%20David%20Guetta%20%20So%20Far%20Away%20Official%20Video%20feat%20Jamie%20Scott%20%20Romy%20Dya.mp3?alt=media&token=9b3c3357-6cde-43b0-ac26-e1e22aaf9884";
         PlayMedia(url);
 
         final int[] favorite = {0};
@@ -130,10 +130,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PlayTrackActivity.class);
+
                 startActivity(intent);
                 Animatoo.animateSlideUp(MainActivity.this);
             }
         });
+
 
     }
     private void replace(Fragment fragment) {
@@ -161,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
         MediaSource mediaSource = new ProgressiveMediaSource.Factory(defdataSourceFactory).createMediaSource(uriOfContentUrl);  // creating a media source
 
         absPlayerInternal.prepare(mediaSource);
+
         absPlayerInternal.setPlayWhenReady(true); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
+
+
 
         pvMain.setPlayer(absPlayerInternal); // attach surface to the view
         pvMain.setControllerShowTimeoutMs(0);
