@@ -27,6 +27,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import hcmute.edu.vn.spotify.Fragment.LibraryFragment;
 import hcmute.edu.vn.spotify.Fragment.SearchFragment;
@@ -136,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        DatabaseReference storageRef = FirebaseDatabase.getInstance("https://spotifymain-de352-default-rtdb.firebaseio.com/").getReference();
+        storageRef.child("First child").setValue("first");
 
     }
     private void replace(Fragment fragment) {
