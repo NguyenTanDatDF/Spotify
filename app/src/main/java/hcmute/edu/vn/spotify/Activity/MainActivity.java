@@ -30,6 +30,9 @@ import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hcmute.edu.vn.spotify.Fragment.LibraryFragment;
 import hcmute.edu.vn.spotify.Fragment.SearchFragment;
 import hcmute.edu.vn.spotify.Fragment.HomeFragment;
@@ -140,12 +143,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         DatabaseReference storageRef = FirebaseDatabase.getInstance("https://spotifymain-de352-default-rtdb.firebaseio.com/").getReference();
-        storageRef.child("First child").setValue("first");
-
+        List<String> list = new ArrayList<>();
+        list.add("Cho");
+        list.add("Meo");
+        list.add("Khi");
+        for(int i = 0 ; i < 3; i ++)
+        {
+            //storageRef.child("Animal").push().setValue(list.get(i));
+        }
+         Log.e("Key",storageRef.child("Animal").getKey());
     }
     private void replace(Fragment fragment) {
     FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction();
-
     fragmentTransaction.replace(R.id.frame_layout, fragment);
     fragmentTransaction.commit();
     }
