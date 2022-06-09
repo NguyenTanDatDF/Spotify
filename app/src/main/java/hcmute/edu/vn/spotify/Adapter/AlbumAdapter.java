@@ -1,6 +1,7 @@
 package hcmute.edu.vn.spotify.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.AlbumMusicActivity;
 import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.R;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>{
@@ -36,9 +40,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
             return;
         }
         else {
-            holder.imgUser.setImageResource(album.getResourceId());
+            Glide.with(mContext).load(album.getImageUrl()).into(holder.imgUser);
             holder.tvName.setText(album.getName());
             holder.tvDescription.setText(album.getDescription());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent album_music = new Intent(mContext, AlbumMusicActivity.class);
+                    mContext.startActivity(album_music);
+                }
+            });
         }
     }
 

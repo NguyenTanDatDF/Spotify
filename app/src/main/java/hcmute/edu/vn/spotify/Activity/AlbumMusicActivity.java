@@ -1,14 +1,10 @@
 package hcmute.edu.vn.spotify.Activity;
 
-import android.media.Image;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +15,7 @@ import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.R;
 
-public class NotificationsActivity extends AppCompatActivity {
+public class AlbumMusicActivity extends AppCompatActivity {
 
     private RecyclerView rcvAlbum;
     private RecyclerView rcvTrack;
@@ -27,20 +23,11 @@ public class NotificationsActivity extends AppCompatActivity {
     private TrackAdapter trackAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
-
-        //back to fragment
-        ImageView backIv = (ImageView) findViewById(R.id.activityNotif_backIv);
-        backIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        //Set Data for new album
-        rcvAlbum = findViewById(R.id.activityNotification_albumsRv);
+        setContentView(R.layout.activity_album_music);
+        //Set data for albums
+        rcvAlbum = findViewById(R.id.activityAlbumMusic_listAlbumRv);
         albumAdapter = new AlbumAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
@@ -49,8 +36,8 @@ public class NotificationsActivity extends AppCompatActivity {
         albumAdapter.setData(getListAlbum());
         rcvAlbum.setAdapter(albumAdapter);
 
-        //Set data for new track
-        rcvTrack = findViewById(R.id.activityNotification_songsRv);
+        //Set data for track
+        rcvTrack = findViewById(R.id.activityAlbumMusic_listMusicRv);
         trackAdapter = new TrackAdapter(this);
 
         LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -59,16 +46,15 @@ public class NotificationsActivity extends AppCompatActivity {
         trackAdapter.setData(getListTrack());
         rcvTrack.setAdapter(trackAdapter);
     }
-
     private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
-        list.add(new Album("Chill" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "MCK, K-ICM, LowG"));
-        list.add(new Album("Remix Tiktok" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Nguyen Tan Dat, Cukak"));
-        list.add(new Album("Bolero" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Tran Dang Khoa"));
-        list.add(new Album("Nonstop", "https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "Nguyen Le Minh Nhut"));
-        list.add(new Album( "Piano","https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Ho Dang Tien" ));
-        list.add(new Album("Guitar", "https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "Nguyen Thien Hoan"));
+        list.add(new Album("Chill" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "MCK, K-ICM, LowG"));
+        list.add(new Album("Remix Tiktok" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Nguyen Tan Dat, Cukak"));
+        list.add(new Album("Bolero" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Tran Dang Khoa"));
+        list.add(new Album("Nonstop", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Le Minh Nhut"));
+        list.add(new Album( "Piano","https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Ho Dang Tien" ));
+        list.add(new Album("Guitar", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Thien Hoan"));
 
         return list;
     }
@@ -79,6 +65,8 @@ public class NotificationsActivity extends AppCompatActivity {
         list.add(new Track("Không con nha" ,17092001, R.drawable.album1, "",  ""));
         list.add(new Track("Không con haha" ,17092001, R.drawable.album2, "",  ""));
         list.add(new Track("Không con sad" ,17092001, R.drawable.album3, "",  ""));
+        list.add(new Track("Không con vjp" ,17092001, R.drawable.album4, "",  ""));
+
         return list;
     }
 }

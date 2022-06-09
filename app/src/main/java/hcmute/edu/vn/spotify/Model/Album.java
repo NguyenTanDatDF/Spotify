@@ -1,12 +1,12 @@
 package hcmute.edu.vn.spotify.Model;
 public class Album {
     private String name;
-    private int  resourceId;
+    private String imageUrl;
     private String description;
 
-    public Album(String name, int resourceId, String description) {
+    public Album(String name, String imageUrl, String description) {
         this.name = name;
-        this.resourceId = resourceId;
+        this.imageUrl = imageUrl;
         this.description = description;
     }
 
@@ -18,12 +18,12 @@ public class Album {
         this.name = name;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {

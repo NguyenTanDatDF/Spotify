@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Model.MusicPlaylist;
@@ -45,7 +47,7 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.ListViewHolde
         if(musicPlaylist == null){
             return;
         }
-        holder.listImage.setImageResource(musicPlaylist.getlId());
+        Glide.with(pContext).load(musicPlaylist.getlImageUrl()).into(holder.listImage);
         holder.listName.setText(musicPlaylist.getlName());
     }
 
