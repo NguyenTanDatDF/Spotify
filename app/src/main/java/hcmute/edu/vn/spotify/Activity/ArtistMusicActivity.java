@@ -30,7 +30,7 @@ public class ArtistMusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_artist_music);
 
         //Set data for albums
-        rcvAlbum = findViewById(R.id.activityArtistMusic_albumRv);
+        rcvAlbum = findViewById(R.id.activityArtistMusic_listAlbumRv);
         albumAdapter = new AlbumAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
@@ -52,12 +52,12 @@ public class ArtistMusicActivity extends AppCompatActivity {
     private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
-        list.add(new Album("Chill" ,R.drawable.album1, "MCK, K-ICM, LowG"));
-        list.add(new Album("Remix Tiktok" ,R.drawable.album2,"Nguyen Tan Dat, Cukak"));
-        list.add(new Album("Bolero" ,R.drawable.album3,"Tran Dang Khoa"));
-        list.add(new Album("Nonstop", R.drawable.album4, "Nguyen Le Minh Nhut"));
-        list.add(new Album( "Piano",R.drawable.album5,"Ho Dang Tien" ));
-        list.add(new Album("Guitar", R.drawable.album6, "Nguyen Thien Hoan"));
+        list.add(new Album("Chill" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "MCK, K-ICM, LowG"));
+        list.add(new Album("Remix Tiktok" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Nguyen Tan Dat, Cukak"));
+        list.add(new Album("Bolero" ,"https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Tran Dang Khoa"));
+        list.add(new Album("Nonstop", "https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "Nguyen Le Minh Nhut"));
+        list.add(new Album( "Piano","https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html","Ho Dang Tien" ));
+        list.add(new Album("Guitar", "https://thanhnien.vn/50-50-album-dau-tay-cua-min-sau-8-nam-ca-hat-post1440136.html", "Nguyen Thien Hoan"));
 
         return list;
     }
@@ -65,7 +65,8 @@ public class ArtistMusicActivity extends AppCompatActivity {
     {
         List<Track> list = new ArrayList<>();
         list.add(new Track("Không con đâu" ,17092001, R.drawable.album, "",  ""));
-        list.add(new Track("Không con nha" ,17092001, R.drawable.album1, "",  ""));
+        list.add(new Track("Không con nha" ,17092001,
+                R.drawable.album1, "",  ""));
         list.add(new Track("Không con haha" ,17092001, R.drawable.album2, "",  ""));
         list.add(new Track("Không con sad" ,17092001, R.drawable.album3, "",  ""));
         list.add(new Track("Không con vjp" ,17092001, R.drawable.album4, "",  ""));

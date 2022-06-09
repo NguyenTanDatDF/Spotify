@@ -119,30 +119,33 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Go to an defined album
+
+
 
         return view;
     }
     private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
-        list.add(new Album("Chill" ,R.drawable.album1, "MCK, K-ICM, LowG"));
-        list.add(new Album("Remix Tiktok" ,R.drawable.album2,"Nguyen Tan Dat, Cukak"));
-        list.add(new Album("Bolero" ,R.drawable.album3,"Tran Dang Khoa"));
-        list.add(new Album("Nonstop", R.drawable.album4, "Nguyen Le Minh Nhut"));
-        list.add(new Album( "Piano",R.drawable.album5,"Ho Dang Tien" ));
-        list.add(new Album("Guitar", R.drawable.album6, "Nguyen Thien Hoan"));
+        list.add(new Album("Chill" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "MCK, K-ICM, LowG"));
+        list.add(new Album("Remix Tiktok" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpegl","Nguyen Tan Dat, Cukak"));
+        list.add(new Album("Bolero" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Tran Dang Khoa"));
+        list.add(new Album("Nonstop", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Le Minh Nhut"));
+        list.add(new Album( "Piano","https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Ho Dang Tien" ));
+        list.add(new Album("Guitar", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Thien Hoan"));
 
         return list;
     }
     private List<MusicPlaylist> getListMusic()
     {
         List<MusicPlaylist> list = new ArrayList<>();
-        list.add(new MusicPlaylist(R.drawable.album1, "Nghe chán nghe tiếp"));
-        list.add(new MusicPlaylist(R.drawable.album2, "Nghe chán khỏi nghe"));
-        list.add(new MusicPlaylist(R.drawable.album3, "Nghe chán thì thôi"));
-        list.add(new MusicPlaylist(R.drawable.album4, "Nghe chán nghỉ"));
-        list.add(new MusicPlaylist(R.drawable.album5, "Nghe chán nữa"));
-        list.add(new MusicPlaylist(R.drawable.album6, "Nghe chán thì ngủ"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nghe tiếp"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán khỏi nghe"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán thì thôi"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nghỉ"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nữa"));
+        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán thì ngủ"));
 
         return list;
     }

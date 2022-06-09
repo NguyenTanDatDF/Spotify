@@ -1,20 +1,20 @@
 package hcmute.edu.vn.spotify.Model;
 
 public class MusicPlaylist<L> {
-    private int lId;
+    private String lImageUrl;
     private String lName;
 
-    public MusicPlaylist(int lId, String lName) {
-        this.lId = lId;
+    public MusicPlaylist(String lImageUrl, String lName) {
+        this.lImageUrl = lImageUrl;
         this.lName = lName;
     }
 
-    public int getlId() {
-        return lId;
+    public String getlImageUrl() {
+        return lImageUrl;
     }
 
-    public void setlId(int lId) {
-        this.lId = lId;
+    public void setlImageUrl(String lImageUrl) {
+        this.lImageUrl = lImageUrl;
     }
 
     public String getlName() {
