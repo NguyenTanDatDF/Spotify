@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.AssetManager;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -12,8 +13,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -117,6 +126,8 @@ public class PlayTrackActivity extends AppCompatActivity {
         }
 
         mLyricView.setLyricFile(file);
+
+        PlayMedia();
 //step 4, update LyricView every interval
 //
         mLyricView.setOnPlayerClickListener(new LyricView.OnPlayerClickListener() {
@@ -135,10 +146,32 @@ public class PlayTrackActivity extends AppCompatActivity {
                 handler.postDelayed(runnable, delay);
                 videoWatchedTime[0] = MainActivity.absPlayerInternal.getCurrentPosition();
                 Log.e(Long.toString(videoWatchedTime[0]),"Duration");
+                String status = "End";
+                if(MainActivity.absPlayerInternal.isPlaying())
+                {
+                    status = "Playing";
+                }
+                Log.e(status,"Status");
                 mLyricView.setCurrentTimeMillis(videoWatchedTime[0]);
             }
         }, delay);
         super.onResume();
+    }
+
+    public void PlayMedia()
+    {
+
+        int appNameStringRes = R.string.app_name;
+
+        PlayerView pvMain = findViewById(R.id.pv_main2); // creating player view
+        pvMain.setBackgroundDrawable(getDrawable(R.drawable.album1));
+
+
+        pvMain.setPlayer(MainActivity.absPlayerInternal); // attach surface to the view
+        pvMain.setControllerShowTimeoutMs(0);
+
+        pvMain.showController();
+        pvMain.setControllerHideOnTouch(false);
     }
 
 }

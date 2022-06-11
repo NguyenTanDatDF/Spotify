@@ -125,8 +125,12 @@ public class MainActivity extends AppCompatActivity {
         pvMain.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeRight() {
                 Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                absPlayerInternal.stop();
+                PlayMedia("https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20The%20Kid%20LAROI%20Justin%20Bieber%20%20Stay%20Lyrics.mp3?alt=media&token=4cce8bd1-a714-43cc-b1fb-8a9a293f4e26");
             }
             public void onSwipeLeft() {
+                absPlayerInternal.stop();
+                PlayMedia("https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20dhruv%20%20double%20take%20Official%20Audio.mp3?alt=media&token=db669883-f41f-4d28-8363-cd451749e17d");
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,14 +146,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        DatabaseReference storageRef = FirebaseDatabase.getInstance("https://spotifymain-de352-default-rtdb.firebaseio.com/").getReference();
+        DatabaseReference storageRef = FirebaseDatabase.getInstance("https://admin-sportify-default-rtdb.firebaseio.com/").getReference();
         List<String> list = new ArrayList<>();
         list.add("Cho");
         list.add("Meo");
         list.add("Khi");
         for(int i = 0 ; i < 3; i ++)
         {
-            //storageRef.child("Animal").push().setValue(list.get(i));
+           // storageRef.child("Animal").push().setValue(list.get(i));
         }
          Log.e("Key",storageRef.child("Animal").getKey());
     }
@@ -159,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     fragmentTransaction.commit();
     }
 
-    protected void PlayMedia(String url)
+    public void PlayMedia(String url)
     {
         String CONTENT_URL = url;
 
@@ -178,8 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
         absPlayerInternal.prepare(mediaSource);
 
-        absPlayerInternal.setPlayWhenReady(true); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
 
+
+        absPlayerInternal.setPlayWhenReady(true); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
 
 
         pvMain.setPlayer(absPlayerInternal); // attach surface to the view
