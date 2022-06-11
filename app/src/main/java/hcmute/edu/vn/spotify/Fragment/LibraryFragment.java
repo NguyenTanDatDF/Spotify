@@ -3,6 +3,7 @@ package hcmute.edu.vn.spotify.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,8 @@ import hcmute.edu.vn.spotify.Activity.UserActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
 import hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter;
+import hcmute.edu.vn.spotify.Database.DAOArtist;
+import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.R;
@@ -86,33 +93,48 @@ public class LibraryFragment extends Fragment {
     private List<Playlist> getListPlaylist() {
         List<Playlist> list = new ArrayList<>();
 
-        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
-        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
-        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
-        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
-        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
-        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
-        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
-        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
-        list.add(new Playlist(R.drawable.playlist, "My playlist", "Hoan"));
-        list.add(new Playlist(R.drawable.album, "My first play", "Tien"));
-        list.add(new Playlist(R.drawable.album1, "dancin", "Dat"));
-        list.add(new Playlist(R.drawable.album2, "EDM", "Luan"));
+        DAOPlaylist daoPlaylist = new DAOPlaylist();
+        daoPlaylist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Playlist playlist = data.getValue(Playlist.class);
+                    list.add(playlist);
+                    String key = data.getKey();
+                    playlist.setKey(key);
+                }
+                playlistVerticalAdapter.setData(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return list;
     }
 
     private List<Artist> getListArtist() {
         List<Artist> list = new ArrayList<>();
 
-        list.add(new Artist(R.drawable.cardi, "Cardi A"));
-        list.add(new Artist(R.drawable.cardi, "Cardi B"));
-        list.add(new Artist(R.drawable.cardi, "Cardi C"));
-        list.add(new Artist(R.drawable.cardi, "Cardi D"));
-        list.add(new Artist(R.drawable.cardi, "Cardi E"));
-        list.add(new Artist(R.drawable.cardi, "Cardi F"));
-        list.add(new Artist(R.drawable.cardi, "Cardi G"));
-        list.add(new Artist(R.drawable.cardi, "Cardi H"));
+        DAOArtist daoArtist = new DAOArtist();
+        daoArtist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Artist artist = data.getValue(Artist.class);
+                    list.add(artist);
+                    String key = data.getKey();
+                    artist.setKey(key);
+                }
+                artistAdapter.setData(list);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return list;
     }
 }

@@ -2,6 +2,7 @@ package hcmute.edu.vn.spotify.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
             return;
         }
         else {
-            Glide.with(mContext).load(album.getImageUrl()).into(holder.imgUser);
+            Glide.with(mContext).load(album.getResourceId()).into(holder.imgUser);
             holder.tvName.setText(album.getName());
-            holder.tvDescription.setText(album.getDescription());
+            holder.tvDescription.setText(album.getArtistName());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent album_music = new Intent(mContext, AlbumMusicActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("object_album", album);
+                    album_music.putExtras(bundle);
                     mContext.startActivity(album_music);
                 }
             });

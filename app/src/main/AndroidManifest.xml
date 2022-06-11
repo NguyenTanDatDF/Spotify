@@ -47,8 +47,14 @@
             android:name=".Activity.SearchActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.TopicMusicActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.NewPlaylistActivity"
             android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".Activity.MainActivity"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
