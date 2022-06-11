@@ -3,31 +3,38 @@ package hcmute.edu.vn.spotify.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Activity.SearchActivity;
-import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.TopicAdapter;
-import hcmute.edu.vn.spotify.Model.Artist;
-import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Database.DAOGerne;
 import hcmute.edu.vn.spotify.Model.Topic;
 import hcmute.edu.vn.spotify.R;
 
 public class SearchFragment extends Fragment {
 
+    //variables
     RecyclerView rcvTopic;
     CardView searchCV;
-    private TopicAdapter topicAdapter;
+
+    //Adapter
+    TopicAdapter topicAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,15 +46,6 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
 
-        //Set data for topic
-
-        rcvTopic = view.findViewById(R.id.fragmentSearch_topicsRv);
-        topicAdapter = new TopicAdapter((getActivity()));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
-        rcvTopic.setLayoutManager(gridLayoutManager);
-        topicAdapter.setData(getListTopic());
-        rcvTopic.setAdapter(topicAdapter);
-
         //Go to search activity
         searchCV = view.findViewById(R.id.fragmentSearch_searchCv);
         searchCV.setOnClickListener(new View.OnClickListener() {
@@ -57,12 +55,20 @@ public class SearchFragment extends Fragment {
                 startActivity(search_activity);
             }
         });
-
+        // Set data to show in topic
+        rcvTopic = view.findViewById(R.id.fragmentSearch_topicsRv);
+        topicAdapter = new TopicAdapter(getActivity());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvTopic.setLayoutManager(gridLayoutManager);
+        getListTopic();
+        topicAdapter.setData(getListTopic());
+        rcvTopic.setAdapter(topicAdapter);
         return view;
     }
 
-    private List<Topic> getListTopic() {
-        List<Topic> list = new ArrayList<>();
+    private List<Topic> getListTopic()
+    {
+        //Set random color for topic panel
         int colorGreen = R.color.green;
         int colorOrange = R.color.orange;
         int colorDarkBlue = R.color.dark_blue;
@@ -75,25 +81,33 @@ public class SearchFragment extends Fragment {
 
         int[] colors = new int[]{colorGreen, colorOrange, colorDarkBlue, colorPastelPurple, colorDarkDarkBlue, colorDarkPurple, colorPink, colorDarkOrange, colorDarkGreen };
 
-        list.add(new Topic(colors[getNumber()], "Pop", R.drawable.album));
-        list.add(new Topic(colors[getNumber()], "Rock", R.drawable.album1));
-        list.add(new Topic(colors[getNumber()], "Ở nhà", R.drawable.album2));
-        list.add(new Topic(colors[getNumber()], "Mới phát hành", R.drawable.album3));
-        list.add(new Topic(colors[getNumber()], "Tâm trạng", R.drawable.album4));
-        list.add(new Topic(colors[getNumber()], "K-pop", R.drawable.album1));
-        list.add(new Topic(colors[getNumber()], "Buỗi diễn", R.drawable.album3));
-        list.add(new Topic(colors[getNumber()], "Pride", R.drawable.album2));
-        list.add(new Topic(colors[getNumber()], "Sức khỏe", R.drawable.album4));
-        list.add(new Topic(colors[getNumber()], "League of legends", R.drawable.album));
-        list.add(new Topic(colors[getNumber()], "Trên xe", R.drawable.album1));
-        list.add(new Topic(colors[getNumber()], "Gym", R.drawable.album2));
 
+        //Set data for topic using firebase
+        List<Topic> list = new ArrayList<>();
+        DAOGerne daoGerne = new DAOGerne();
+        daoGerne.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Topic topic = data.getValue(Topic.class);
+                    topic.settColor(colors[getNumber()]);
+                    list.add(topic);
+                    String key = data.getKey();
+                    topic.setKey(key);
+                }
+                topicAdapter.setData(list);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
         return list;
     }
-    private int getNumber() {
-        double rand = (Math.random()) * (8 + 1) + 0;
+
+    public int getNumber() {
+        double rand = (Math.random()) * (6 + 1) + 0;
         return (int) rand;
     }
 }

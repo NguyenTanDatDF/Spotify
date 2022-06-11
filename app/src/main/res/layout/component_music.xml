@@ -34,14 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="Name"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/componentMusic_listensTv"
             android:layout_width="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="10dp"
             android:layout_height="wrap_content"
             android:text="203.102" />
@@ -62,8 +62,7 @@
         android:id="@+id/music_clear_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:background="@color/black"
-        android:backgroundTint="@color/background"
+        android:background="@color/white"
         android:src="@drawable/ic_clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

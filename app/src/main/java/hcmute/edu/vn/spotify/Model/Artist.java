@@ -1,27 +1,53 @@
 package hcmute.edu.vn.spotify.Model;
 
+import com.google.firebase.database.Exclude;
+
 public class Artist {
-    private int aId;
-    private String aName;
+    @Exclude
+    public String key;
 
-    public Artist(int aId, String aName) {
-        this.aId = aId;
-        this.aName = aName;
+    public String imageArtist;
+    public String nameArtist;
+    private String idArtist;
+
+    public Artist(String imageArtist, String nameArtist, String idArtist) {
+        this.imageArtist = imageArtist;
+        this.nameArtist = nameArtist;
+        this.idArtist = idArtist;
+    }
+    public Artist() {
+
     }
 
-    public int getaId() {
-        return aId;
+    public String getImageArtist() {
+        return imageArtist;
     }
 
-    public void setaId(int aId) {
-        this.aId = aId;
+    public void setImageArtist(String imageArtist) {
+        this.imageArtist = imageArtist;
     }
 
-    public String getaName() {
-        return aName;
+    public String getNameArtist() {
+        return nameArtist;
     }
 
-    public void setaName(String aName) {
-        this.aName = aName;
+    public void setNameArtist(String nameArtist) {
+        this.nameArtist = nameArtist;
+    }
+
+    public String getIdArtist() {
+        return idArtist;
+    }
+
+    public void setIdArtist(String idArtist) {
+        this.idArtist = idArtist;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

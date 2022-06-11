@@ -5,11 +5,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +22,9 @@ import java.util.List;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
 import hcmute.edu.vn.spotify.Adapter.TrackAdapter;
+import hcmute.edu.vn.spotify.Database.DAOAlbum;
+import hcmute.edu.vn.spotify.Database.DAOArtist;
+import hcmute.edu.vn.spotify.Database.DAOTrack;
 import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.Track;
@@ -68,27 +76,52 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private List<Artist> getListArtist() {
+    private List<Artist> getListArtist()
+    {
         List<Artist> list = new ArrayList<>();
+        DAOArtist daoArtist = new DAOArtist();
+        daoArtist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Artist artist = data.getValue(Artist.class);
+                    list.add(artist);
+                    String key = data.getKey();
+                    artist.setKey(key);
+                }
+                artistAdapter.setData(list);
+            }
 
-        list.add(new Artist(R.drawable.cardi, "Cardi A"));
-        list.add(new Artist(R.drawable.cardi, "Cardi B"));
-        list.add(new Artist(R.drawable.cardi, "Cardi C"));
-        list.add(new Artist(R.drawable.cardi, "Cardi D"));
-        list.add(new Artist(R.drawable.cardi, "Cardi E"));
-        list.add(new Artist(R.drawable.cardi, "Cardi F"));
-        list.add(new Artist(R.drawable.cardi, "Cardi G"));
-        list.add(new Artist(R.drawable.cardi, "Cardi H"));
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
         return list;
     }
     private List<Track> getListTrack()
     {
         List<Track> list = new ArrayList<>();
-        list.add(new Track("Không con đâu" ,17092001, R.drawable.album, "",  ""));
-        list.add(new Track("Không con nha" ,17092001, R.drawable.album1, "",  ""));
-        list.add(new Track("Không con haha" ,17092001, R.drawable.album2, "",  ""));
-        list.add(new Track("Không con sad" ,17092001, R.drawable.album3, "",  ""));
+
+        DAOTrack daoTrack = new DAOTrack();
+        daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Track track = data.getValue(Track.class);
+                    list.add(track);
+                    String key = data.getKey();
+                    track.setKey(key);
+                }
+                trackAdapter.setData(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return list;
     }
 

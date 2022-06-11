@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Model.Topic;
@@ -43,9 +45,11 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         if(track == null){
             return;
         }
-        holder.tImage.setImageResource(track.gettId());
-        holder.tName.setText(track.gettName());
-        holder.tListens.setText(String.valueOf(track.gettListens()));
+        else{
+            Glide.with(pContext).load(track.getImage()).into(holder.tImage);
+            holder.tName.setText(track.getName());
+            holder.tListens.setText(String.valueOf(track.gettListens()));
+        }
     }
 
     @Override

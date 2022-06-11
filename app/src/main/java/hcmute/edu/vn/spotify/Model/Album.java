@@ -1,13 +1,40 @@
 package hcmute.edu.vn.spotify.Model;
-public class Album {
-    private String name;
-    private int  resourceId;
-    private String description;
 
-    public Album(String name, int resourceId, String description) {
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
+
+public class Album implements Serializable {
+    @Exclude
+    public String key;
+
+    private String name;
+    private String resourceId;
+    private String description;
+    private String artistId;
+    private String artistName;
+    private String albumId;
+
+
+    public Album() {
+
+    }
+
+    public Album(String name, String resourceId, String description, String artistId, String artistName, String albumId) {
         this.name = name;
         this.resourceId = resourceId;
         this.description = description;
+        this.artistId = artistId;
+        this.artistName = artistName;
+        this.albumId = albumId;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -18,11 +45,11 @@ public class Album {
         this.name = name;
     }
 
-    public int getResourceId() {
+    public String getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(int resourceId) {
+    public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -32,6 +59,30 @@ public class Album {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public String getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
     }
 }
 

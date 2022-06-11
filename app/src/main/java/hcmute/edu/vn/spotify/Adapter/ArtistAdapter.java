@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Model.Artist;
@@ -40,8 +42,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         if(artist == null){
             return;
         }
-        holder.artistImage.setImageResource(artist.getaId());
-        holder.artistName.setText(artist.getaName());
+        Glide.with(pContext).load(artist.getImageArtist()).into(holder.artistImage);
+        holder.artistName.setText(artist.getNameArtist());
     }
 
     @Override
