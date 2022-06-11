@@ -1,22 +1,48 @@
 package hcmute.edu.vn.spotify.Model;
 
+import com.google.firebase.database.Exclude;
+
 public class Playlist {
-    private int pId;
-    private String pName;
-    private String pCreator;
+    @Exclude
+    public String Key;
 
-    public Playlist(int pId, String pName, String pCreator) {
-        this.pId = pId;
+    public String pUrl;
+    public int uID;
+    public String pName;
+    private String uName;
+
+    public Playlist(String pUrl, int uID, String pName, String uName) {
+        this.pUrl = pUrl;
+        this.uID = uID;
         this.pName = pName;
-        this.pCreator = pCreator;
+        this.uName = uName;
+    }
+    public Playlist() {
+
     }
 
-    public int getpId() {
-        return pId;
+    public String getKey() {
+        return Key;
     }
 
-    public void setpId(int pId) {
-        this.pId = pId;
+    public void setKey(String key) {
+        Key = key;
+    }
+
+    public String getpUrl() {
+        return pUrl;
+    }
+
+    public void setpUrl(String pUrl) {
+        this.pUrl = pUrl;
+    }
+
+    public int getuID() {
+        return uID;
+    }
+
+    public void setuID(int uID) {
+        this.uID = uID;
     }
 
     public String getpName() {
@@ -27,12 +53,11 @@ public class Playlist {
         this.pName = pName;
     }
 
-    public String getpCreator() {
-        return pCreator;
+    public String getuName() {
+        return uName;
     }
 
-    public void setpCreator(String pCreator) {
-        this.pCreator = pCreator;
+    public void setuName(String uName) {
+        this.uName = uName;
     }
-
 }

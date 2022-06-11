@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId())
                 {
                     case 1:
-                       replace(new HomeFragment());
+                        replace(new HomeFragment());
                         break;
                     case 2:
                         replace(new SearchFragment());

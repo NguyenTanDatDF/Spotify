@@ -1,6 +1,8 @@
 package hcmute.edu.vn.spotify.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.AlbumMusicActivity;
+import hcmute.edu.vn.spotify.Activity.TopicMusicActivity;
 import hcmute.edu.vn.spotify.Model.MusicPlaylist;
 import hcmute.edu.vn.spotify.Model.Topic;
 import hcmute.edu.vn.spotify.R;
@@ -44,8 +50,19 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             return;
         }
         holder.tColor.setImageResource(topic.gettColor());
-        holder.tTopic.setText(topic.gettName());
-        holder.tImage.setImageResource(topic.gettImage());
+        holder.tTopic.setText(topic.getName());
+        Glide.with(pContext).load(topic.getUrl()).into(holder.tImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent topic_music = new Intent(pContext, TopicMusicActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("object_topic", topic);
+                topic_music.putExtras(bundle);
+                pContext.startActivity(topic_music);
+            }
+        });
+
     }
 
     @Override

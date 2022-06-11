@@ -2,16 +2,22 @@ package hcmute.edu.vn.spotify.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,14 +28,21 @@ import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ListAdapter;
 import hcmute.edu.vn.spotify.Adapter.PlaylistAdapter;
+import hcmute.edu.vn.spotify.Database.DAOAlbum;
+import hcmute.edu.vn.spotify.Database.DAOArtist;
 import hcmute.edu.vn.spotify.Model.Album;
+import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.MusicPlaylist;
+import hcmute.edu.vn.spotify.Model.Topic;
 import hcmute.edu.vn.spotify.R;
 
 
 public class HomeFragment extends Fragment {
 
     TextView welcome;
+    TextView album1;
+    TextView album2;
+    TextView album3;
     RecyclerView rcvUser;
     ImageView settingIv;
     ImageView notificationIv;
@@ -47,58 +60,17 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //set data for album list
-        rcvUser = view.findViewById(R.id.recycleView);
-        userAdapter = new AlbumAdapter((getActivity()));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        rcvUser.setLayoutManager(linearLayoutManager);
-        userAdapter.setData(getListAlbum());
-        rcvUser.setAdapter(userAdapter);
 
-        rcvUser1 = view.findViewById(R.id.recycleView1);
-        userAdapter1 = new AlbumAdapter((getActivity()));
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        rcvUser1.setLayoutManager(linearLayoutManager1);
-        userAdapter1.setData(getListAlbum());
-        rcvUser1.setAdapter(userAdapter1);
+        setData(view);
 
-        rcvUser2 = view.findViewById(R.id.recycleView2);
-        userAdapter2 = new AlbumAdapter((getActivity()));
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        rcvUser2.setLayoutManager(linearLayoutManager2);
-        userAdapter2.setData(getListAlbum());
-        rcvUser2.setAdapter(userAdapter2);
-
-
-        //Set welcome text
-
-        Calendar now = Calendar.getInstance();
-        int hour = now.get((Calendar.HOUR_OF_DAY));
-
-        welcome = view.findViewById(R.id.welcome);
-
-        if(hour <= 11) welcome.setText("Chào buổi sáng");
-        else if (hour <= 17) welcome.setText("Chào buổi chiều");
-        else welcome.setText("Chào buổi tối");
-
-        //set data for music list
-        rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);
-        listAdapter = new ListAdapter((getActivity()));
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
-        rcvListMusic.setLayoutManager(gridLayoutManager);
-
-        listAdapter.setData(getListMusic());
-        rcvListMusic.setAdapter(listAdapter);
-
+        // Move to another activity
         //go to setting activity
         settingIv = view.findViewById(R.id.icon_setting);
         settingIv.setOnClickListener(new View.OnClickListener() {
@@ -119,24 +91,78 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //Go to an defined album
+        //Set album name
+        album1 = view.findViewById(R.id.album1);
+        album2 = view.findViewById(R.id.album2);
+        album3 = view.findViewById(R.id.album3);
+        album1.setText("Popular Albums");
+        album2.setText("Only For You");
+        album3.setText("Albums");
 
-
+        //Set welcome text
+        Calendar now = Calendar.getInstance();
+        int hour = now.get((Calendar.HOUR_OF_DAY));
+        welcome = view.findViewById(R.id.welcome);
+        if(hour <= 11) welcome.setText("Chào buổi sáng");
+        else if (hour <= 17) welcome.setText("Chào buổi chiều");
+        else welcome.setText("Chào buổi tối");
 
         return view;
     }
+
+    //Get album list from firebase to show on recycleview
     private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
-        list.add(new Album("Chill" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "MCK, K-ICM, LowG"));
-        list.add(new Album("Remix Tiktok" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpegl","Nguyen Tan Dat, Cukak"));
-        list.add(new Album("Bolero" ,"https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Tran Dang Khoa"));
-        list.add(new Album("Nonstop", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Le Minh Nhut"));
-        list.add(new Album( "Piano","https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg","Ho Dang Tien" ));
-        list.add(new Album("Guitar", "https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nguyen Thien Hoan"));
+        List<Artist> artistsList = getListArtist();
+        DAOAlbum daoAlbum = new DAOAlbum();
+        daoAlbum.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Album album = data.getValue(Album.class);
+                    String artistId = album.getArtistId().trim();
+                    for(Artist artist: artistsList){
+                        String temp = artist.getIdArtist().trim();
+                        if(artistId.equals(temp)){
+                            album.setArtistName(artist.nameArtist);
+                            album.setKey(data.getKey());
+                            list.add(album);
+                        }
+                    }
+                }
+                userAdapter.setData(list);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {            }
+        });
 
         return list;
     }
+
+    //Get artist list from firebase
+    private List<Artist> getListArtist() {
+        List<Artist> list = new ArrayList<>();
+        DAOArtist daoArtist = new DAOArtist();
+        daoArtist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Artist artist = data.getValue(Artist.class);
+                    list.add(artist);
+                    String key = data.getKey();
+                    artist.setKey(key);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return list;
+    }
+
+    //Get music playlist from firebase
     private List<MusicPlaylist> getListMusic()
     {
         List<MusicPlaylist> list = new ArrayList<>();
@@ -148,5 +174,39 @@ public class HomeFragment extends Fragment {
         list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán thì ngủ"));
 
         return list;
+    }
+
+
+    //Set data for recycle views
+    public void setData(View view) {
+        //set data for album list
+        rcvUser = view.findViewById(R.id.recycleView);
+        userAdapter = new AlbumAdapter((getActivity()));
+        userAdapter.setData(getListAlbum());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        rcvUser.setAdapter(userAdapter);
+        rcvUser.setLayoutManager(linearLayoutManager);
+
+        rcvUser1 = view.findViewById(R.id.recycleView1);
+        userAdapter1 = new AlbumAdapter((getActivity()));
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        userAdapter1.setData(getListAlbum());
+        rcvUser1.setAdapter(userAdapter1);
+        rcvUser1.setLayoutManager(linearLayoutManager1);
+
+        rcvUser2 = view.findViewById(R.id.recycleView2);
+        userAdapter2 = new AlbumAdapter((getActivity()));
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        userAdapter2.setData(getListAlbum());
+        rcvUser2.setAdapter(userAdapter2);
+        rcvUser2.setLayoutManager(linearLayoutManager2);
+
+        //set data for music list
+        rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);
+        listAdapter = new ListAdapter((getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvListMusic.setLayoutManager(gridLayoutManager);
+        listAdapter.setData(getListMusic());
+        rcvListMusic.setAdapter(listAdapter);
     }
 }

@@ -1,14 +1,34 @@
 package hcmute.edu.vn.spotify.Model;
 
-public class Topic {
-    private int tColor;
-    private String tName;
-    private int tImage;
+import com.google.firebase.database.Exclude;
 
-    public Topic(int tColor, String tName, int tImage) {
+import java.io.Serializable;
+
+public class Topic implements Serializable {
+    @Exclude
+    public String Key;
+
+    private int tColor;
+    public String name;
+    public String url;
+
+    public Topic() {
+
+    }
+
+    public Topic(String key, int tColor, String name, String url) {
+        Key = key;
         this.tColor = tColor;
-        this.tName = tName;
-        this.tImage = tImage;
+        this.name = name;
+        this.url = url;
+    }
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
     }
 
     public int gettColor() {
@@ -19,19 +39,19 @@ public class Topic {
         this.tColor = tColor;
     }
 
-    public String gettName() {
-        return tName;
+    public String getName() {
+        return name;
     }
 
-    public void settName(String tName) {
-        this.tName = tName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int gettImage() {
-        return tImage;
+    public String getUrl() {
+        return url;
     }
 
-    public void settImage(int tImage) {
-        this.tImage = tImage;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
