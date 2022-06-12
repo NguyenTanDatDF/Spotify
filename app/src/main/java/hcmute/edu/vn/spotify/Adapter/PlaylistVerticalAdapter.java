@@ -1,6 +1,8 @@
 package hcmute.edu.vn.spotify.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import hcmute.edu.vn.spotify.Activity.PlaylistMusicActivity;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.R;
 
@@ -47,6 +50,16 @@ public class PlaylistVerticalAdapter extends RecyclerView.Adapter<PlaylistVertic
         Glide.with(pContext).load(playlist.getpUrl()).into(holder.playlistImage);
         holder.playlistName.setText(playlist.getpName());
         holder.playlistCreator.setText(playlist.getuName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent playlist_music = new Intent(pContext, PlaylistMusicActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("object_playlist", playlist);
+                playlist_music.putExtras(bundle);
+                pContext.startActivity(playlist_music);
+            }
+        });
     }
 
     @Override

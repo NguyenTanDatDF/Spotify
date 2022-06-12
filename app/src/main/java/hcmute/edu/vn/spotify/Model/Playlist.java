@@ -2,7 +2,9 @@ package hcmute.edu.vn.spotify.Model;
 
 import com.google.firebase.database.Exclude;
 
-public class Playlist {
+import java.io.Serializable;
+
+public class Playlist implements Serializable {
     @Exclude
     public String Key;
 
