@@ -49,20 +49,16 @@ public class NotificationsActivity extends AppCompatActivity {
         //Set Data for new album
         rcvAlbum = findViewById(R.id.activityNotification_albumsRv);
         albumAdapter = new AlbumAdapter(this);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rcvAlbum.setLayoutManager(linearLayoutManager);
-
         albumAdapter.setData(getListAlbum());
         rcvAlbum.setAdapter(albumAdapter);
 
         //Set data for new track
         rcvTrack = findViewById(R.id.activityNotification_songsRv);
         trackAdapter = new TrackAdapter(this);
-
         LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvTrack.setLayoutManager(linearLayoutTrackManager);
-
         trackAdapter.setData(getListTrack());
         rcvTrack.setAdapter(trackAdapter);
     }
