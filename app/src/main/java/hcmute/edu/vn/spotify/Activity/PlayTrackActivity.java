@@ -3,39 +3,23 @@ package hcmute.edu.vn.spotify.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.content.res.AssetManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.R;
 import me.zhengken.lyricview.LyricView;
 
@@ -44,10 +28,12 @@ public class PlayTrackActivity extends AppCompatActivity {
     Runnable runnable;
     int delay = 1000;
     LyricView mLyricView;
+    NotificationManager notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_track);
+
 //step 2
         mLyricView = (LyricView)findViewById(R.id.custom_lyric_view);
 
@@ -165,13 +151,12 @@ public class PlayTrackActivity extends AppCompatActivity {
 
         PlayerView pvMain = findViewById(R.id.pv_main2); // creating player view
         pvMain.setBackgroundDrawable(getDrawable(R.drawable.album1));
-
-
         pvMain.setPlayer(MainActivity.absPlayerInternal); // attach surface to the view
         pvMain.setControllerShowTimeoutMs(0);
 
         pvMain.showController();
         pvMain.setControllerHideOnTouch(false);
     }
+
 
 }
