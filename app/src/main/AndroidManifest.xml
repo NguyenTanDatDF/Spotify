@@ -47,16 +47,19 @@
             android:name=".Activity.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.TopicMusicActivity"
+        android:name=".Activity.TopicMusicActivity"
+        android:exported="true" />
+        <activity
+            android:name=".Activity.PlaylistMusicActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.NewPlaylistActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".Activity.MainActivity"-->
-<!--            android:exported="true" />-->
         <activity
             android:name=".Activity.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

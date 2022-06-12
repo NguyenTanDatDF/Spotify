@@ -3,14 +3,29 @@ package hcmute.edu.vn.spotify.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import hcmute.edu.vn.spotify.Database.DAOPlaylist;
+import hcmute.edu.vn.spotify.Database.DAOUser;
+import hcmute.edu.vn.spotify.Model.Album;
+import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
 
 public class SettingActivity extends AppCompatActivity {
@@ -26,6 +41,12 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        User user = new User();
+        user = SigninActivity.definedUser;
+        Log.e(user.getName().trim(), "Blaaa");
+//        TextView name_tv = (TextView) findViewById(R.id.activitySetting_usernameTv);
+//        name_tv.setText(user.getEmail().trim());
+
 
         //go to user activity
         userCl = (ConstraintLayout) findViewById(R.id.activitySetting_userCl);
@@ -84,6 +105,8 @@ public class SettingActivity extends AppCompatActivity {
                 gotoUrl("https://spotify-seven-sepia.vercel.app/terms-and-privacy");
             }
         });
+
+
     }
 
     private void gotoUrl(String s) {

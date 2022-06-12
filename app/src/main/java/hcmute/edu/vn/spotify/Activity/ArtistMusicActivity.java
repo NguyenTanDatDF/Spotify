@@ -1,6 +1,7 @@
 package hcmute.edu.vn.spotify.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import hcmute.edu.vn.spotify.Adapter.TrackAdapter;
 import hcmute.edu.vn.spotify.Database.DAOAlbum;
 import hcmute.edu.vn.spotify.Database.DAOTrack;
 import hcmute.edu.vn.spotify.Model.Album;
+import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.R;
 
@@ -35,10 +37,14 @@ public class ArtistMusicActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_music);
+        if(getIntent().getExtras() != null){
+            Artist artist = (Artist) getIntent().getExtras().get("object_artist");
+            Log.e(artist.getNameArtist().trim(), "Blaaaa");
+            setData(artist.getIdArtist().trim());
+        }
 
-        setData();
     }
-    private List<Album> getListAlbum()
+    private List<Album> getListAlbum(String artistId)
     {
         List<Album> list = new ArrayList<>();
         DAOAlbum daoAlbum = new DAOAlbum();
@@ -47,9 +53,11 @@ public class ArtistMusicActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
                     Album album = data.getValue(Album.class);
-                    list.add(album);
-                    String key = data.getKey();
-                    album.setKey(key);
+                    if(album.getArtistId().trim().equals(artistId)){
+                        list.add(album);
+                        String key = data.getKey();
+                        album.setKey(key);
+                    }
                 }
                 albumAdapter.setData(list);
             }
@@ -61,7 +69,7 @@ public class ArtistMusicActivity extends AppCompatActivity {
         });
         return list;
     }
-    private List<Track> getListTrack()
+    private List<Track> getListTrack(String artistId)
     {
         List<Track> list = new ArrayList<>();
 
@@ -71,9 +79,12 @@ public class ArtistMusicActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
-                    list.add(track);
-                    String key = data.getKey();
-                    track.setKey(key);
+                    if(track.getArtistId().trim().equals(artistId))
+                    {
+                        list.add(track);
+                        String key = data.getKey();
+                        track.setKey(key);
+                    }
                 }
                 trackAdapter.setData(list);
             }
@@ -86,13 +97,13 @@ public class ArtistMusicActivity extends AppCompatActivity {
 
         return list;
     }
-    public void setData(){
+    public void setData(String artistId){
         //Set data for albums
         rcvAlbum = findViewById(R.id.activityArtistMusic_listAlbumRv);
         albumAdapter = new AlbumAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rcvAlbum.setLayoutManager(linearLayoutManager);
-        albumAdapter.setData(getListAlbum());
+        albumAdapter.setData(getListAlbum(artistId));
         rcvAlbum.setAdapter(albumAdapter);
 
         //Set data for track
@@ -100,7 +111,7 @@ public class ArtistMusicActivity extends AppCompatActivity {
         trackAdapter = new TrackAdapter(this);
         LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvTrack.setLayoutManager(linearLayoutTrackManager);
-        trackAdapter.setData(getListTrack());
+        trackAdapter.setData(getListTrack(artistId));
         rcvTrack.setAdapter(trackAdapter);
     }
 }
