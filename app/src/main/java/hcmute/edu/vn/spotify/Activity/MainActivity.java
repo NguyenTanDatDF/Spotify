@@ -36,7 +36,9 @@ import java.util.List;
 import hcmute.edu.vn.spotify.Fragment.LibraryFragment;
 import hcmute.edu.vn.spotify.Fragment.SearchFragment;
 import hcmute.edu.vn.spotify.Fragment.HomeFragment;
+import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.MyService;
 import hcmute.edu.vn.spotify.Service.OnSwipeTouchListener;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     MeowBottomNavigation bottomNavigation;
     public static SimpleExoPlayer absPlayerInternal;
     public static PlayerView pvMain;
+    String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20Martin%20Garrix%20%20David%20Guetta%20%20So%20Far%20Away%20Official%20Video%20feat%20Jamie%20Scott%20%20Romy%20Dya.mp3?alt=media&token=9b3c3357-6cde-43b0-ac26-e1e22aaf9884";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String url = "https://firebasestorage.googleapis.com/v0/b/algebraic-fin-332903.appspot.com/o/y2mate.com%20-%20Martin%20Garrix%20%20David%20Guetta%20%20So%20Far%20Away%20Official%20Video%20feat%20Jamie%20Scott%20%20Romy%20Dya.mp3?alt=media&token=9b3c3357-6cde-43b0-ac26-e1e22aaf9884";
         PlayMedia(url);
+
 
         final int[] favorite = {0};
         imgv_heart.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(favorite[0] == 0)
                 {
+                    StartService();
                     imgv_heart.setImageResource(R.drawable.ic_heart_fill);
                     favorite[0] = 1;
                 }
@@ -121,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         pvMain.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeRight() {
@@ -163,6 +170,22 @@ public class MainActivity extends AppCompatActivity {
     fragmentTransaction.commit();
     }
 
+    public void StartService(){
+        Track track = new Track("1", "1", "https://avatar-ex-swe.nixcdn.com/song/2017/12/01/4/c/0/3/1512117950090_640.jpg","So far away", url,"US UK", 123, "werqe");
+        Intent intent = new Intent(this, MyService.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track",track);
+        intent.putExtras(bundle);
+        startService(intent);
+    }
+
+    public void StopService()
+    {
+        Intent intent = new Intent(this, MyService.class);
+        stopService(intent);
+    }
+
+
     public void PlayMedia(String url)
     {
         String CONTENT_URL = url;
@@ -193,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         pvMain.showController();
         pvMain.setControllerHideOnTouch(false);
     }
+
 
 
 }
