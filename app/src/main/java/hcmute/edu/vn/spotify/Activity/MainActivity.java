@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtras(bundle);
 //        startService(intent);
 //    }
-
     public void StopService()
     {
         Intent intent = new Intent(this, MyService.class);

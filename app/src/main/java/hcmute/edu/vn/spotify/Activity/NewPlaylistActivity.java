@@ -25,6 +25,7 @@ public class NewPlaylistActivity extends AppCompatActivity {
     TextView cancel_tv;
     TextView create_tv;
     DAOPlaylist daoPlaylist = new DAOPlaylist();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class NewPlaylistActivity extends AppCompatActivity {
         create_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", 1, newPlaylist_et.getText().toString(), "Hoan");
+                Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", SigninActivity.definedUser.getUserId().toString(), newPlaylist_et.getText().toString(), SigninActivity.definedUser.getUsername().toString(), randomId());
                 daoPlaylist.addNewPlaylist(playlist).addOnSuccessListener(suc -> {
                     Toast.makeText(NewPlaylistActivity.this, "Added new playlist successfully!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -57,5 +58,28 @@ public class NewPlaylistActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public String randomId() {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(10);
+
+        for (int i = 0; i < 15; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
     }
 }

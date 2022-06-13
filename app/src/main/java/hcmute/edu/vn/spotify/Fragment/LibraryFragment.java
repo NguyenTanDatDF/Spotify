@@ -24,6 +24,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import hcmute.edu.vn.spotify.Activity.NewPlaylistActivity;
 import hcmute.edu.vn.spotify.Activity.SettingActivity;
+import hcmute.edu.vn.spotify.Activity.SigninActivity;
 import hcmute.edu.vn.spotify.Activity.UserActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
 import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
@@ -58,7 +59,7 @@ public class LibraryFragment extends Fragment {
         playlistVerticalAdapter = new PlaylistVerticalAdapter((getActivity()));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
         rcvPlaylist.setLayoutManager(gridLayoutManager);
-        playlistVerticalAdapter.setData(getListPlaylist());
+        playlistVerticalAdapter.setData(getListPlaylist(SigninActivity.definedUser.getUserId().trim()));
         rcvPlaylist.setAdapter(playlistVerticalAdapter);
 
         //set data for artist
@@ -90,7 +91,7 @@ public class LibraryFragment extends Fragment {
 
         return view;
     }
-    private List<Playlist> getListPlaylist() {
+    private List<Playlist> getListPlaylist(String userId) {
         List<Playlist> list = new ArrayList<>();
 
         DAOPlaylist daoPlaylist = new DAOPlaylist();
@@ -99,9 +100,11 @@ public class LibraryFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
                     Playlist playlist = data.getValue(Playlist.class);
-                    list.add(playlist);
-                    String key = data.getKey();
-                    playlist.setKey(key);
+                    if(playlist.getuID().trim().equals(userId)){
+                        list.add(playlist);
+                        String key = data.getKey();
+                        playlist.setKey(key);
+                    }
                 }
                 playlistVerticalAdapter.setData(list);
             }

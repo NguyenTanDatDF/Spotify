@@ -37,6 +37,7 @@ public class SettingActivity extends AppCompatActivity {
     ConstraintLayout userCl;
     ImageView backIv;
     LinearLayout premiumLl;
+    LinearLayout logoutLl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +45,10 @@ public class SettingActivity extends AppCompatActivity {
         User user = new User();
         user = SigninActivity.definedUser;
         Log.e(user.getName().trim(), "Blaaa");
-//        TextView name_tv = (TextView) findViewById(R.id.activitySetting_usernameTv);
-//        name_tv.setText(user.getEmail().trim());
-
+        TextView name_tv = (TextView) findViewById(R.id.activitySetting_usernameTv);
+        name_tv.setText(user.getName().trim());
+        TextView email_tv = (TextView) findViewById(R.id.activitySetting_emailTv);
+        email_tv.setText(user.getEmail().trim());
 
         //go to user activity
         userCl = (ConstraintLayout) findViewById(R.id.activitySetting_userCl);
@@ -75,6 +77,17 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(premium_activity);
             }
         });
+
+        //Logout
+        logoutLl = (LinearLayout) findViewById(R.id.activitySetting_logoutLl);
+        logoutLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent welcome_activity = new Intent(SettingActivity.this, WelcomeActivity.class);
+                startActivity(welcome_activity);
+            }
+        });
+
 
         rules = findViewById(R.id.activitySetting_rulesLl);
         support = findViewById(R.id.activitySetting_supportLl);

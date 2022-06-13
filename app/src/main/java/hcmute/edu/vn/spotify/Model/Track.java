@@ -129,6 +129,7 @@ public class Track implements Serializable, Prototyte {
     private String name;
     private String source;
     private int tListens;
+    private String trackId;
     private String tLyric;
     private String tGenre;
     private String image;
@@ -138,6 +139,23 @@ public class Track implements Serializable, Prototyte {
     private String artistId;
     private String albumId;
     private String artistName;
+
+    public Track(String name, String source, int tListens, String trackId, String tLyric, String tGenre, String image, Date tReleaseDate, Album tAlbum, Artist tArtist, String artistId, String albumId, String artistName) {
+        this.name = name;
+        this.source = source;
+        this.tListens = tListens;
+        this.trackId = trackId;
+        this.tLyric = tLyric;
+        this.tGenre = tGenre;
+        this.image = image;
+        this.tReleaseDate = tReleaseDate;
+        this.tAlbum = tAlbum;
+        this.tArtist = tArtist;
+        this.artistId = artistId;
+        this.albumId = albumId;
+        this.artistName = artistName;
+    }
+
     public Track() {
     }
 
@@ -195,6 +213,7 @@ public class Track implements Serializable, Prototyte {
 
     public void settListens(int tListens) {
         this.tListens = tListens;
+        this.trackId = trackId;
     }
 
     public String gettLyric() {
@@ -298,5 +317,13 @@ public class Track implements Serializable, Prototyte {
     @Override
     public Prototyte createClone() {
         return new Track(key,name ,source ,tListens ,tLyric ,tGenre ,image ,tReleaseDate ,tAlbum ,tArtist ,artistId ,albumId ,artistName);
+    }
+
+    public String getTrackId() {
+        return trackId;
+    }
+
+    public void setTrackId(String trackId) {
+        this.trackId = trackId;
     }
 }
