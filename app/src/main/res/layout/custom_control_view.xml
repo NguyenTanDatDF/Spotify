@@ -60,34 +60,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="190dp"
-        android:layout_toRightOf="@+id/txt_artist"
+        android:layout_marginLeft="230dp"
+        android:layout_toRightOf="@+id/imgv_track"
         android:background="#00FF0000"
         android:src="@drawable/ic_not_heart" />
 
     <ImageButton
+             android:id="@id/exo_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@id/exo_play"
             style="@style/ExoMediaButton.Play"
-            android:layout_toRightOf="@+id/txt_artist"
-            android:layout_marginLeft="220dp"
+            android:layout_toRightOf="@+id/imgv_track"
+            android:layout_marginLeft="260dp"
             android:layout_centerVertical="true"
         />
 
 
-
-
     <ImageButton
         android:id="@id/exo_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
         style="@style/ExoMediaButton.Pause"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="220dp"
-        android:layout_toRightOf="@+id/txt_artist" />
+        android:layout_width="wrap_content"
 
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="260dp"
+        android:layout_toRightOf="@+id/imgv_track" />
+
+    <ImageButton
+        android:id="@id/exo_next"
+        style="@style/ExoMediaButton.Next"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="290dp"
+        android:layout_toRightOf="@+id/imgv_track" />
 <!--        <ImageButton android:id="@id/exo_next"-->
 <!--            style="@style/ExoMediaButton.Next"-->
 
