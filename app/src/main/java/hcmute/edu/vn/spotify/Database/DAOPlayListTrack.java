@@ -18,7 +18,7 @@ public class DAOPlayListTrack {
     public Task<Void> addNewPlaylistTrack(PlaylistTrack playlistTrack){
         if(playlistTrack != null) {
             try {
-                return databaseReference.child(playlistTrack.getPlaylistId()).setValue(playlistTrack);
+                return databaseReference.child(playlistTrack.getKey()).setValue(playlistTrack);
             }
             catch (Exception e) {
                 e.getMessage();
