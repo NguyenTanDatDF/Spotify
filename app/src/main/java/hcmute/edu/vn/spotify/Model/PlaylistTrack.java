@@ -10,7 +10,8 @@ public class PlaylistTrack implements Serializable {
     private String trackId;
     private String playlistId;
 
-    public PlaylistTrack(String trackId, String playlistId) {
+    public PlaylistTrack(String key, String trackId, String playlistId) {
+        this.key = key;
         this.trackId = trackId;
         this.playlistId = playlistId;
     }

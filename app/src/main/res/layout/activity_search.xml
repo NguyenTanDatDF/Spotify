@@ -21,24 +21,20 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activitySearch_searchEt"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="@+id/searchView"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/activitySearch_searchEt"
-            android:layout_width="280dp"
-            android:layout_height="50dp"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:hint="Nhập cụm từ tìm kiếm"
-            android:textSize="20dp"
-            app:layout_constraintHorizontal_bias="0.6"
-            android:textColor="@color/white"
-            android:background="@null"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
