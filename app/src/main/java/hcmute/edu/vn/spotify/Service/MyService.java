@@ -68,6 +68,8 @@ public class MyService extends Service {
     }
 
     public static Bitmap getBitmapFromURL(String src) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
             Log.e("src", src);
             URL url = new URL(src);
