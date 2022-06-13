@@ -16,8 +16,9 @@ public class Track implements Serializable {
     private String tGenre;
     private int tListens;
     private String tLyrics;
+    private String trackId;
 
-    public Track(String albumId, String artistId, String image, String name, String source, String tGenre, int tListens, String tLyrics) {
+    public Track(String albumId, String artistId, String image, String name, String source, String tGenre, int tListens, String tLyrics, String trackId) {
         this.albumId = albumId;
         this.artistId = artistId;
         this.image = image;
@@ -26,6 +27,7 @@ public class Track implements Serializable {
         this.tGenre = tGenre;
         this.tListens = tListens;
         this.tLyrics = tLyrics;
+        this.trackId = trackId;
     }
 
     public Track() {
@@ -102,5 +104,13 @@ public class Track implements Serializable {
 
     public void settLyrics(String tLyrics) {
         this.tLyrics = tLyrics;
+    }
+
+    public String getTrackId() {
+        return trackId;
+    }
+
+    public void setTrackId(String trackId) {
+        this.trackId = trackId;
     }
 }

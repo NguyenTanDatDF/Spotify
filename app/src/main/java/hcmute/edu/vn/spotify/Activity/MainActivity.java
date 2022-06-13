@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StartService(){
-        Track track = new Track("1", "1", "https://avatar-ex-swe.nixcdn.com/song/2017/12/01/4/c/0/3/1512117950090_640.jpg","So far away", url,"US UK", 123, "werqe");
+        Track track = new Track("1", "1", "https://avatar-ex-swe.nixcdn.com/song/2017/12/01/4/c/0/3/1512117950090_640.jpg","So far away", url,"US UK", 123, "werqe", "");
         Intent intent = new Intent(this, MyService.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("track",track);

@@ -9,16 +9,19 @@ public class Playlist implements Serializable {
     public String Key;
 
     public String pUrl;
-    public int uID;
+    public String uID;
     public String pName;
     private String uName;
+    private String playlistId;
 
-    public Playlist(String pUrl, int uID, String pName, String uName) {
+    public Playlist(String pUrl, String uID, String pName, String uName, String playlistId) {
         this.pUrl = pUrl;
         this.uID = uID;
         this.pName = pName;
         this.uName = uName;
+        this.playlistId = playlistId;
     }
+
     public Playlist() {
 
     }
@@ -39,11 +42,11 @@ public class Playlist implements Serializable {
         this.pUrl = pUrl;
     }
 
-    public int getuID() {
+    public String getuID() {
         return uID;
     }
 
-    public void setuID(int uID) {
+    public void setuID(String uID) {
         this.uID = uID;
     }
 
@@ -61,5 +64,13 @@ public class Playlist implements Serializable {
 
     public void setuName(String uName) {
         this.uName = uName;
+    }
+
+    public String getPlaylistId() {
+        return playlistId;
+    }
+
+    public void setPlaylistId(String playlistId) {
+        this.playlistId = playlistId;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,13 +41,17 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        //set user name
+        TextView username_tv = (TextView) findViewById(R.id.activityUser_usernameTv);
+        username_tv.setText(SigninActivity.definedUser.getName());
+
         //Edit user information
         editUserBt = (Button) findViewById(R.id.activityUser_editUserBtn);
         editUserBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent editUser_actitivy = new Intent(UserActivity.this, EditUserActivity.class);
-                startActivity(editUser_actitivy);
+                Intent editUser_activity = new Intent(UserActivity.this, EditUserActivity.class);
+                startActivity(editUser_activity);
             }
         });
 

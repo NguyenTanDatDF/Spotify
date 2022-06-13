@@ -3,6 +3,8 @@ package hcmute.edu.vn.spotify.Model;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User implements Serializable {
     @Exclude
@@ -16,6 +18,13 @@ public class User implements Serializable {
     private boolean isAdmin;
     private boolean isPremium;
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+
+        return result;
+    }
 
     public User() {
 
