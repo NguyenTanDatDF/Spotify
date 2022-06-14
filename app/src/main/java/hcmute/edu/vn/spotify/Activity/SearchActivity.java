@@ -41,7 +41,6 @@ public class SearchActivity extends AppCompatActivity {
     private TrackAdapter trackAdapter;
     SearchView searchView;
     ImageView backIv;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +79,8 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+
+
     private List<Artist> getListArtist()
     {
         List<Artist> list = new ArrayList<>();
@@ -117,6 +118,8 @@ public class SearchActivity extends AppCompatActivity {
                     String key = data.getKey();
                     track.setKey(key);
                 }
+            //    data = list;
+
                 trackAdapter.setData(list);
             }
 
@@ -129,6 +132,7 @@ public class SearchActivity extends AppCompatActivity {
         return list;
     }
 
+
     //set track data
     private void setTrackData(){
         //Set data for new track
@@ -136,6 +140,12 @@ public class SearchActivity extends AppCompatActivity {
         trackAdapter = new TrackAdapter(this);
         LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvArtist.setLayoutManager(linearLayoutTrackManager);
+
+//        List<Track> tracks = new ArrayList<>();
+//        tracks.add(data.get(0));
+//        tracks.add(data.get(1));
+//        tracks.add(data.get(2));
+//        tracks.add(data.get(3));
         trackAdapter.setData(getListTrack());
         rcvArtist.setAdapter(trackAdapter);
     }

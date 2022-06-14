@@ -47,8 +47,7 @@
         android:layout_height="30dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="35dp"
-        android:layout_toRightOf="@id/img_track"
-        />
+        android:layout_toRightOf="@id/img_track" />
 
     <ImageView
         android:id="@+id/next"
