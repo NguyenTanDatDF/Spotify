@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -49,18 +51,14 @@ import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
 
 public class TopicMusicActivity extends AppCompatActivity {
-    Handler handler = new Handler();
-    Runnable runnable;
-    int delay = 3000;
-    String status = "Playing";
     private RecyclerView rcvTrack;
     private TrackAdapter trackAdapter;
     CollapsingToolbarLayout topicTitle;
     ImageView topicImage;
+    static String  topicName;
     FloatingActionButton btn_playlist;
     List<Track> listTrack = null;
-    static Track track;
-    static int flag =2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,38 +70,12 @@ public class TopicMusicActivity extends AppCompatActivity {
             topicTitle.setTitle(topic.getName().trim());
             Glide.with(this).load(topic.getUrl()).into(topicImage);
             setData(topic);
-            playListTrack(listTrack);
+            topicName = topic.getName().trim();
+            playListTrack(MainActivity.playlist);
         }
 
     }
 
-//    @Override
-//    protected void onResume() {
-//        final long[] videoWatchedTime = {0};
-//
-//        handler.postDelayed(runnable = new Runnable() {
-//            public void run() {
-//                handler.postDelayed(runnable, delay);
-//                videoWatchedTime[0] = MainActivity.absPlayerInternal.getCurrentPosition();
-//                Log.e(Long.toString(videoWatchedTime[0]),"Duration");
-//                if(MainActivity.absPlayerInternal.isPlaying())
-//                {
-//                    status = "Playing";
-//                }
-//                else
-//                {
-//                    status = "End";
-//                    if(MainActivity.currentIndex!=MainActivity.playlist.size()) {
-//
-//                        PlayMedia(MainActivity.playlist.get(MainActivity.currentIndex + 1).getSource());
-//                        MainActivity.currentIndex = MainActivity.currentIndex +1;
-//                    }
-//                }
-//                Log.e(status,"Status");
-//            }
-//        }, delay);
-//        super.onResume();
-//    }
 
 
 
@@ -114,41 +86,24 @@ public class TopicMusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //PlayMedia(trackList.get(0).getSource());
-                PlayListMedia(trackList);
-                MainActivity.name_track.setText( trackList.get(0).getName());
-                MainActivity.nameArtist_track.setText( trackList.get(0).getName());
-                MainActivity.img_track.setImageBitmap(MyService.getBitmapFromURL(trackList.get(0).getImage()));
-                track = trackList.get(0);
-                Track track1 = (Track) track.createClone();
-                System.out.println(track1);
+                MainActivity.player.stop(true);
+                PlayListMedia(MainActivity.playlist);
+                MainActivity.track = MainActivity.playlist.get(0);
+                MainActivity.name_track.setText( MainActivity.track .getName());
+                MainActivity.nameArtist_track.setText( MainActivity.track .getName());
+                MainActivity.img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track .getImage()));
                 MainActivity.currentIndex = 0;
+                MainActivity.typePlaying = "list";
             }
         });
     }
 
-//    public void PlayMedia(String url)
-//    {
-//        MainActivity.absPlayerInternal.stop();
-//
-//        String CONTENT_URL = url;
-//
-//        int appNameStringRes = R.string.app_name;
-//
-//        String userAgent = Util.getUserAgent(this, this.getString(appNameStringRes));
-//        DefaultDataSourceFactory defdataSourceFactory = new DefaultDataSourceFactory(this,userAgent);
-//        Uri uriOfContentUrl = Uri.parse(CONTENT_URL);
-//        MediaSource mediaSource = new ProgressiveMediaSource.Factory(defdataSourceFactory).createMediaSource(uriOfContentUrl);  // creating a media source
-//
-//        MainActivity.absPlayerInternal.prepare(mediaSource);
-//
-//        MainActivity.absPlayerInternal.setPlayWhenReady(true); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
-//
-//        MainActivity.pvMain.setPlayer( MainActivity.absPlayerInternal); // attach surface to the view
-//        MainActivity.pvMain.setControllerShowTimeoutMs(0);
-//
-//        MainActivity.pvMain.showController();
-//        MainActivity.pvMain.setControllerHideOnTouch(false);
-//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getListTrack(topicName);
+    }
 
     public void PlayListMedia(List<Track> tracks)
     {
@@ -186,36 +141,7 @@ public class TopicMusicActivity extends AppCompatActivity {
         trackAdapter.setData(listTrack);
         rcvTrack.setAdapter(trackAdapter);
     }
-    //Get list track from firebase
-//    private List<Track> getListTrack(String genreName)
-//    {
-//        List<Track> list = new ArrayList<>();
-//
-//        DAOTrack daoTrack = new DAOTrack();
-//        daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                List<Integer> listIndex = new ArrayList<>();
-//                for(DataSnapshot data: snapshot.getChildren()){
-//                    Track track = data.getValue(Track.class);
-//                    if(track.gettGenre().trim().equals(genreName)){
-//                        list.add(track);
-//                        String key = data.getKey();
-//                        track.setKey(key);
-//                    }
-//                }
-//                MainActivity.playlist= list;
-//                trackAdapter.setData(list);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        return list;
-//    }
+
 
     private List<Track> getListTrack(String type)
     {

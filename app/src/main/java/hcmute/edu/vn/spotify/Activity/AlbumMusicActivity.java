@@ -75,6 +75,7 @@ public class AlbumMusicActivity extends AppCompatActivity {
                         album.setKey(key);
                     }
                 }
+
                 albumAdapter.setData(list);
             }
 
@@ -88,22 +89,38 @@ public class AlbumMusicActivity extends AppCompatActivity {
     }
 
     //Get list track from firebase
-    private List<Track> getListTrack(String albumId)
+    private List<Track> getListTrack(String type)
     {
-        List<Track> list = new ArrayList<>();
-
+        List<Track>  list = new ArrayList<>();
         DAOTrack daoTrack = new DAOTrack();
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
-                    if(track.getAlbumId().trim().equals(albumId)){
-                        list.add(track);
-                        String key = data.getKey();
-                        track.setKey(key);
+                    String key = data.getKey();
+
+                    track.setKey(key);
+                    try{
+                        if(track.gettAlbum() != null){
+                            if(track.gettAlbum().getAlbumId().equals(type)){
+                                list.add(track);
+                            }
+                        }
+                        else
+                        if(track.gettAlbum() == null){
+                            if(track.gettAlbum().getAlbumId().equals(type)){
+                                list.add(track);
+                            }
+                        }
                     }
+                    catch (Exception e){
+
+                    }
+
                 }
+                MainActivity.playlist= list;
+                trackAdapter.notifyDataSetChanged();
                 trackAdapter.setData(list);
             }
 
@@ -112,6 +129,7 @@ public class AlbumMusicActivity extends AppCompatActivity {
 
             }
         });
+
 
         return list;
     }

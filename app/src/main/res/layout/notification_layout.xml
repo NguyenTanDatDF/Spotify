@@ -19,7 +19,7 @@
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/img_track"
         android:text="Hello"
         android:textColor="@color/white"
@@ -33,20 +33,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_name"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/img_track"
-        android:layout_marginTop="10dp"
         android:text="Adele"
         android:textColor="@color/white"
         android:textSize="17sp" />
 
 
     <ImageView
-        android:id="@+id/btn_pause_or_play"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="70dp"
-        android:layout_toRightOf="@id/txt_artist"
-         />
+        android:id="@+id/btn_pause_or_playx"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="196dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/img_track"
+        />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/img_track"
+        android:src="@drawable/ic_previous"
+        />
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="232dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/img_track"
+        android:src="@drawable/ic_next"
+        />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="272dp"
+        android:layout_toRightOf="@id/img_track"
+        android:src="@drawable/ic_close" />
 </RelativeLayout>

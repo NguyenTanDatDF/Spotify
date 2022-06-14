@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,34 +54,19 @@ public class PlayTrackActivity extends AppCompatActivity {
         back = findViewById(R.id.btn_back);
 //step 2
         mLyricView = (LyricView)findViewById(R.id.custom_lyric_view);
-        img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex()).getImage()));
 
-//step 3
-//        String yourFilePath = PlayTrackActivity.this.getFilesDir() + "/" + "hello.lrc";
-//        File file = new File( yourFilePath );
-//        try {
-//            file.createNewFile();
-//            String s = TopicMusicActivity.track.gettLyric();
-//
-//            String lines[] = s.split("\\|");
-//
-//            FileWriter fileWriter = new FileWriter(file);
-//            for(int i = 0 ; i < lines.length; i++)
-//            {
-//                fileWriter.write(lines[i]);
-//                fileWriter.write("\r\n");
-//            }
-//
-//            fileWriter.close();
-//
-////            FileReader fileReader = new FileReader(file);
-////            int c = fileReader.read();
-////            fileReader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        if(MainActivity.typePlaying.equals("list"))
+        {
+            img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex()).getImage()));
+        }
+        if(MainActivity.typePlaying.equals("single"))
+        {
+            img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track.getImage()));
+
+        }
+
         LyricFacade lyricFacade = new LyricFacade();
-        File file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, TopicMusicActivity.track.gettLyric());
+        File file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, MainActivity.track.gettLyric());
         mLyricView.setLyricFile(file);
 
       PlayMedia(pvMain);
@@ -103,8 +89,10 @@ public class PlayTrackActivity extends AppCompatActivity {
         MainActivity.player.addListener(new Player.Listener() {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+                MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+                StartService();
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
-                img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex()).getImage()));
+                img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track.getImage()));
             }
         });
 
@@ -149,5 +137,13 @@ public class PlayTrackActivity extends AppCompatActivity {
         playerView.setControllerHideOnTouch(false);
     }
 
+    public void StartService(){
+        Intent intent = new Intent(this, MyService.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track",MainActivity.track);
+        intent.putExtras(bundle);
+        startService(intent);
+
+    }
 
 }
