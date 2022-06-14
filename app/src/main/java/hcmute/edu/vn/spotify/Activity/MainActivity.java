@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView nameArtist_track;
     public static Track track;
     public static String typePlaying;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                         replace(new LibraryFragment());
                         break;
                 }
-
                 return null;
             }
         });
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(favorite[0] == 0)
                 {
-                  //  StartService();
+              //     StartService();
                     imgv_heart.setImageResource(R.drawable.ic_heart_fill);
                     favorite[0] = 1;
                 }
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         imgv_track.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StartService();
+               StartService();
                 Intent intent = new Intent(MainActivity.this, PlayTrackActivity.class);
                 startActivity(intent);
                 Animatoo.animateSlideUp(MainActivity.this);
@@ -150,18 +151,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
-
+                Log.e("status", "in Listener");
                 if(typePlaying.equals("list"))
                 {
                     track = playlist.get(player.getCurrentMediaItemIndex());
-                    StartService();
+
+
+                       StartService();
+                     //  UpdateService();
                     imgv_track.setImageBitmap(MyService.getBitmapFromURL(track.getImage()));
                     name_track.setText(track.getName());
                     nameArtist_track.setText(track.gettArtist().getNameArtist());
                 }
                 if(typePlaying.equals("single"))
                 {
-                    StartService();
+                         StartService();
+                    //   UpdateService();
+
                     imgv_track.setImageBitmap(MyService.getBitmapFromURL(track.getImage()));
                     name_track.setText(track.getName());
                     nameArtist_track.setText(track.gettArtist().getNameArtist());
@@ -185,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
 
     }
+
     public void StopService()
     {
         Intent intent = new Intent(this, MyService.class);

@@ -2,6 +2,7 @@ package hcmute.edu.vn.spotify.Activity;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +41,7 @@ import hcmute.edu.vn.spotify.Model.PlaylistTrack;
 import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.MyService;
 
 public class PlaylistMusicActivity extends AppCompatActivity {
 
@@ -52,6 +56,10 @@ public class PlaylistMusicActivity extends AppCompatActivity {
     private SearchView searchView;
     private Button deleteButton;
     private SuggestTrackAdapter suggestTrackAdapter;
+    private FloatingActionButton  btn_playlist;
+    static String idUser;
+    static String idPlaylist;
+
 
     //DAO data
     DAOPlayListTrack daoPlayListTrack = new DAOPlayListTrack();
@@ -61,6 +69,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         // Create view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_music);
+        btn_playlist = findViewById(R.id.btn_playlist);
 
         //Get user information in order to get their playlist and their playlist's track
         if(getIntent().getExtras() != null) {
@@ -78,6 +87,8 @@ public class PlaylistMusicActivity extends AppCompatActivity {
 
             //Set data for recycle view track
             setData(playlist.getuID().trim(), playlist.getPlaylistId().trim());
+            idUser = playlist.getuID().trim();
+            idPlaylist= playlist.getPlaylistId().trim();
             setDataSuggest();
 
             //search track
@@ -150,6 +161,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
                         }
                     }
                 }
+                MainActivity.playlist = list;
                 trackAdapter.setData(list);
             }
 
@@ -183,7 +195,6 @@ public class PlaylistMusicActivity extends AppCompatActivity {
 
             }
         });
-
         return list;
     }
 
@@ -236,5 +247,54 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         rcvSuggestTrack.setLayoutManager(linearLayoutTrackManager1);
         suggestTrackAdapter.setData(getListTrack());
         rcvSuggestTrack.setAdapter(suggestTrackAdapter);
+    }
+
+
+    public void playListTrack(List<Track> trackList)
+    {
+        btn_playlist = findViewById(R.id.btn_playlist);
+        btn_playlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //PlayMedia(trackList.get(0).getSource());
+                MainActivity.player.stop(true);
+                PlayListMedia(MainActivity.playlist);
+                MainActivity.track = MainActivity.playlist.get(0);
+                MainActivity.name_track.setText( MainActivity.track .getName());
+                MainActivity.nameArtist_track.setText( MainActivity.track .getName());
+                MainActivity.img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track .getImage()));
+                MainActivity.currentIndex = 0;
+                MainActivity.typePlaying = "list";
+            }
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserListTrack(idUser,idPlaylist );
+    }
+
+    public void PlayListMedia(List<Track> tracks)
+    {
+
+        int appNameStringRes = R.string.app_name;
+
+        //MainActivity.pvMain.setPlayer(MainActivity.player);
+        for(int i =0; i < tracks.size(); i++)
+        {
+            Uri uriOfContentUrl = Uri.parse(tracks.get(i).getSource());
+            MediaItem Item = MediaItem.fromUri(uriOfContentUrl);
+            // Add the media items to be played.
+            MainActivity.player.addMediaItem(Item);
+        }
+
+        MainActivity.player.prepare();
+        // Start the playback.
+        MainActivity.player.play(); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
+
+        MainActivity.pvMain.setControllerShowTimeoutMs(0);
+
+        MainActivity.pvMain.showController();
+        MainActivity.pvMain.setControllerHideOnTouch(false);
     }
 }

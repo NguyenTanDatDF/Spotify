@@ -54,6 +54,7 @@ public class MyService extends Service {
     private static final int ACTION_CLEAR = 3;
     private static final int ACTION_NEXT = 4;
     private static final int ACTION_PREVIOUS = 5;
+
     RemoteViews remoteViews;
     @Nullable
     @Override
@@ -64,7 +65,6 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("DatNguyen", "Service On create");
     }
 
     @Override
@@ -72,14 +72,10 @@ public class MyService extends Service {
         Bundle bundle = intent.getExtras();
         if(bundle !=null)
         {
-           Track track = (Track) bundle.get("track");
             sendNotifycation();
-
         }
 
         int actionMusic = intent.getIntExtra("action_music_service",0);
-
-
         handleActionMusic(actionMusic);
         return START_NOT_STICKY;
     }
@@ -108,27 +104,22 @@ public class MyService extends Service {
 
     public void pauseMusic()
     {
-        if (!MainActivity.player.isPlaying())
+        if (MainActivity.player.isPlaying())
         {
-            Log.e("action:", "Pause");
+            Log.e("action:", "Play");
             MainActivity.player.pause();
-
             sendNotifycation();
-
-
         }
     }
 
     public void playMusic()
     {
-        if (MainActivity.player.isPlaying())
+        if (!MainActivity.player.isPlaying())
         {
-            Log.e("action:", "Play");
+            Log.e("action:", "Pause");
             MainActivity.player.play();
             sendNotifycation();
-
         }
-
     }
 
     public void nextMusic()
@@ -167,67 +158,37 @@ public class MyService extends Service {
         StrictMode.setThreadPolicy(policy);
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         remoteViews = new RemoteViews(getPackageName(), R.layout.notification_layout);
         remoteViews.setTextViewText(R.id.txt_name, MainActivity.track.getName());
         remoteViews.setTextViewText(R.id.txt_artist, MainActivity.track.gettArtist().getNameArtist());
         Bitmap bitmap = getBitmapFromURL(MainActivity.track.getImage());
         remoteViews.setImageViewBitmap(R.id.img_track,bitmap);
-        Boolean playing =MainActivity.player.isPlaying();
 
-        Toast.makeText(getApplicationContext(),"0"+ playing , Toast.LENGTH_LONG).show();
-
-        final Boolean[] stop = {false};
-
-        final Boolean[] play = {false};
-
-        MainActivity.player.addListener(new Player.Listener() {
-            @Override
-            public void onIsPlayingChanged(boolean isPlaying) {
-                Player.Listener.super.onIsPlayingChanged(isPlaying);
-
-                if (isPlaying) {
-                    // Active playback.
-                    Log.e("status","playing");
-                    play[0] =true;
-                    stop[0]=false;
-                } else {
-                    // Not playing because playback is paused, ended, suppressed, or the player
-                    // is buffering, stopped or failed. Check player.getPlaybackState,
-                    // player.getPlayWhenReady, player.getPlaybackError and
-                    // player.getPlaybackSuppressionReason for details.
-                    Log.e("status","pause");
-                    play[0] =false;
-                    stop[0] = true;
-                }
-            }
-        });
-
-
-        if(!MainActivity.player.isPlaying())
+        if(MainActivity.player.isPlaying())
         {
+            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this, ACTION_PAUSE));
+                Log.e("if","1");
             remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_pause);
-            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this,ACTION_PAUSE ));
         }
-        else if (stop[0] == true)
-        {
-            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_pause);
-            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this,ACTION_PAUSE ));
-        }
+
         else
         {
-            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_play);
             remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this, ACTION_RESUME));
+            Log.e("if","2");
+            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_play);
 
         }
+
         remoteViews.setOnClickPendingIntent(R.id.close, getPedingIntent(this, ACTION_CLEAR));
 
-      Notification notification = new NotificationCompat.Builder(this, CHANEL_ID)
-              .setSmallIcon(R.drawable.ic_note)
-              .setContentIntent(pendingIntent)
-              .setSound(null)
-              .setCustomContentView(remoteViews)
-              .build();
-      startForeground(1, notification);
+        Notification notification = new NotificationCompat.Builder(this, CHANEL_ID)
+                .setSmallIcon(R.drawable.ic_note)
+                .setContentIntent(pendingIntent)
+                .setSound(null)
+                .setCustomContentView(remoteViews)
+                .build();
+        startForeground(1, notification);
     }
 
 
@@ -241,6 +202,5 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("DatNguyen", "Service Destroy");
     }
 }
