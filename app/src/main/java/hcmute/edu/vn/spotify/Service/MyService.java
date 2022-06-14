@@ -19,6 +19,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -104,25 +108,27 @@ public class MyService extends Service {
 
     public void pauseMusic()
     {
-        if (MainActivity.player.isPlaying())
+        if (!MainActivity.player.isPlaying())
         {
-             remoteViews = new RemoteViews(getPackageName(), R.layout.notification_layout);
             Log.e("action:", "Pause");
             MainActivity.player.pause();
 
             sendNotifycation();
+
+
         }
     }
 
     public void playMusic()
     {
-        if (!MainActivity.player.isPlaying())
+        if (MainActivity.player.isPlaying())
         {
-            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_play);
             Log.e("action:", "Play");
             MainActivity.player.play();
             sendNotifycation();
+
         }
+
     }
 
     public void nextMusic()
@@ -167,15 +173,51 @@ public class MyService extends Service {
         Bitmap bitmap = getBitmapFromURL(MainActivity.track.getImage());
         remoteViews.setImageViewBitmap(R.id.img_track,bitmap);
         Boolean playing =MainActivity.player.isPlaying();
-        if(playing)
+
+        Toast.makeText(getApplicationContext(),"0"+ playing , Toast.LENGTH_LONG).show();
+
+        final Boolean[] stop = {false};
+
+        final Boolean[] play = {false};
+
+        MainActivity.player.addListener(new Player.Listener() {
+            @Override
+            public void onIsPlayingChanged(boolean isPlaying) {
+                Player.Listener.super.onIsPlayingChanged(isPlaying);
+
+                if (isPlaying) {
+                    // Active playback.
+                    Log.e("status","playing");
+                    play[0] =true;
+                    stop[0]=false;
+                } else {
+                    // Not playing because playback is paused, ended, suppressed, or the player
+                    // is buffering, stopped or failed. Check player.getPlaybackState,
+                    // player.getPlayWhenReady, player.getPlaybackError and
+                    // player.getPlaybackSuppressionReason for details.
+                    Log.e("status","pause");
+                    play[0] =false;
+                    stop[0] = true;
+                }
+            }
+        });
+
+
+        if(!MainActivity.player.isPlaying())
         {
-            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_play);
-            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this, ACTION_PAUSE));
+            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_pause);
+            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this,ACTION_PAUSE ));
+        }
+        else if (stop[0] == true)
+        {
+            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_pause);
+            remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this,ACTION_PAUSE ));
         }
         else
         {
-            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_pause);
+            remoteViews.setImageViewResource(R.id.btn_pause_or_playx, R.drawable.ic_play);
             remoteViews.setOnClickPendingIntent(R.id.btn_pause_or_playx, getPedingIntent(this, ACTION_RESUME));
+
         }
         remoteViews.setOnClickPendingIntent(R.id.close, getPedingIntent(this, ACTION_CLEAR));
 
