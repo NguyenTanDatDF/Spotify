@@ -39,7 +39,6 @@ public class ArtistMusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_artist_music);
         if(getIntent().getExtras() != null){
             Artist artist = (Artist) getIntent().getExtras().get("object_artist");
-            Log.e(artist.getNameArtist().trim(), "Blaaaa");
             setData(artist.getIdArtist().trim());
         }
 

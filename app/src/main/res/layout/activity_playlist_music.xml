@@ -41,15 +41,20 @@
                 app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_shape"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/constraintLayout3"
             android:padding="30dp">
+
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
@@ -64,17 +69,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.05" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/activityArtistMusic_listMusicRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
-                app:layout_constraintVertical_bias="0.05"
-                android:layout_marginTop="10dp"/>
+                app:layout_constraintVertical_bias="0.05" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -86,19 +92,50 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activityArtistMusic_listMusicRv" />
+                app:layout_constraintTop_toBottomOf="@+id/activityArtistMusic_listMusicRv"
+                app:layout_constraintVertical_bias="0.1" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_button"
-                android:text="Thêm bài hát"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                app:layout_constraintTop_toBottomOf="@+id/textView25">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/activityArtistMusic_listMusicSuggestRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView"
+                    app:layout_constraintVertical_bias="0.05" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/activityPlaylistMusic_deleteBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:text="Xóa playlist"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                android:layout_marginTop="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

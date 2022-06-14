@@ -25,5 +25,8 @@ public class DAOPlaylist {
         }
         return null;
     }
+    public Task<Void> removePlaylist(String name){
+        return databaseReference.child(name).removeValue();
+    }
     public Query getByKey() { return databaseReference.orderByKey();}
 }

@@ -41,6 +41,7 @@ public class LibraryFragment extends Fragment {
     RecyclerView rcvArtist;
     CircleImageView avatarIv;
     ImageView addPlaylistIv;
+    DAOPlaylist daoPlaylist = new DAOPlaylist();
     private PlaylistVerticalAdapter playlistVerticalAdapter;
     private ArtistAdapter artistAdapter;
 
@@ -86,6 +87,26 @@ public class LibraryFragment extends Fragment {
             public void onClick(View view) {
                 Intent addPlaylist_activity = new Intent(getActivity(), NewPlaylistActivity.class);
                 startActivity(addPlaylist_activity);
+            }
+        });
+
+        //Notify playlist change
+        //Refresh playlist track
+        daoPlaylist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //set data for playlist
+                rcvPlaylist = view.findViewById(R.id.fragmentLibrary_playlistRv);
+                playlistVerticalAdapter = new PlaylistVerticalAdapter((getActivity()));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+                rcvPlaylist.setLayoutManager(gridLayoutManager);
+                playlistVerticalAdapter.setData(getListPlaylist(SigninActivity.definedUser.getUserId().trim()));
+                rcvPlaylist.setAdapter(playlistVerticalAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 

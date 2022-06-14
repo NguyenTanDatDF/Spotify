@@ -1,5 +1,7 @@
 package hcmute.edu.vn.spotify.Activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,35 +39,36 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView rcvArtist;
     private ArtistAdapter artistAdapter;
     private TrackAdapter trackAdapter;
+    SearchView searchView;
     ImageView backIv;
-    EditText searchEt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        //Set data
+        setTrackData();
+        setAlbumData();
 
-        //focus on search
-        searchEt = findViewById(R.id.activitySearch_searchEt);
-        searchEt.requestFocus();
+        //search track
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) findViewById(R.id.searchView);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        //Set Data for new album
-        rcvArtist = findViewById(R.id.activitySearch_artistsRv);
-        artistAdapter = new ArtistAdapter(this);
-        GridLayoutManager gridArtistayoutManager = new GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false);
-        rcvArtist.setLayoutManager(gridArtistayoutManager);
-        artistAdapter.setData(getListArtist());
-        rcvArtist.setAdapter(artistAdapter);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                trackAdapter.getFilter().filter(query);
+                return false;
+            }
 
-        //Set data for new track
-        rcvArtist = findViewById(R.id.activitySearch_songsRv);
-        trackAdapter = new TrackAdapter(this);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                trackAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
-        LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcvArtist.setLayoutManager(linearLayoutTrackManager);
-
-        trackAdapter.setData(getListTrack());
-        rcvArtist.setAdapter(trackAdapter);
 
         backIv = findViewById(R.id.activitySearch_backIv);
         backIv.setOnClickListener(new View.OnClickListener() {
@@ -124,5 +128,27 @@ public class SearchActivity extends AppCompatActivity {
 
         return list;
     }
+
+    //set track data
+    private void setTrackData(){
+        //Set data for new track
+        rcvArtist = findViewById(R.id.activitySearch_songsRv);
+        trackAdapter = new TrackAdapter(this);
+        LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rcvArtist.setLayoutManager(linearLayoutTrackManager);
+        trackAdapter.setData(getListTrack());
+        rcvArtist.setAdapter(trackAdapter);
+    }
+    //set album data
+    private void setAlbumData(){
+        //Set Data for new album
+        rcvArtist = findViewById(R.id.activitySearch_artistsRv);
+        artistAdapter = new ArtistAdapter(this);
+        GridLayoutManager gridArtistayoutManager = new GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false);
+        rcvArtist.setLayoutManager(gridArtistayoutManager);
+        artistAdapter.setData(getListArtist());
+        rcvArtist.setAdapter(artistAdapter);
+    }
+
 
 }
