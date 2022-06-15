@@ -5,6 +5,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import hcmute.edu.vn.spotify.Database.DAOPlaylist;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import java.util.List;
 
 import hcmute.edu.vn.spotify.Adapter.PlaylistAdapter;
 import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -43,7 +46,13 @@ public class UserActivity extends AppCompatActivity {
 
         //set user name
         TextView username_tv = (TextView) findViewById(R.id.activityUser_usernameTv);
-        username_tv.setText(SigninActivity.definedUser.getName());
+
+        User user = new User();
+
+        //user = SigninActivity.definedUser;
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
+        username_tv.setText(user.getName());
 
         //Edit user information
         editUserBt = (Button) findViewById(R.id.activityUser_editUserBtn);

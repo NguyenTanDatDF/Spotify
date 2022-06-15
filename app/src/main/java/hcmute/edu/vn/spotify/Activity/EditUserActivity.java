@@ -10,6 +10,7 @@ import android.widget.Toast;
 import hcmute.edu.vn.spotify.Database.DAOUser;
 import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +29,12 @@ public class EditUserActivity extends AppCompatActivity {
         User user = new User();
 
         username_et  = (EditText) findViewById(R.id.activityEditUser_editNameEt);
-        username_et.setText(SigninActivity.definedUser.getName());
+
+        //user = SigninActivity.definedUser;
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
+
+        username_et.setText(user.getName());
 
         cancelIv = (ImageView) findViewById(R.id.activityEditUser_cancleIv);
         cancelIv.setOnClickListener(new View.OnClickListener() {
@@ -39,12 +45,13 @@ public class EditUserActivity extends AppCompatActivity {
         });
 
         saveTv = (TextView) findViewById(R.id.activityEditUser_saveTv);
+        User finalUser = user;
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newName = username_et.getText().toString();
-                user.setName(newName);
-                daoUser.updateUser(user).addOnSuccessListener(suc-> {
+                finalUser.setName(newName);
+                daoUser.updateUser(finalUser).addOnSuccessListener(suc-> {
                     Toast.makeText(EditUserActivity.this, "Update user successfully!", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(er->{
                     Toast.makeText(EditUserActivity.this, er.getMessage(), Toast.LENGTH_SHORT).show();

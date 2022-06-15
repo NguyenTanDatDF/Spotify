@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class PlaylistMusicActivity extends AppCompatActivity {
 
@@ -151,8 +153,15 @@ public class PlaylistMusicActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
-                    for(PlaylistTrack playlistTrack1: playlistTrack){
-                        if(userId.equals(SigninActivity.definedUser.getUserId().trim()) && playlistId.equals(playlistTrack1.getPlaylistId().trim()) && track.getTrackId().trim().equals(playlistTrack1.getTrackId().trim()))
+                    User user = new User();
+
+                    //user = SigninActivity.definedUser;
+                    ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+                    user = singleton.user;
+
+                    for(PlaylistTrack playlistTrack1: playlistTrack)
+                    {
+                        if(userId.equals(user.getUserId().trim()) && playlistId.equals(playlistTrack1.getPlaylistId().trim()) && track.getTrackId().trim().equals(playlistTrack1.getTrackId().trim()))
                         {
                             list.add(track);
                             String key = data.getKey();

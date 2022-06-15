@@ -16,7 +16,9 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class NewPlaylistActivity extends AppCompatActivity {
 
@@ -49,7 +51,11 @@ public class NewPlaylistActivity extends AppCompatActivity {
         create_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", SigninActivity.definedUser.getUserId().toString(), newPlaylist_et.getText().toString(), SigninActivity.definedUser.getUsername().toString(), randomId());
+                User user = new User();
+                ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+                user = singleton.user;
+
+                Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", user.getUserId().toString(), newPlaylist_et.getText().toString(), user.getUsername().toString(), randomId());
                 daoPlaylist.addNewPlaylist(playlist).addOnSuccessListener(suc -> {
                     Toast.makeText(NewPlaylistActivity.this, "Added new playlist successfully!", Toast.LENGTH_SHORT).show();
                     finish();

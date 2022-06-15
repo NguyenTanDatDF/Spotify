@@ -25,9 +25,10 @@ import hcmute.edu.vn.spotify.Database.DAOUser;
 import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class SigninActivity extends AppCompatActivity {
-    public static User definedUser;
+    //private static User definedUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,10 @@ public class SigninActivity extends AppCompatActivity {
                     {
                         Toast.makeText(SigninActivity.this, "Login Successfully!", Toast.LENGTH_SHORT);
                         Intent main_activity = new Intent(SigninActivity.this, MainActivity.class);
-                        definedUser = user;
+
+                        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+
+                        //definedUser = user;
                         startActivity(main_activity);
                         break;
                     }

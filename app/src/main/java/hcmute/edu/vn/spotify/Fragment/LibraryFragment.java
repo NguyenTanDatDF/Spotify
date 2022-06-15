@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +34,9 @@ import hcmute.edu.vn.spotify.Database.DAOArtist;
 import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.Playlist;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class LibraryFragment extends Fragment {
 
@@ -60,7 +63,12 @@ public class LibraryFragment extends Fragment {
         playlistVerticalAdapter = new PlaylistVerticalAdapter((getActivity()));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
         rcvPlaylist.setLayoutManager(gridLayoutManager);
-        playlistVerticalAdapter.setData(getListPlaylist(SigninActivity.definedUser.getUserId().trim()));
+        User user = new User();
+        //user = SigninActivity.definedUser;
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
+
+        playlistVerticalAdapter.setData(getListPlaylist(user.getUserId().trim()));
         rcvPlaylist.setAdapter(playlistVerticalAdapter);
 
         //set data for artist
@@ -92,6 +100,7 @@ public class LibraryFragment extends Fragment {
 
         //Notify playlist change
         //Refresh playlist track
+        User finalUser = user;
         daoPlaylist.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -100,7 +109,7 @@ public class LibraryFragment extends Fragment {
                 playlistVerticalAdapter = new PlaylistVerticalAdapter((getActivity()));
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
                 rcvPlaylist.setLayoutManager(gridLayoutManager);
-                playlistVerticalAdapter.setData(getListPlaylist(SigninActivity.definedUser.getUserId().trim()));
+                playlistVerticalAdapter.setData(getListPlaylist(finalUser.getUserId().trim()));
                 rcvPlaylist.setAdapter(playlistVerticalAdapter);
             }
 

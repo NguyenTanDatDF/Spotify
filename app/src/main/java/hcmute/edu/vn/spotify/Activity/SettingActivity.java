@@ -27,6 +27,7 @@ import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -43,8 +44,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         User user = new User();
-        user = SigninActivity.definedUser;
-        Log.e(user.getName().trim(), "Blaaa");
+        //user = SigninActivity.definedUser;
+         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
+         Log.e(user.getName().trim(), "Blaaa");
         TextView name_tv = (TextView) findViewById(R.id.activitySetting_usernameTv);
         name_tv.setText(user.getName().trim());
         TextView email_tv = (TextView) findViewById(R.id.activitySetting_emailTv);
