@@ -180,6 +180,10 @@ public class MyService extends Service {
 
         }
 
+        remoteViews.setOnClickPendingIntent(R.id.previous, getPedingIntent(this, ACTION_PREVIOUS));
+
+        remoteViews.setOnClickPendingIntent(R.id.next, getPedingIntent(this, ACTION_NEXT));
+
         remoteViews.setOnClickPendingIntent(R.id.close, getPedingIntent(this, ACTION_CLEAR));
 
         Notification notification = new NotificationCompat.Builder(this, CHANEL_ID)
