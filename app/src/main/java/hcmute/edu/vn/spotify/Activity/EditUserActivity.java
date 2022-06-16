@@ -16,36 +16,46 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EditUserActivity extends AppCompatActivity {
-
+    // Declare the view
     ImageView cancelIv;
     TextView saveTv;
     EditText username_et;
+    // Create new daoUser to get data
     DAOUser daoUser = new DAOUser();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+        //Create a user as a fake parameter of Singleton
         User user = new User();
-
+        // Mapping the view
         username_et  = (EditText) findViewById(R.id.activityEditUser_editNameEt);
 
         //user = SigninActivity.definedUser;
+        // Use Singleton to get the global logging user
         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
         user = singleton.user;
-
+        // set text to user name view
         username_et.setText(user.getName());
-
+        // Mapping the view
         cancelIv = (ImageView) findViewById(R.id.activityEditUser_cancleIv);
+
         cancelIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // get back to previous avivity
                 finish();
             }
         });
 
+        // Mapping the view
         saveTv = (TextView) findViewById(R.id.activityEditUser_saveTv);
+
+        // create new temp user to pass to the fuction
         User finalUser = user;
+        // when click this button the information will save to firebase by updateUser in daoUser class
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

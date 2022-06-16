@@ -33,11 +33,19 @@ import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
 
 public class AlbumMusicActivity extends AppCompatActivity {
-
+    // The view which showing data as list
     private RecyclerView rcvAlbum;
+
+    // The view which showing data as list
     private RecyclerView rcvTrack;
+
+    // use to pass raw data into recyclerview of album
     private AlbumAdapter albumAdapter;
+
+    // use to pass raw data into recyclerview of track
     private TrackAdapter trackAdapter;
+
+    // The view which showing FloatingActionButton button in activity
     FloatingActionButton btn_playlist;
     static String AlbumName;
 
@@ -45,8 +53,14 @@ public class AlbumMusicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_music);
+
+        // Mapping the view
         btn_playlist = findViewById(R.id.btn_playlist);
+
+        // Check if data has been received from previous intent null
         if(getIntent().getExtras() != null){
+
+            // Get object data
             Album album = (Album) getIntent().getExtras().get("object_album");
 
             //Set data for albums
@@ -54,7 +68,6 @@ public class AlbumMusicActivity extends AppCompatActivity {
             albumAdapter = new AlbumAdapter(this);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
             rcvAlbum.setLayoutManager(linearLayoutManager);
-
             albumAdapter.setData(getListAlbum(album.getArtistId().trim(), album.getArtistName().trim()));
             rcvAlbum.setAdapter(albumAdapter);
 
@@ -66,19 +79,21 @@ public class AlbumMusicActivity extends AppCompatActivity {
             trackAdapter.setData(getListTrack(album.getAlbumId().trim()));
             AlbumName = album.getAlbumId().trim();
             rcvTrack.setAdapter(trackAdapter);
+
+            // function which use to play a list of track if clicking the floating action button
             playListTrack(MainActivity.playlist);
         }
     }
 
-
-
-
-
-
+    // use to get list of album
     private List<Album> getListAlbum(String artistId, String artistName)
     {
+        // Create new list
         List<Album> list = new ArrayList<>();
+        // Create new daoAlbum to get data
         DAOAlbum daoAlbum = new DAOAlbum();
+
+        // this listener will listen from firebase continuously and get data
         daoAlbum.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -107,8 +122,12 @@ public class AlbumMusicActivity extends AppCompatActivity {
     //Get list track from firebase
     private List<Track> getListTrack(String type)
     {
+        //Create a new list to pass data
         List<Track>  list = new ArrayList<>();
+        // Create DAO to get data
         DAOTrack daoTrack = new DAOTrack();
+
+        // this listener will listen from firebase continuously and get data
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -135,7 +154,9 @@ public class AlbumMusicActivity extends AppCompatActivity {
                     }
 
                 }
+                // Update the global current playlist
                 MainActivity.playlist= list;
+                // Change recycle view
                 trackAdapter.notifyDataSetChanged();
                 trackAdapter.setData(list);
             }
@@ -154,7 +175,7 @@ public class AlbumMusicActivity extends AppCompatActivity {
 
 
 
-
+    // function which use to play a list of track if clicking the floating action button
     public void playListTrack(List<Track> trackList)
     {
         btn_playlist = findViewById(R.id.btn_playlist);
@@ -173,18 +194,22 @@ public class AlbumMusicActivity extends AppCompatActivity {
             }
         });
     }
+
+
     @Override
     protected void onResume() {
         super.onResume();
+        // whenever go to other activity and back to this, the  MainActivity.playlist must be update in this function
         getListTrack(AlbumName);
     }
-
+    // Play a list of current track
     public void PlayListMedia(List<Track> tracks)
     {
-
+        // Get app name
         int appNameStringRes = R.string.app_name;
 
         //MainActivity.pvMain.setPlayer(MainActivity.player);
+        // add all track in playlist to music player
         for(int i =0; i < tracks.size(); i++)
         {
             Uri uriOfContentUrl = Uri.parse(tracks.get(i).getSource());
@@ -193,13 +218,17 @@ public class AlbumMusicActivity extends AppCompatActivity {
             MainActivity.player.addMediaItem(Item);
         }
 
+        // loading data for playing
         MainActivity.player.prepare();
+
         // Start the playback.
-        MainActivity.player.play(); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
+        MainActivity.player.play();
 
+        //Always display the controller of player
         MainActivity.pvMain.setControllerShowTimeoutMs(0);
-
+        // Show controller
         MainActivity.pvMain.showController();
+        // Disable hiding view when touching
         MainActivity.pvMain.setControllerHideOnTouch(false);
     }
 }

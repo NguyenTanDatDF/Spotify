@@ -15,10 +15,12 @@ public class CheckPremiumActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_premium_check);
+        // Mapping the view
         backIv = (ImageView) findViewById(R.id.activityPremiumCheck_backIv);
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // get back to previous activity
                 finish();
             }
         });

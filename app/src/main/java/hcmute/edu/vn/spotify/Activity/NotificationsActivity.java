@@ -27,10 +27,13 @@ import hcmute.edu.vn.spotify.Model.Track;
 import hcmute.edu.vn.spotify.R;
 
 public class NotificationsActivity extends AppCompatActivity {
-
+    // The view which showing data as list
     private RecyclerView rcvAlbum;
+    // The view which showing data as list
     private RecyclerView rcvTrack;
+    // use to pass raw data into recyclerview of album
     private AlbumAdapter albumAdapter;
+    // use to pass raw data into recyclerview of track
     private TrackAdapter trackAdapter;
 
     @Override
@@ -38,7 +41,7 @@ public class NotificationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
-        //back to fragment
+        //back to activity
         ImageView backIv = (ImageView) findViewById(R.id.activityNotif_backIv);
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +65,14 @@ public class NotificationsActivity extends AppCompatActivity {
         trackAdapter.setData(getListTrack());
         rcvTrack.setAdapter(trackAdapter);
     }
-
+    //Get list track from firebase
     private List<Album> getListAlbum()
     {
+        //Create a new list to pass data
         List<Album> list = new ArrayList<>();
+        // Create DAO to get data
         DAOAlbum daoAlbum = new DAOAlbum();
+        // this listener will listen from firebase continuously and get data
         daoAlbum.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,11 +92,14 @@ public class NotificationsActivity extends AppCompatActivity {
         });
         return list;
     }
+    //Get list track from firebase
     private List<Track> getListTrack()
     {
+        //Create a new list to pass data
         List<Track> list = new ArrayList<>();
-
+        // Create DAO to get data
         DAOTrack daoTrack = new DAOTrack();
+        // this listener will listen from firebase continuously and get data
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

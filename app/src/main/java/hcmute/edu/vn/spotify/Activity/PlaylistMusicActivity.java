@@ -47,9 +47,9 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class PlaylistMusicActivity extends AppCompatActivity {
 
-    //Global variable
+    //Global playlist
     public static Playlist definedPlaylist;
-    //Variables
+    // Declare the view
     private com.google.android.material.appbar.CollapsingToolbarLayout playlistName;
     private ImageView playlistImage;
     private RecyclerView rcvTrack;
@@ -59,13 +59,15 @@ public class PlaylistMusicActivity extends AppCompatActivity {
     private Button deleteButton;
     private SuggestTrackAdapter suggestTrackAdapter;
     private FloatingActionButton  btn_playlist;
+
     static String idUser;
     static String idPlaylist;
 
 
-    //DAO data
+    //DAO data to get data from database
     DAOPlayListTrack daoPlayListTrack = new DAOPlayListTrack();
     DAOPlaylist daoPlaylist = new DAOPlaylist();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // Create view
@@ -258,7 +260,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         rcvSuggestTrack.setAdapter(suggestTrackAdapter);
     }
 
-
+    // Playing a list of current track
     public void playListTrack(List<Track> trackList)
     {
         btn_playlist = findViewById(R.id.btn_playlist);
@@ -280,15 +282,17 @@ public class PlaylistMusicActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // whenever go to other activity and back to this, the  MainActivity.playlist must be update in this function
         getUserListTrack(idUser,idPlaylist );
     }
-
+    // add all track in playlist to music player
     public void PlayListMedia(List<Track> tracks)
     {
 
         int appNameStringRes = R.string.app_name;
 
         //MainActivity.pvMain.setPlayer(MainActivity.player);
+        // add all track in playlist to music player
         for(int i =0; i < tracks.size(); i++)
         {
             Uri uriOfContentUrl = Uri.parse(tracks.get(i).getSource());
@@ -296,14 +300,15 @@ public class PlaylistMusicActivity extends AppCompatActivity {
             // Add the media items to be played.
             MainActivity.player.addMediaItem(Item);
         }
-
+        // loading data for playing
         MainActivity.player.prepare();
         // Start the playback.
-        MainActivity.player.play(); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
-
+        MainActivity.player.play();
+        //Always display the controller of player
         MainActivity.pvMain.setControllerShowTimeoutMs(0);
-
+        // Show controller
         MainActivity.pvMain.showController();
+        // Disable hiding view when touching
         MainActivity.pvMain.setControllerHideOnTouch(false);
     }
 }

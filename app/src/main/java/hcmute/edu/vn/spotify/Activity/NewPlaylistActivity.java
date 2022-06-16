@@ -22,10 +22,11 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class NewPlaylistActivity extends AppCompatActivity {
 
-    //Variables
+    // Declare the view
     EditText newPlaylist_et;
     TextView cancel_tv;
     TextView create_tv;
+    // Create new daoAlbum to get data
     DAOPlaylist daoPlaylist = new DAOPlaylist();
 
     @Override
@@ -33,12 +34,13 @@ public class NewPlaylistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_playlist);
 
-        //focus edittext
+        //mapping and focus edittext
         newPlaylist_et = findViewById(R.id.activityAddPlaylist_playlistNameEt);
         newPlaylist_et.requestFocus();
 
-        //cancel event
+        // Mapping the view
         cancel_tv = findViewById(R.id.activityAddPlaylist_cancelBtn);
+        //get back to previous activity
         cancel_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,16 +48,23 @@ public class NewPlaylistActivity extends AppCompatActivity {
             }
         });
 
-        //Create new playlist
+        // Mapping the view
         create_tv = findViewById(R.id.activityAddPlaylist_createBtn);
+        //Create new playlist
+
         create_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Call singleton and get it value (global user)
                 User user = new User();
                 ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
                 user = singleton.user;
 
+                // Create default format of playlist
                 Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", user.getUserId().toString(), newPlaylist_et.getText().toString(), user.getUsername().toString(), randomId());
+
+                // add playlist to firebase by daoPlaylist.addNewPlaylist and listen when it successful or fail
                 daoPlaylist.addNewPlaylist(playlist).addOnSuccessListener(suc -> {
                     Toast.makeText(NewPlaylistActivity.this, "Added new playlist successfully!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -66,6 +75,7 @@ public class NewPlaylistActivity extends AppCompatActivity {
         });
     }
 
+    // Hash the id of the user when create
     public String randomId() {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
