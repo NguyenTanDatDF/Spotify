@@ -35,7 +35,7 @@ import hcmute.edu.vn.spotify.R;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private RecyclerView rcvAlbum;
+    //Variables
     private RecyclerView rcvArtist;
     private ArtistAdapter artistAdapter;
     private TrackAdapter trackAdapter;
@@ -80,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-
+    //Get list Artist
     private List<Artist> getListArtist()
     {
         List<Artist> list = new ArrayList<>();
@@ -104,10 +104,10 @@ public class SearchActivity extends AppCompatActivity {
         });
         return list;
     }
+    //Get list track
     private List<Track> getListTrack()
     {
         List<Track> list = new ArrayList<>();
-
         DAOTrack daoTrack = new DAOTrack();
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override

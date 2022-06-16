@@ -1,12 +1,30 @@
 package hcmute.edu.vn.spotify.Model;
 
-public class MusicPlaylist<L> {
+import com.google.firebase.database.Exclude;
+
+public class MusicPlaylist{
+    @Exclude
+    String key;
     private String lImageUrl;
     private String lName;
+    private String musicPlaylistId;
 
-    public MusicPlaylist(String lImageUrl, String lName) {
+    public MusicPlaylist() {
+
+    }
+
+    public MusicPlaylist(String lImageUrl, String lName, String musicPlaylistId) {
         this.lImageUrl = lImageUrl;
         this.lName = lName;
+        this.musicPlaylistId = musicPlaylistId;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getlImageUrl() {
@@ -23,5 +41,13 @@ public class MusicPlaylist<L> {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    public String getMusicPlaylistId() {
+        return musicPlaylistId;
+    }
+
+    public void setMusicPlaylistId(String musicPlaylistId) {
+        this.musicPlaylistId = musicPlaylistId;
     }
 }

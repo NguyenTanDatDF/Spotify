@@ -24,6 +24,7 @@
             android:background="@drawable/gradient_color_green"
             android:id="@+id/activityAlbumMusic_albumName">
             <ImageView
+                android:id="@+id/activityAlbumMusic_albumImage"
                 android:layout_width="320dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
