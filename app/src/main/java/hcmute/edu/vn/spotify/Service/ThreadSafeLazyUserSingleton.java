@@ -1,5 +1,6 @@
 package hcmute.edu.vn.spotify.Service;
 
+import hcmute.edu.vn.spotify.Activity.MainActivity;
 import hcmute.edu.vn.spotify.Model.User;
 
 public class ThreadSafeLazyUserSingleton {
@@ -17,9 +18,14 @@ public class ThreadSafeLazyUserSingleton {
 //    đến bất kỳ nguồn tài nguyên chia sẻ. Để tránh sự can thiệp của luồng khác
     public static synchronized ThreadSafeLazyUserSingleton getInstance(User user) {
         // Check xem nó chưa được khởi tạo thì khởi tạo (Initialization)
-        if (instance == null) {
+        if (instance == null || MainActivity.logout == true) {
             instance = new ThreadSafeLazyUserSingleton(user);
         }
+//        if(instance != null &&  activityName.equals("SigninActivity"))
+//        {
+//            instance = new ThreadSafeLazyUserSingleton(user);
+//
+//        }
         return instance;
     }
 }

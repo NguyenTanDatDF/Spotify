@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         setData(view);
-
         // Move to another activity
         //go to setting activity
         settingIv = view.findViewById(R.id.icon_setting);

@@ -142,6 +142,8 @@ public class PlaylistMusicActivity extends AppCompatActivity {
                 }
             });
         }
+
+        playListTrack(MainActivity.playlist);
     }
 
     //Get all list track that belong to one user
@@ -153,6 +155,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
                     User user = new User();
@@ -193,6 +196,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         daoPlayListTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot data: snapshot.getChildren()){
                     PlaylistTrack playlistTrack = data.getValue(PlaylistTrack.class);
                     list.add(playlistTrack);
@@ -218,6 +222,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
                     list.add(track);

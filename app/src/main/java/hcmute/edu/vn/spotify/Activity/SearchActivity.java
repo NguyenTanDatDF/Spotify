@@ -112,6 +112,7 @@ public class SearchActivity extends AppCompatActivity {
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot data: snapshot.getChildren()){
                     Track track = data.getValue(Track.class);
                     list.add(track);

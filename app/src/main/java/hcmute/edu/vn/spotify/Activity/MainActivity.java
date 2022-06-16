@@ -1,5 +1,6 @@
 package hcmute.edu.vn.spotify.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,16 +20,24 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 import hcmute.edu.vn.spotify.Fragment.LibraryFragment;
 import hcmute.edu.vn.spotify.Fragment.SearchFragment;
 import hcmute.edu.vn.spotify.Fragment.HomeFragment;
+import hcmute.edu.vn.spotify.Model.Favorite;
 import hcmute.edu.vn.spotify.Model.Track;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
 import hcmute.edu.vn.spotify.Service.OnSwipeTouchListener;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -60,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     // It mean the type of playing, it can be "single" (a track is playing) or "list" (a playlist is playing)
     public static String typePlaying;
+
+    // get the status of login or logout
+    public static boolean logout = false;
 
     @Override
     protected void onStart() {
@@ -127,15 +139,24 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
+        User user = new User();
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
 
         // this will init the music player and attach it with music controller
        PlayMedia();
-
+       // connect with firebase
+        FirebaseDatabase db = FirebaseDatabase.getInstance("https://admin-sportify-default-rtdb.firebaseio.com/");
+        DatabaseReference databaseReference = db.getReference("favoriteHeart");
         // init the favorite icon, 0 if unline and 1 if liked
         final int[] favorite = {0};
+        User finalUser1 = user;
         imgv_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 if(favorite[0] == 0)
                 {
               //     StartService();
@@ -143,6 +164,11 @@ public class MainActivity extends AppCompatActivity {
                     imgv_heart.setImageResource(R.drawable.ic_heart_fill);
                     // refresh flag
                     favorite[0] = 1;
+
+
+
+                    databaseReference.child(finalUser1.getUserId()+track.getTrackId()).child("uid").setValue(finalUser1.getUserId());
+                    databaseReference.child(finalUser1.getUserId()+track.getTrackId()).child("tid").setValue(track.getTrackId());
                 }
                 else
                 {
@@ -150,7 +176,12 @@ public class MainActivity extends AppCompatActivity {
                     imgv_heart.setImageResource(R.drawable.ic_not_heart);
                     // refresh flag
                     favorite[0] = 0;
+                    databaseReference.child(finalUser1.getUserId()+track.getTrackId()).removeValue();
+
                 }
+
+                // attach with first child
+
             }
         });
 
@@ -188,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
         player.addListener(new Player.Listener() {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
 
 
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
