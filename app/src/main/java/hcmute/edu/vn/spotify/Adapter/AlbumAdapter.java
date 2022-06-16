@@ -57,14 +57,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         }
     }
 
+    private final int limit = 5;
     @Override
     public int getItemCount() {
 
-        if(albumList != null)
+        if(albumList.size() > limit)
         {
+            return limit;
+        }else {
             return albumList.size();
         }
-        return 0;
     }
 
     @NonNull

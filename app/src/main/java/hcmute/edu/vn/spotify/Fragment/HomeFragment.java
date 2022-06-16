@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -26,34 +28,48 @@ import java.util.List;
 import hcmute.edu.vn.spotify.Activity.NotificationsActivity;
 import hcmute.edu.vn.spotify.Activity.SettingActivity;
 import hcmute.edu.vn.spotify.Adapter.AlbumAdapter;
+import hcmute.edu.vn.spotify.Adapter.ArtistAdapter;
 import hcmute.edu.vn.spotify.Adapter.ListAdapter;
 import hcmute.edu.vn.spotify.Adapter.PlaylistAdapter;
+import hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter;
 import hcmute.edu.vn.spotify.Database.DAOAlbum;
 import hcmute.edu.vn.spotify.Database.DAOArtist;
+import hcmute.edu.vn.spotify.Database.DAOMusicPlaylist;
+import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.MusicPlaylist;
+import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.Topic;
+import hcmute.edu.vn.spotify.Model.User;
 import hcmute.edu.vn.spotify.R;
+import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 
 public class HomeFragment extends Fragment {
 
+    //Text variables
     TextView welcome;
     TextView album1;
     TextView album2;
     TextView album3;
-    RecyclerView rcvUser;
+    // Image view
     ImageView settingIv;
     ImageView notificationIv;
+
+    //declare adapter for album
+    RecyclerView rcvUser;
     private AlbumAdapter userAdapter;
 
-    RecyclerView rcvUser1;
-    private AlbumAdapter userAdapter1;
+    //declare adapter for playlist
+    RecyclerView rcvPlaylist;
+    private PlaylistVerticalAdapter playlistAdapter;
 
-    RecyclerView rcvUser2;
-    private AlbumAdapter userAdapter2;
+    //declare adapter for artist
+    RecyclerView rcvArtist;
+    private ArtistAdapter artistAdapter;
 
+    //declare adapter for list music
     RecyclerView rcvListMusic;
     private ListAdapter listAdapter;
 
@@ -68,7 +84,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Set data for recycle view
         setData(view);
+        setArtistData(view);
+        setPlaylistData(view);
+        setMusicPlaylistData(view);
         // Move to another activity
         //go to setting activity
         settingIv = view.findViewById(R.id.icon_setting);
@@ -90,14 +110,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //Set album name
-        album1 = view.findViewById(R.id.album1);
-        album2 = view.findViewById(R.id.album2);
-        album3 = view.findViewById(R.id.album3);
-        album1.setText("Popular Albums");
-        album2.setText("Only For You");
-        album3.setText("Albums");
-
         //Set welcome text
         Calendar now = Calendar.getInstance();
         int hour = now.get((Calendar.HOUR_OF_DAY));
@@ -109,7 +121,52 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    //Get album list from firebase to show on recycleview
+    //Set data for recycle views
+    private void setData(View view) {
+        //set data for album list
+        rcvUser = view.findViewById(R.id.recycleView);
+        userAdapter = new AlbumAdapter((getActivity()));
+        userAdapter.setData(getListAlbum());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        rcvUser.setAdapter(userAdapter);
+        rcvUser.setLayoutManager(linearLayoutManager);
+    }
+    //Set data for playlist
+    private void setPlaylistData(View view){
+        //get userid
+        User user = new User();
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
+
+        //Set data
+        rcvPlaylist = view.findViewById(R.id.recycleView1);
+        playlistAdapter = new PlaylistVerticalAdapter((getActivity()));
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        playlistAdapter.setData(getListPlaylist(user.getUserId().trim()));
+        rcvPlaylist.setAdapter(playlistAdapter);
+        rcvPlaylist.setLayoutManager(linearLayoutManager1);
+    }
+    //Set data for artist
+    private void setArtistData(View view){
+        rcvArtist = view.findViewById(R.id.recycleView2);
+        artistAdapter = new ArtistAdapter((getActivity()));
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
+        artistAdapter.setData(getListArtist());
+        rcvArtist.setAdapter(artistAdapter);
+        rcvArtist.setLayoutManager(linearLayoutManager2);
+    }
+
+    private void setMusicPlaylistData(View view){
+        //set data for music list
+        rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);
+        listAdapter = new ListAdapter((getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
+        rcvListMusic.setLayoutManager(gridLayoutManager);
+        listAdapter.setData(getListMusicPlaylist());
+        rcvListMusic.setAdapter(listAdapter);
+    }
+
+    //Get album list from firebase to show on recycle view
     private List<Album> getListAlbum()
     {
         List<Album> list = new ArrayList<>();
@@ -152,6 +209,55 @@ public class HomeFragment extends Fragment {
                     String key = data.getKey();
                     artist.setKey(key);
                 }
+                artistAdapter.setData(list);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return list;
+    }
+    //Get playlist from firebase
+    private List<Playlist> getListPlaylist(String userId) {
+        List<Playlist> list = new ArrayList<>();
+
+        DAOPlaylist daoPlaylist = new DAOPlaylist();
+        daoPlaylist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Playlist playlist = data.getValue(Playlist.class);
+                    if(playlist.getuID().trim().equals(userId)){
+                        list.add(playlist);
+                        String key = data.getKey();
+                        playlist.setKey(key);
+                    }
+                }
+                playlistAdapter.setData(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return list;
+    }
+    //Get list music playlist
+    private List<MusicPlaylist> getListMusicPlaylist() {
+        List<MusicPlaylist> list = new ArrayList<>();
+        DAOMusicPlaylist daoMusicPlaylist = new DAOMusicPlaylist();
+        daoMusicPlaylist.getByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    MusicPlaylist musicPlaylist = data.getValue(MusicPlaylist.class);
+                    list.add(musicPlaylist);
+                    String key = data.getKey();
+                    musicPlaylist.setKey(key);
+                }
+                listAdapter.setData(list);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -161,51 +267,5 @@ public class HomeFragment extends Fragment {
         return list;
     }
 
-    //Get music playlist from firebase
-    private List<MusicPlaylist> getListMusic()
-    {
-        List<MusicPlaylist> list = new ArrayList<>();
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nghe tiếp"));
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán khỏi nghe"));
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán thì thôi"));
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nghỉ"));
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán nữa"));
-        list.add(new MusicPlaylist("https://image.thanhnien.vn/w1024/Uploaded/2022/wpdhnwejw/2022_03_18/img-8371-4267.jpeg", "Nghe chán thì ngủ"));
 
-        return list;
-    }
-
-
-    //Set data for recycle views
-    public void setData(View view) {
-        //set data for album list
-        rcvUser = view.findViewById(R.id.recycleView);
-        userAdapter = new AlbumAdapter((getActivity()));
-        userAdapter.setData(getListAlbum());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        rcvUser.setAdapter(userAdapter);
-        rcvUser.setLayoutManager(linearLayoutManager);
-
-        rcvUser1 = view.findViewById(R.id.recycleView1);
-        userAdapter1 = new AlbumAdapter((getActivity()));
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        userAdapter1.setData(getListAlbum());
-        rcvUser1.setAdapter(userAdapter1);
-        rcvUser1.setLayoutManager(linearLayoutManager1);
-
-        rcvUser2 = view.findViewById(R.id.recycleView2);
-        userAdapter2 = new AlbumAdapter((getActivity()));
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
-        userAdapter2.setData(getListAlbum());
-        rcvUser2.setAdapter(userAdapter2);
-        rcvUser2.setLayoutManager(linearLayoutManager2);
-
-        //set data for music list
-        rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);
-        listAdapter = new ListAdapter((getActivity()));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL, false);
-        rcvListMusic.setLayoutManager(gridLayoutManager);
-        listAdapter.setData(getListMusic());
-        rcvListMusic.setAdapter(listAdapter);
-    }
 }

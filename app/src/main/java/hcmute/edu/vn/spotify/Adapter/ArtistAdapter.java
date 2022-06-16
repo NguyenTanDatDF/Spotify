@@ -60,12 +60,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         });
     }
 
+    //Limit the number of song that can be shown
+    private final int limit = 5;
     @Override
     public int getItemCount() {
-        if (pArtist != null) {
+        if (pArtist.size() > limit) {
             return pArtist.size();
         }
-        return 0;
+        else {
+            return pArtist.size();
+        }
     }
 
     public class ArtistViewHolder extends RecyclerView.ViewHolder {

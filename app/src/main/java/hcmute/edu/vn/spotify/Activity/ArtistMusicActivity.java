@@ -1,16 +1,18 @@
 package hcmute.edu.vn.spotify.Activity;
-
+import android.media.Image;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,12 @@ public class ArtistMusicActivity extends AppCompatActivity {
 
     // use to pass raw data into recyclerview of track
     private TrackAdapter trackAdapter;
+
+    //Set name for artist
+    com.google.android.material.appbar.CollapsingToolbarLayout artistName;
+
+    //Set artist image for artist
+    ImageView artistImage;
     // static name
     static String  Name;
     // Declare the view
@@ -57,6 +65,13 @@ public class ArtistMusicActivity extends AppCompatActivity {
 
             // Get object data
             Artist artist = (Artist) getIntent().getExtras().get("object_artist");
+
+            //Set artist name and artist image
+            artistName = (com.google.android.material.appbar.CollapsingToolbarLayout) findViewById(R.id.activityArtistMusic_artistName);
+            artistImage = (ImageView) findViewById(R.id.activityArtistMusic_artistImage);
+
+            artistName.setTitle(artist.getNameArtist().trim());
+            Glide.with(this).load(artist.getImageArtist().trim()).into(artistImage);
 
             //Set data of recyclerview by artist id
             setData(artist.getIdArtist().trim());

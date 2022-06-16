@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,12 @@ public class AlbumMusicActivity extends AppCompatActivity {
     // use to pass raw data into recyclerview of track
     private TrackAdapter trackAdapter;
 
+    //Set name for activity by album name
+    com.google.android.material.appbar.CollapsingToolbarLayout albumName;
+
+    //Set image for album
+    ImageView albumImage;
+
     // The view which showing FloatingActionButton button in activity
     FloatingActionButton btn_playlist;
     static String AlbumName;
@@ -63,22 +71,14 @@ public class AlbumMusicActivity extends AppCompatActivity {
             // Get object data
             Album album = (Album) getIntent().getExtras().get("object_album");
 
-            //Set data for albums
-            rcvAlbum = findViewById(R.id.activityAlbumMusic_listAlbumRv);
-            albumAdapter = new AlbumAdapter(this);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-            rcvAlbum.setLayoutManager(linearLayoutManager);
-            albumAdapter.setData(getListAlbum(album.getArtistId().trim(), album.getArtistName().trim()));
-            rcvAlbum.setAdapter(albumAdapter);
+            setAlbumData(album);
+            setTrackData(album);
+            //Set artist name and artist image
+            albumName = (com.google.android.material.appbar.CollapsingToolbarLayout) findViewById(R.id.activityAlbumMusic_albumName);
+            albumImage = (ImageView) findViewById(R.id.activityAlbumMusic_albumImage);
 
-            //Set data for track
-            rcvTrack = findViewById(R.id.activityAlbumMusic_listMusicRv);
-            trackAdapter = new TrackAdapter(this);
-            LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-            rcvTrack.setLayoutManager(linearLayoutTrackManager);
-            trackAdapter.setData(getListTrack(album.getAlbumId().trim()));
-            AlbumName = album.getAlbumId().trim();
-            rcvTrack.setAdapter(trackAdapter);
+            albumName.setTitle(album.getName().trim());
+            Glide.with(this).load(album.getResourceId().trim()).into(albumImage);
 
             // function which use to play a list of track if clicking the floating action button
             playListTrack(MainActivity.playlist);
@@ -231,5 +231,28 @@ public class AlbumMusicActivity extends AppCompatActivity {
         MainActivity.pvMain.showController();
         // Disable hiding view when touching
         MainActivity.pvMain.setControllerHideOnTouch(false);
+    }
+
+    //Set data for album
+    public void setAlbumData(Album album)
+    {
+        //Set data for albums
+        rcvAlbum = findViewById(R.id.activityAlbumMusic_listAlbumRv);
+        albumAdapter = new AlbumAdapter(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        rcvAlbum.setLayoutManager(linearLayoutManager);
+        albumAdapter.setData(getListAlbum(album.getArtistId().trim(), album.getArtistName().trim()));
+        rcvAlbum.setAdapter(albumAdapter);
+    }
+
+    public void setTrackData(Album album){
+        //Set data for track
+        rcvTrack = findViewById(R.id.activityAlbumMusic_listMusicRv);
+        trackAdapter = new TrackAdapter(this);
+        LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rcvTrack.setLayoutManager(linearLayoutTrackManager);
+        trackAdapter.setData(getListTrack(album.getAlbumId().trim()));
+        AlbumName = album.getAlbumId().trim();
+        rcvTrack.setAdapter(trackAdapter);
     }
 }

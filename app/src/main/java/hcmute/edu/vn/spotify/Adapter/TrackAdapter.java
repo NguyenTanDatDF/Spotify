@@ -130,12 +130,15 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         MainActivity.pvMain.showController();
         MainActivity.pvMain.setControllerHideOnTouch(false);
     }
+
+    //Limit the number of song that can be shown
+    private final int limit = 5;
     @Override
     public int getItemCount() {
-        if (pTrack != null) {
-            return pTrack.size();
+        if (pTrack.size() > limit) {
+            return limit;
         }
-        return 0;
+        else return pTrack.size();
     }
 
     public class TrackViewHolder extends RecyclerView.ViewHolder {
