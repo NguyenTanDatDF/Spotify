@@ -32,6 +32,7 @@ import hcmute.edu.vn.spotify.Activity.MainActivity;
 import hcmute.edu.vn.spotify.Activity.NewPlaylistActivity;
 import hcmute.edu.vn.spotify.Activity.SigninActivity;
 import hcmute.edu.vn.spotify.Database.DAOPlayListTrack;
+import hcmute.edu.vn.spotify.Database.DAOTrack;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.PlaylistTrack;
 import hcmute.edu.vn.spotify.Model.Topic;
@@ -70,10 +71,13 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         if(track == null){
             return;
         }
+
+
+
         else{
             Glide.with(pContext).load(track.getImage()).into(holder.tImage);
             holder.tName.setText(track.getName());
-            holder.tListens.setText(String.valueOf(track.gettListens()));
+            holder.tListens.setText(String.valueOf(track.gettListens()) + " views");
             holder.tCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -99,6 +103,10 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
                     MainActivity.nameArtist_track.setText( track.gettArtist().getNameArtist());
                     MainActivity.img_track.setImageBitmap(MyService.getBitmapFromURL(track.getImage()));
                     MainActivity.typePlaying = "single";
+                    DAOTrack daoTrack = new DAOTrack();
+
+                    daoTrack.databaseReference.child(MainActivity.track.getName().trim()).child("tListens").setValue(MainActivity.track.gettListens()+1);
+
                     PlayMedia(MainActivity.track);
                 }
             });
@@ -108,7 +116,6 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
     {
         if(MainActivity.player.isPlaying())
         {
-            //MainActivity.player.seekTo(MainActivity.player.getDuration()-100);
             MainActivity.player.stop(true);
         }
 
@@ -158,6 +165,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         daoPlayListTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot data: snapshot.getChildren()){
                     PlaylistTrack playlistTrack = data.getValue(PlaylistTrack.class);
                     list.add(playlistTrack);

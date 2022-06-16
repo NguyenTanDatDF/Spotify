@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
         setArtistData(view);
         setPlaylistData(view);
         setMusicPlaylistData(view);
-
         // Move to another activity
         //go to setting activity
         settingIv = view.findViewById(R.id.icon_setting);

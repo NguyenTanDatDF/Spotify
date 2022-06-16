@@ -89,7 +89,16 @@ public class PlayTrackActivity extends AppCompatActivity {
         MainActivity.player.addListener(new Player.Listener() {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-                MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+                if(MainActivity.typePlaying.equals("list"))
+                {
+                    MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+                }
+//                else
+//                {
+//                    MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+//                }
+
+
                 StartService();
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
                 img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track.getImage()));
