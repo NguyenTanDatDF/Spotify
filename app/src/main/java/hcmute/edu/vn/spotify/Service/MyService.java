@@ -139,8 +139,8 @@ public class MyService extends Service {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+      PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+       //  PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
         remoteViews = new RemoteViews(getPackageName(), R.layout.notification_layout);
         remoteViews.setTextViewText(R.id.txt_name, MainActivity.track.getName());
         remoteViews.setTextViewText(R.id.txt_artist, MainActivity.track.gettArtist().getNameArtist());
