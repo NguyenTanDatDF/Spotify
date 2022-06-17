@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // get user by singleton pattern
         User user = new User();
         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
         user = singleton.user;
@@ -189,13 +189,19 @@ public class MainActivity extends AppCompatActivity {
         User finalUser1 = user;
         User finalUser = user;
         DAOPlaylist daoPlaylist = new DAOPlaylist();
+
+        // the heart icon in the first time
         if(track!=null)
         {
             getUserListTrack(user.getUserId(),user.getUserId(), imgv_heart, track);
         }
 
+
         User finalUser3 = user;
         DAOPlayListTrack daoPlayListTrack =  new DAOPlayListTrack();
+
+        // When you click on the heart icon check it's current state by tag and
+        // add to song of user if user has not like and remove if double tap
         imgv_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -366,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
         // disable hiding when touching
         pvMain.setControllerHideOnTouch(false);
     }
-
+    // get the tag
     private int getDrawableId(ImageView iv) {
         return (Integer) iv.getTag();
     }
@@ -388,6 +394,8 @@ public class MainActivity extends AppCompatActivity {
                     ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
                     user = singleton.user;
 
+                    // check in data if the track in the song of user then show the fill heart and
+                    // empty heart if don't have
                     for(PlaylistTrack playlistTrack1: playlistTrack)
                     {
                         if(userId.equals(user.getUserId().trim()) && playlistId.equals(playlistTrack1.getPlaylistId().trim()) && track.getTrackId().trim().equals(playlistTrack1.getTrackId().trim()) )
@@ -417,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    // when get back to activity we need to update the heart icon
     @Override
     protected void onResume() {
         super.onResume();
@@ -431,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // get all playlist by id user
     private List<Playlist> getListPlaylist(String userId) {
         List<Playlist> list = new ArrayList<>();
 
@@ -457,6 +467,7 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    // all playlist track
     private List<PlaylistTrack> getPlaylistTrack()
     {
         List<PlaylistTrack> list = new ArrayList<>();

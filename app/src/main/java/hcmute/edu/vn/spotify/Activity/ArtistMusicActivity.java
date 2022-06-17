@@ -70,7 +70,10 @@ public class ArtistMusicActivity extends AppCompatActivity {
             artistName = (com.google.android.material.appbar.CollapsingToolbarLayout) findViewById(R.id.activityArtistMusic_artistName);
             artistImage = (ImageView) findViewById(R.id.activityArtistMusic_artistImage);
 
+            // set album title for image view of album
             artistName.setTitle(artist.getNameArtist().trim());
+
+            // set image by library
             Glide.with(this).load(artist.getImageArtist().trim()).into(artistImage);
 
             //Set data of recyclerview by artist id

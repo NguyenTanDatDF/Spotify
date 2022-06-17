@@ -45,25 +45,34 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 import me.zhengken.lyricview.LyricView;
 
 public class PlayTrackActivity extends AppCompatActivity {
+    // declare the Handler and Rumble to update the lyric in every second
     Handler handler = new Handler();
     Runnable runnable;
+
+    // Set the delay is 1 second (update every one second)
     int delay = 1000;
+
+    // Declere the lyricview
     LyricView mLyricView;
     PlayerView pvMain ; // creating player view
+    // declare the button to control the music
     ImageButton next;
     ImageButton prvious;
     ImageView img_track;
     ImageView back;
     ImageView repeat;
+    // declare the heart icon and name of song and artist
     ImageView imgv_heart;
     TextView name, artist;
-    NotificationManager notificationManager;
+    // set the value for playlist track (all playlist track)
     List<PlaylistTrack> allPlayListTrack = getPlaylistTrack();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_track);
+
+        // mapping the view
         pvMain = findViewById(R.id.pv_main2); // creating player view
         next = findViewById(R.id.next);
         prvious = findViewById(R.id.previous);
@@ -73,9 +82,9 @@ public class PlayTrackActivity extends AppCompatActivity {
         imgv_heart = findViewById(R.id.imgv_heart);
         name = findViewById(R.id.tv_name);
         artist = findViewById(R.id.tv_artist);
-//step 2
         mLyricView = (LyricView)findViewById(R.id.custom_lyric_view);
 
+        //check if the mode of play is list or single track
         if(MainActivity.typePlaying.equals("list"))
         {
             img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex()).getImage()));
@@ -89,44 +98,49 @@ public class PlayTrackActivity extends AppCompatActivity {
             artist.setText(MainActivity.track.getArtistName());
         }
 
+        // create a file object and put lyric of track to this file
         LyricFacade lyricFacade = new LyricFacade();
         File file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, MainActivity.track.gettLyric());
+        // set lyric by file
         mLyricView.setLyricFile(file);
 
 
+        // attach the new controller to player
+         PlayMedia(pvMain);
 
-
-
-
-      PlayMedia(pvMain);
-
-//step 4, update LyricView every interval
-//
+        // update LyricView every interval
+        // seek to next
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.player.seekToNext();
             }
         });
+        // seek to previous
         prvious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.player.seekToPrevious();
             }
         });
+
+        // get user by singleton
         User user = new User();
         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
         user = singleton.user;
         User finalUser1 = user;
 
+        // Create dao object to get data
         DAOPlayListTrack daoPlayListTrack = new DAOPlayListTrack();
 
+        // When you click on the heart icon check it's current state by tag and
+        // add to song of user if user has not like and remove if double tap
         imgv_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-
+                // check if current tag is fill heart or empty heart
                 if(getDrawableId(imgv_heart)==R.drawable.ic_not_heart)
                 {
                     //     StartService();
@@ -157,11 +171,12 @@ public class PlayTrackActivity extends AppCompatActivity {
                     }
                 }
 
-                // attach with first child
+
 
             }
         });
 
+        // Check the mode of repeat is turn on or off to active and refresh the icon
         if ( MainActivity.player.getRepeatMode()==MainActivity.player.REPEAT_MODE_OFF){
            repeat.setImageResource(R.drawable.ic_repeat);
         }
@@ -171,21 +186,25 @@ public class PlayTrackActivity extends AppCompatActivity {
 
         }
 
+        // turn or off the repeat mode
         repeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if ( MainActivity.player.getRepeatMode()==MainActivity.player.REPEAT_MODE_OFF){
+                    // if player are playing list of track then set mode of repeat if all
                     if(MainActivity.typePlaying.equals("list"))
                     {
                         MainActivity.player.setRepeatMode(MainActivity.player.REPEAT_MODE_ALL);
                         repeat.setImageResource(R.drawable.repeat_on);
                     }
+                    // if player are playing a single track then set mode of repeat if one
                     else
                     {
                         MainActivity.player.setRepeatMode(MainActivity.player.REPEAT_MODE_ONE);
                         repeat.setImageResource(R.drawable.repeat_on);
                     }
                 }
+                // turn off if double click
                 else
                 {
                     MainActivity.player.setRepeatMode(MainActivity.player.REPEAT_MODE_OFF);
@@ -196,15 +215,18 @@ public class PlayTrackActivity extends AppCompatActivity {
         });
 
 
-
+        // get the temp variable
         User finalUser = user;
 
-
+        // if track is exist find the icon of heart
+        // (it can be empty or fill depend on it is on the song of user)
         if(MainActivity.track!=null)
         {
             getUserListTrack(user.getUserId(),user.getUserId(), imgv_heart, MainActivity.track);
         }
 
+        // Exoplayer library support us a lot of listener
+        // Here i use on track change event to update the information to show for user
         MainActivity.player.addListener(new Player.Listener() {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
@@ -221,6 +243,7 @@ public class PlayTrackActivity extends AppCompatActivity {
                 StartService();
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
 
+                // update lyric
                 LyricFacade lyricFacade = new LyricFacade();
                 File file = new File(getFilesDir() + "/" + "hello.lrc");
                 file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, MainActivity.track.gettLyric());
@@ -236,6 +259,7 @@ public class PlayTrackActivity extends AppCompatActivity {
 
             }
         });
+        // get back to previous activity
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,6 +267,8 @@ public class PlayTrackActivity extends AppCompatActivity {
             }
         });
     }
+
+    // refresh the lyric every interval
     @Override
     protected void onResume() {
         final long[] videoWatchedTime = {0};
@@ -287,16 +313,18 @@ public class PlayTrackActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
+    // attach the controller with player
     public void PlayMedia(PlayerView playerView)
     {
 
         playerView.setPlayer(MainActivity.player); // attach surface to the view
-        playerView.setControllerShowTimeoutMs(0);
 
+        //configure the controller
+        playerView.setControllerShowTimeoutMs(0);
         playerView.showController();
         playerView.setControllerHideOnTouch(false);
     }
-
+    // start a forceground service (media notification bar)
     public void StartService(){
         Intent intent = new Intent(this, MyService.class);
         Bundle bundle = new Bundle();
@@ -306,6 +334,8 @@ public class PlayTrackActivity extends AppCompatActivity {
 
     }
 
+
+    //get all playlist track
     private List<PlaylistTrack> getPlaylistTrack()
     {
         List<PlaylistTrack> list = new ArrayList<>();
@@ -330,6 +360,7 @@ public class PlayTrackActivity extends AppCompatActivity {
         return list;
     }
 
+    // this function will update the icon heart
     private List<Track> getUserListTrack(String userId, String playlistId, ImageView imgv_heart, Track track1)
     {
         List<Track> list = new ArrayList<>();
@@ -353,6 +384,7 @@ public class PlayTrackActivity extends AppCompatActivity {
                 {
                     if(userId.equals(user.getUserId().trim()) && playlistId.equals(playlistTrack1.getPlaylistId().trim()) && MainActivity.track.getTrackId().trim().equals(playlistTrack1.getTrackId().trim()) )
                     {
+                        // set fill heart if it is in the song of user
                         imgv_heart.setImageResource(R.drawable.ic_heart_fill);
                         imgv_heart.setTag(R.drawable.ic_heart_fill);
                         break;

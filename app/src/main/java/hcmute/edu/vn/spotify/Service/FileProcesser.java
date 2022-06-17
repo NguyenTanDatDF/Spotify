@@ -11,12 +11,12 @@ import hcmute.edu.vn.spotify.Activity.TopicMusicActivity;
 
 public class FileProcesser {
     Context context;
-
+    // get the path of context device
     public String getDevicePath(Context context)
     {
         return context.getFilesDir() + "/" + "hello.lrc";
     }
-
+    // create file in the input path
     public File createFile(String path)
     {
         File file = new File(path);
@@ -28,7 +28,7 @@ public class FileProcesser {
         return file;
     }
 
-
+    // write the array of string and every element it will create new line
     public void writeFile(File file, String[] content)
     {
         FileWriter fileWriter = null;

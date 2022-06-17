@@ -60,6 +60,7 @@ public class PlaylistMusicActivity extends AppCompatActivity {
     private SuggestTrackAdapter suggestTrackAdapter;
     private FloatingActionButton  btn_playlist;
 
+    // set the global variable to store the data when forward to other activity
     static String idUser;
     static String idPlaylist;
 
