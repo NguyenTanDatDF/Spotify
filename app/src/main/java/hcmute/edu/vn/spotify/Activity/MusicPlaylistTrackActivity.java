@@ -34,10 +34,15 @@ import hcmute.edu.vn.spotify.R;
 
 public class MusicPlaylistTrackActivity extends AppCompatActivity {
 
+    // declare the view
     com.google.android.material.appbar.CollapsingToolbarLayout musicPlaylistName;
     ImageView musicPlaylistImage;
     private RecyclerView rcvTrack;
+
+    // declare the track adapter
     private TrackAdapter trackAdapter;
+
+    // declare the DAO of track to get data from firebase
     DAOMusicPlaylistTrack daoMusicPlaylistTrack = new DAOMusicPlaylistTrack();
 
     @Override
@@ -112,10 +117,10 @@ public class MusicPlaylistTrackActivity extends AppCompatActivity {
 
         return list;
     }
-
+        // get list of music playlist
     private List<MusicPlaylistTrack> getListMusicPlaylistTrack(String musicPlaylistId){
         List<MusicPlaylistTrack> list = new ArrayList<>();
-
+        // Declare dao of MusicPlaylistTrack to get data
         DAOMusicPlaylistTrack daoMusicPlaylistTrack = new DAOMusicPlaylistTrack();
         // this listener will listen from firebase continuously and get data
         daoMusicPlaylistTrack.getByKey().addValueEventListener(new ValueEventListener() {
@@ -138,6 +143,7 @@ public class MusicPlaylistTrackActivity extends AppCompatActivity {
         return list;
     }
 
+    // update the track to music playlistTrack
     private void updateTrack(String musicPlaylistId) {
         List<MusicPlaylistTrack> list = getListMusicPlaylistTrack(musicPlaylistId);
         if(list.size() == 0){

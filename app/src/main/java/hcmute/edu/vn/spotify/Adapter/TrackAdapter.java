@@ -41,17 +41,23 @@ import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHolder > implements Filterable {
-
+    // declare the context
     private Context pContext;
+    //declare the list track
     private List<Track> pTrack;
+    // declare the old list track to compare
     private List<Track> pTrackOld;
+    // declare the dao object to get data
     DAOPlayListTrack daoPlayListTrack = new DAOPlayListTrack();
+    // init the first dataa for playlist track
     List<PlaylistTrack> list = getPlaylistTrack();
 
+    // pass the activity context to this adapter
     public TrackAdapter(Context pContext){
         this.pContext = pContext;
     }
 
+     // set data for recyclerview, list track and old list track
     public void setData (List<Track> list) {
         this.pTrack = list;
         this.pTrackOld = list;
@@ -61,23 +67,26 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
     @NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // inflater with component music to return a view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_music, parent, false);
         return new TrackAdapter.TrackViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
+        // get the track in this position
         Track track = pTrack.get(position);
+        // return if null
         if(track == null){
             return;
         }
 
-
-
         else{
+            // set the track infomation
             Glide.with(pContext).load(track.getImage()).into(holder.tImage);
             holder.tName.setText(track.getName());
             holder.tListens.setText(String.valueOf(track.gettListens()) + " views");
+            // remove if click on remove button
             holder.tCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -92,42 +101,53 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
                     }
                 }
             });
-
+            // if click to the specify track, it will play this track and set some of global variable
             holder.trackLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // stop previous track
                     MainActivity.player.stop(true);
+                    // set the current track
                     MainActivity.track = track;
                    // MainActivity.playlist.clear();
+                    // set track information
                     MainActivity.name_track.setText( track.getName());
                     MainActivity.nameArtist_track.setText( track.gettArtist().getNameArtist());
                     MainActivity.img_track.setImageBitmap(MyService.getBitmapFromURL(track.getImage()));
+                    // set mode of play is single
                     MainActivity.typePlaying = "single";
                     DAOTrack daoTrack = new DAOTrack();
-
+                    // increase the view if play this track
                     daoTrack.databaseReference.child(MainActivity.track.getName().trim()).child("tListens").setValue(MainActivity.track.gettListens()+1);
-
+                    // lunch to play this track
                     PlayMedia(MainActivity.track);
                 }
             });
         }
     }
+    // play a track
     public void PlayMedia(Track track)
     {
+        // stop if player is playing
         if(MainActivity.player.isPlaying())
         {
             MainActivity.player.stop(true);
         }
-
+        // create media item from url
         Uri uriOfContentUrl = Uri.parse(track.getSource());
         MediaItem Item = MediaItem.fromUri(uriOfContentUrl);
         // Add the media items to be played.
         MainActivity.player.addMediaItem(Item);
+        // load the track
         MainActivity.player.prepare();
         // Start the playback.
-        MainActivity.player.play(); // start loading video and play it at the moment a chunk of it is available offline (start and play immediately)
+        MainActivity.player.play();
+        // configure the player
+        // set always display
         MainActivity.pvMain.setControllerShowTimeoutMs(0);
+        // show controller
         MainActivity.pvMain.showController();
+        // show disable the hiding on touching
         MainActivity.pvMain.setControllerHideOnTouch(false);
     }
 
@@ -141,8 +161,9 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         else return pTrack.size();
     }
 
-    public class TrackViewHolder extends RecyclerView.ViewHolder {
 
+    public class TrackViewHolder extends RecyclerView.ViewHolder {
+        // declare the view
         private ImageView tImage;
         private TextView tName;
         private TextView tListens;
@@ -150,6 +171,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         private ConstraintLayout trackLayout;
         public TrackViewHolder(@NonNull View itemView) {
             super(itemView);
+            // mapping the view
             tImage = itemView.findViewById(R.id.componentMusic_imageIv);
             tName = itemView.findViewById(R.id.componentMusic_songTv);
             tListens = itemView.findViewById(R.id.componentMusic_listensTv);
@@ -158,6 +180,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         }
     }
 
+    // get all playlist track
     private List<PlaylistTrack> getPlaylistTrack()
     {
         List<PlaylistTrack> list = new ArrayList<>();
@@ -183,6 +206,8 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         return list;
     }
 
+
+    // it will filter the data and reload to recyclerview in realtime
     @Override
     public Filter getFilter() {
         return new Filter() {

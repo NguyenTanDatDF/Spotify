@@ -77,7 +77,9 @@ public class AlbumMusicActivity extends AppCompatActivity {
             albumName = (com.google.android.material.appbar.CollapsingToolbarLayout) findViewById(R.id.activityAlbumMusic_albumName);
             albumImage = (ImageView) findViewById(R.id.activityAlbumMusic_albumImage);
 
+            // set title of album
             albumName.setTitle(album.getName().trim());
+            // set Image view with url by library
             Glide.with(this).load(album.getResourceId().trim()).into(albumImage);
 
             // function which use to play a list of track if clicking the floating action button
