@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     public static TextView name_track;
     public static TextView nameArtist_track;
 
+    public static boolean isHeartTrack;
+
     // this is current track is playing, if user playing a playlist this track will be set as null
     public static Track track;
 
