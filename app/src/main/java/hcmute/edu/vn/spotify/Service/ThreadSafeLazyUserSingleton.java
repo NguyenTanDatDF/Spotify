@@ -9,7 +9,6 @@ public class ThreadSafeLazyUserSingleton {
     //Biến volatile trong Java có tác dụng thông báo sự thay
     // đổi giá trị của biến tới các thread khác nhau nếu biến này đang được sử dụng trong nhiều thread.
     private static volatile ThreadSafeLazyUserSingleton instance;
-
     private ThreadSafeLazyUserSingleton(User user) {
         this.user = user;
     }
@@ -21,11 +20,7 @@ public class ThreadSafeLazyUserSingleton {
         if (instance == null || MainActivity.logout == true) {
             instance = new ThreadSafeLazyUserSingleton(user);
         }
-//        if(instance != null &&  activityName.equals("SigninActivity"))
-//        {
-//            instance = new ThreadSafeLazyUserSingleton(user);
-//
-//        }
         return instance;
     }
+
 }

@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Random;
 
+import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Database.DAOUser;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.User;
@@ -52,14 +53,26 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        DAOPlaylist daoPlaylist = new DAOPlaylist();
         //sign up event
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!username_et.getText().toString().isEmpty() || !password_et.getText().toString().isEmpty() || !name_et.getText().toString().isEmpty() || !mail_et.getText().toString().isEmpty()){
+
+
                     User user = new User(randomId(), username_et.getText().toString(), password_et.getText().toString(), name_et.getText().toString(), mail_et.getText().toString(), false, false);
+
+
+                     User cloneUser = (User) user.createClone();
+
+                     // hạn chế một số trường hợp Id bị thay đổi
+
                     daoUser.addNewUser(user).addOnSuccessListener(suc -> {
+                        Playlist playlist = new Playlist("https://img.freepik.com/free-vector/playlist-neon-sign-black-brick-wall_77399-755.jpg?w=2000", cloneUser.getUserId().toString(), "Song of " + cloneUser.getUsername(), cloneUser.getUsername().toString(), cloneUser.getUserId());
+
+                        // add playlist to firebase by daoPlaylist.addNewPlaylist and listen when it successful or fail
+                        daoPlaylist.addNewPlaylist(playlist);
                         Toast.makeText(SignupActivity.this, "Sign up new user successfully!", Toast.LENGTH_SHORT).show();
                         finish();
                     }).addOnFailureListener(err -> {
