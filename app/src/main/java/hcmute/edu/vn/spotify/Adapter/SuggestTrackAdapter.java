@@ -34,22 +34,31 @@ import hcmute.edu.vn.spotify.R;
 
 public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapter.TrackViewHolder > implements Filterable {
 
+    //Suggest track context
     private Context pContext;
+    //List track
     private List<Track> pTrack;
+    //List track for search
     private List<Track> pTrackOld;
+
+    //DAO playlist track data
     DAOPlayListTrack daoPlayListTrack = new DAOPlayListTrack();
+
+    //Get list playlist track
     List<PlaylistTrack> list = getPlaylistTrack();
 
     public SuggestTrackAdapter(Context pContext){
         this.pContext = pContext;
     }
 
+    //Set data for track
     public void setData (List<Track> list) {
         this.pTrack = list;
         this.pTrackOld = list;
         notifyDataSetChanged();
     }
 
+    // Create view holder
     @NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,16 +66,20 @@ public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapte
         return new SuggestTrackAdapter.TrackViewHolder(view);
     }
 
+    //Bind view holder
     @Override
     public void onBindViewHolder(@NonNull TrackViewHolder holder, int position) {
+        //Get defined track
         Track track = pTrack.get(position);
         if(track == null){
             return;
         }
         else{
+            //set data
             Glide.with(pContext).load(track.getImage()).into(holder.tImage);
             holder.tName.setText(track.getName());
             holder.tListens.setText(String.valueOf(track.gettListens()));
+            //Add suggest track to list favorite track
             holder.tAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -91,6 +104,7 @@ public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapte
         else return pTrack.size();
     }
 
+    //Create view holder
     public class TrackViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView tImage;
@@ -105,7 +119,7 @@ public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapte
             tAdd = itemView.findViewById(R.id.music_add_btn);
         }
     }
-
+    //Get list track that belong to playlist
     private List<PlaylistTrack> getPlaylistTrack()
     {
         List<PlaylistTrack> list = new ArrayList<>();
@@ -130,6 +144,7 @@ public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapte
         return list;
     }
 
+    //Filter for search track in suggest track
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -162,6 +177,8 @@ public class SuggestTrackAdapter extends RecyclerView.Adapter<SuggestTrackAdapte
             }
         };
     }
+
+    //Create random id
     public String randomId(){
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"

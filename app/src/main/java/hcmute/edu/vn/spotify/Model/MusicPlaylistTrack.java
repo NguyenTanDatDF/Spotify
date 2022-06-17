@@ -4,6 +4,7 @@ package hcmute.edu.vn.spotify.Model;
 import com.google.firebase.database.Exclude;
 
 public class MusicPlaylistTrack {
+    //Create properties
     @Exclude
     String key;
     private String trackId;
@@ -11,10 +12,12 @@ public class MusicPlaylistTrack {
     private String tGenre;
     private String artistId;
 
+    //Create empty constructor
     public MusicPlaylistTrack() {
 
     }
 
+    //Create constructor
     public MusicPlaylistTrack(String trackId, String musicPlaylistId, String tGenre, String artistId) {
         this.trackId = trackId;
         this.musicPlaylistId = musicPlaylistId;
@@ -22,6 +25,7 @@ public class MusicPlaylistTrack {
         this.artistId = artistId;
     }
 
+    //Getter and setter
     public String getKey() {
         return key;
     }

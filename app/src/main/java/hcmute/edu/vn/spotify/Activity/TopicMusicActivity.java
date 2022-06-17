@@ -51,24 +51,40 @@ import hcmute.edu.vn.spotify.R;
 import hcmute.edu.vn.spotify.Service.MyService;
 
 public class TopicMusicActivity extends AppCompatActivity {
+    //Declare variables
+    //recycle view to get all the track
     private RecyclerView rcvTrack;
+    //Track adapter
     private TrackAdapter trackAdapter;
+    //Get topic title
     CollapsingToolbarLayout topicTitle;
+    //Get topic image
     ImageView topicImage;
+    //Get topic name
     static String  topicName;
+    //Play all the track button
     FloatingActionButton btn_playlist;
+    //First time, list track is null
     List<Track> listTrack = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //create view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_music);
+
+        //Get the topic's data from search fragment using get intent
         if(getIntent().getExtras() != null) {
+            //defined topic
             Topic topic = (Topic) getIntent().getExtras().get("object_topic");
+
+            //Mapping variables
             topicTitle = (CollapsingToolbarLayout) findViewById(R.id.activityTopicMusic_Tv);
             topicImage = (ImageView) findViewById(R.id.activityTopicMusic_Iv);
             topicTitle.setTitle(topic.getName().trim());
             Glide.with(this).load(topic.getUrl()).into(topicImage);
+
+            //Set data for track recycle view
             setData(topic);
             topicName = topic.getName().trim();
             playListTrack(MainActivity.playlist);
@@ -76,9 +92,7 @@ public class TopicMusicActivity extends AppCompatActivity {
 
     }
 
-
-
-
+    //Player will play a list of track which belong to this topic and set the global variables
     public void playListTrack(List<Track> trackList)
     {
         btn_playlist = findViewById(R.id.btn_playlist);
@@ -98,13 +112,14 @@ public class TopicMusicActivity extends AppCompatActivity {
         });
     }
 
-
+    //Re update list track when user comeback activity
     @Override
     protected void onResume() {
         super.onResume();
         getListTrack(topicName);
     }
 
+    //Play a list of track
     public void PlayListMedia(List<Track> tracks)
     {
 
@@ -131,6 +146,7 @@ public class TopicMusicActivity extends AppCompatActivity {
 
 
 
+    //Set data for track recycle view using topic
     public void setData(Topic topic){
         //Set data for track
         rcvTrack = findViewById(R.id.activityTopicMusic_Rv);
@@ -143,6 +159,7 @@ public class TopicMusicActivity extends AppCompatActivity {
     }
 
 
+    //Get list track
     private List<Track> getListTrack(String type)
     {
         List<Track>  list = new ArrayList<>();

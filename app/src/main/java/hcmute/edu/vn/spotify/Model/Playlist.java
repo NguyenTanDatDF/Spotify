@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class Playlist implements Serializable {
+    //Create properties
     @Exclude
     public String Key;
 
@@ -14,6 +15,7 @@ public class Playlist implements Serializable {
     private String uName;
     private String playlistId;
 
+    //Create Playlist constructor
     public Playlist(String pUrl, String uID, String pName, String uName, String playlistId) {
         this.pUrl = pUrl;
         this.uID = uID;
@@ -22,9 +24,13 @@ public class Playlist implements Serializable {
         this.playlistId = playlistId;
     }
 
+    //Create empty playlist construtor
+
     public Playlist() {
 
     }
+
+    //Getter and setter
 
     public String getKey() {
         return Key;

@@ -31,17 +31,24 @@ public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //Create activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
 
 
         //Variables
+        //Username value
         EditText username_et = (EditText) findViewById(R.id.activitySignup_usernameEt);
+        //Password value
         EditText password_et = (EditText) findViewById(R.id.activitySignup_passwordEt);
+        //User's  name value
         EditText name_et = (EditText) findViewById(R.id.activitySignup_nameEt);
+        //User's email value
         EditText mail_et = (EditText) findViewById(R.id.activitySignup_emailEt);
+        //Sign up button
         Button signup_btn = (Button) findViewById(R.id.activitySignup_signupBtn);
+        //Back to previous activity(Welcome)
         ImageView backIv = (ImageView) findViewById(R.id.activitySignup_backIv);
 
 
@@ -54,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
         DAOPlaylist daoPlaylist = new DAOPlaylist();
-        //sign up event
+        //sign up event. If the text field is not empty, user can sign in
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import hcmute.edu.vn.spotify.R;
 
 public class WelcomeActivity extends AppCompatActivity {
+    //sign up button
     Button signup_btn;
+    //sign in button
     Button signin_btn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

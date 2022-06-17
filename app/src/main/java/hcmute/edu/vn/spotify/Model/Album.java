@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class Album implements Serializable {
+    //Create properties
     @Exclude
     public String key;
 
@@ -16,10 +17,12 @@ public class Album implements Serializable {
     private String albumId;
 
 
+    //Create empty Album constructor
     public Album() {
 
     }
 
+    //Create album constructor
     public Album(String name, String resourceId, String description, String artistId, String artistName, String albumId) {
         this.name = name;
         this.resourceId = resourceId;
@@ -29,6 +32,7 @@ public class Album implements Serializable {
         this.albumId = albumId;
     }
 
+    //Getter and setter
     public String getKey() {
         return key;
     }

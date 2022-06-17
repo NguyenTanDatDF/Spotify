@@ -5,22 +5,26 @@ import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class MusicPlaylist implements Serializable {
+    //Create properties
     @Exclude
     String key;
     private String lImageUrl;
     private String lName;
     private String musicPlaylistId;
 
+    //Create empty constructor
     public MusicPlaylist() {
 
     }
 
+    //Create music playlist constructor
     public MusicPlaylist(String lImageUrl, String lName, String musicPlaylistId) {
         this.lImageUrl = lImageUrl;
         this.lName = lName;
         this.musicPlaylistId = musicPlaylistId;
     }
 
+    //Getter and setter
     public String getKey() {
         return key;
     }
