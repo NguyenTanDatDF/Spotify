@@ -1,6 +1,8 @@
 package hcmute.edu.vn.spotify.Model;
 
-public class Favorite {
+import hcmute.edu.vn.spotify.Interface.Prototyte;
+
+public class Favorite implements Prototyte {
     String uid;
     String tid;
 
@@ -26,5 +28,9 @@ public class Favorite {
 
     public void setTid(String tid) {
         this.tid = tid;
+    }
+
+    public Prototyte createClone() {
+        return new Favorite(uid,tid);
     }
 }

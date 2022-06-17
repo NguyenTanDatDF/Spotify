@@ -52,6 +52,9 @@ public class PlayTrackActivity extends AppCompatActivity {
         prvious = findViewById(R.id.previous);
         img_track = findViewById(R.id.img_track);
         back = findViewById(R.id.btn_back);
+
+
+
 //step 2
         mLyricView = (LyricView)findViewById(R.id.custom_lyric_view);
 
@@ -68,6 +71,11 @@ public class PlayTrackActivity extends AppCompatActivity {
         LyricFacade lyricFacade = new LyricFacade();
         File file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, MainActivity.track.gettLyric());
         mLyricView.setLyricFile(file);
+
+
+
+
+
 
       PlayMedia(pvMain);
 

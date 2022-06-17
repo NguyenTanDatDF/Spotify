@@ -15,6 +15,8 @@ public class LyricFacade {
         stringProcesser = new StringProcesser();
     }
 
+
+
     public File createFileObjectWithLyric(Context context, String content)
     {
         String path = fileProcesser.getDevicePath(context);
