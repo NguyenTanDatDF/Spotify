@@ -61,6 +61,7 @@ public class SigninActivity extends AppCompatActivity {
                         Intent main_activity = new Intent(SigninActivity.this, MainActivity.class);
 
                         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+
                         MainActivity.logout = false;
                         //definedUser = user;
                         startActivity(main_activity);
