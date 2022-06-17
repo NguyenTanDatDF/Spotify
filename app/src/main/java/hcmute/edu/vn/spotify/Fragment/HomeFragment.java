@@ -39,6 +39,7 @@ import hcmute.edu.vn.spotify.Database.DAOPlaylist;
 import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.Model.Artist;
 import hcmute.edu.vn.spotify.Model.MusicPlaylist;
+import hcmute.edu.vn.spotify.Model.MusicPlaylistTrack;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.Topic;
 import hcmute.edu.vn.spotify.Model.User;
@@ -83,6 +84,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+//        MusicPlaylistTrack musicPlaylistTrack = new MusicPlaylistTrack("123", "123", "123", "!23");
+//        DatabaseReference storageRef = FirebaseDatabase.getInstance("https://admin-sportify-default-rtdb.firebaseio.com/").getReference();
+//        storageRef.child("MusicPlaylistTrack").push().setValue(musicPlaylistTrack);
 
         //Set data for recycle view
         setData(view);
