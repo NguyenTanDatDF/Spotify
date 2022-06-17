@@ -5,21 +5,23 @@ import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class PlaylistTrack implements Serializable {
+    //Create properties
     @Exclude
     private String key;
     private String trackId;
     private String playlistId;
 
+    //Create playlist track constructor
     public PlaylistTrack(String key, String trackId, String playlistId) {
         this.key = key;
         this.trackId = trackId;
         this.playlistId = playlistId;
     }
-
+    //Create empty playlist track constructor
     public PlaylistTrack() {
 
     }
-
+    //Getter and setter
     public String getKey() {
         return key;
     }

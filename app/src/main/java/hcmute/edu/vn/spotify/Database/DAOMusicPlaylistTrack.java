@@ -10,12 +10,15 @@ import hcmute.edu.vn.spotify.Model.MusicPlaylistTrackBuilder;
 import hcmute.edu.vn.spotify.Model.Playlist;
 
 public class DAOMusicPlaylistTrack {
+    //Call data reference and firebase database
     public DatabaseReference databaseReference;
     public FirebaseDatabase db;
+    // Get all data from firebase
     public DAOMusicPlaylistTrack() {
         db = FirebaseDatabase.getInstance("https://admin-sportify-default-rtdb.firebaseio.com/");
         databaseReference = db.getReference("MusicPlaylistTrack"); // return class name
     }
+    //Add new music playlist track to database
     public Task<Void> addNewMusicPlaylistTrack(MusicPlaylistTrackBuilder musicPlaylistTrackBuilder){
         if(musicPlaylistTrackBuilder != null) {
             try {
@@ -27,8 +30,10 @@ public class DAOMusicPlaylistTrack {
         }
         return null;
     }
+    //Remove music playlist track to database
     public Task<Void> removeMusicPlaylistTrack(String key){
         return databaseReference.child(key).removeValue();
     }
+    //Get key
     public Query getByKey() { return databaseReference.orderByKey();}
 }

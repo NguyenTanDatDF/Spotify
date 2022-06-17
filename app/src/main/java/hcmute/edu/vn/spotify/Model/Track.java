@@ -1,114 +1,4 @@
 package hcmute.edu.vn.spotify.Model;
-
-//import com.google.firebase.database.Exclude;
-//
-//import java.io.Serializable;
-//
-//public class Track implements Serializable {
-//    @Exclude
-//    private String key;
-//
-//    private String albumId;
-//    private String artistId;
-//    private String image;
-//    private String name;
-//    private String source;
-//    private String tGenre;
-//    private int tListens;
-//    private String tLyrics;
-//
-//    public Track(String albumId, String artistId, String image, String name, String source, String tGenre, int tListens, String tLyrics) {
-//        this.albumId = albumId;
-//        this.artistId = artistId;
-//        this.image = image;
-//        this.name = name;
-//        this.source = source;
-//        this.tGenre = tGenre;
-//        this.tListens = tListens;
-//        this.tLyrics = tLyrics;
-//
-//    }
-//
-//    public Track() {
-//
-//    }
-//
-//    public String getKey() {
-//        return key;
-//    }
-//
-//    public void setKey(String key) {
-//        this.key = key;
-//    }
-//
-//    public String getAlbumId() {
-//        return albumId;
-//    }
-//
-//    public void setAlbumId(String albumId) {
-//        this.albumId = albumId;
-//    }
-//
-//    public String getArtistId() {
-//        return artistId;
-//    }
-//
-//    public void setArtistId(String artistId) {
-//        this.artistId = artistId;
-//    }
-//
-//    public String getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getSource() {
-//        return source;
-//    }
-//
-//    public void setSource(String source) {
-//        this.source = source;
-//    }
-//
-//    public String gettGenre() {
-//        return tGenre;
-//    }
-//
-//    public void settGenre(String tGenre) {
-//        this.tGenre = tGenre;
-//    }
-//
-//    public int gettListens() {
-//        return tListens;
-//    }
-//
-//    public void settListens(int tListens) {
-//        this.tListens = tListens;
-//    }
-//
-//    public String gettLyrics() {
-//        return tLyrics;
-//    }
-//
-//    public void settLyrics(String tLyrics) {
-//        this.tLyrics = tLyrics;
-//    }
-//}
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
@@ -123,7 +13,7 @@ import hcmute.edu.vn.spotify.Interface.Prototyte;
 
 @IgnoreExtraProperties
 public class Track implements Serializable, Prototyte {
-
+    //Create properties
     @Exclude
     String key;
     private String name;
@@ -140,6 +30,7 @@ public class Track implements Serializable, Prototyte {
     private String albumId;
     private String artistName;
 
+    //Create track constructor
     public Track(String name, String source, int tListens, String trackId, String tLyric, String tGenre, String image, Date tReleaseDate, Album tAlbum, Artist tArtist, String artistId, String albumId, String artistName) {
         this.name = name;
         this.source = source;
@@ -156,9 +47,11 @@ public class Track implements Serializable, Prototyte {
         this.artistName = artistName;
     }
 
+    //Create empty track constructor
     public Track() {
     }
 
+    //Create MAP method for Object
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -175,7 +68,7 @@ public class Track implements Serializable, Prototyte {
 
         return result;
     }
-
+    //Create track constructor
     public Track(String key, String name, String source, int tListens, String tLyric, String tGenre, String image, Date tReleaseDate, Album tAlbum, Artist tArtist, String artistId, String albumId, String artistName) {
         this.key = key;
         this.name = name;
@@ -192,6 +85,7 @@ public class Track implements Serializable, Prototyte {
         this.artistName = artistName;
     }
 
+    //Getter and setter
     public String getImage() {
         return image;
     }
@@ -292,6 +186,7 @@ public class Track implements Serializable, Prototyte {
         return artistName;
     }
 
+    //To string
     @Override
     public String toString() {
         return "Track{" +

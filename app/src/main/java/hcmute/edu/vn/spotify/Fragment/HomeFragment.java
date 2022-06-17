@@ -161,6 +161,7 @@ public class HomeFragment extends Fragment {
         rcvArtist.setLayoutManager(linearLayoutManager2);
     }
 
+    //Set music playlist data
     private void setMusicPlaylistData(View view){
         //set data for music list
         rcvListMusic = view.findViewById(R.id.fragmentHome_listMusicRcv);

@@ -1,11 +1,13 @@
 package hcmute.edu.vn.spotify.Model;
 
 public class MusicPlaylistTrackBuilder {
+    //Create constructor
     private final String trackId;
     private final String musicPlaylistId;
     private final String tGenre;
     private final String artistId;
 
+    //Music playlist track builder constructor
     public MusicPlaylistTrackBuilder(MusicPlaylistTrackBuilder.Builder builder){
         this.trackId = builder.trackId;
         this.musicPlaylistId = builder.musicPlaylistId;
@@ -13,6 +15,7 @@ public class MusicPlaylistTrackBuilder {
         this.artistId = builder.artistId;
     }
 
+    //Getter
     public String getTrackId() {
         return trackId;
     }
@@ -29,6 +32,7 @@ public class MusicPlaylistTrackBuilder {
         return artistId;
     }
 
+    //Builder class
     public static class Builder{
         private String trackId;
         private String musicPlaylistId;

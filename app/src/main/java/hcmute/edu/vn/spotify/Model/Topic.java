@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class Topic implements Serializable {
+    //Create properties
     @Exclude
     public String Key;
 
@@ -12,17 +13,18 @@ public class Topic implements Serializable {
     public String name;
     public String url;
 
+    //Create empty Topic constructor
     public Topic() {
 
     }
-
+    //Create Topic constructor
     public Topic(String key, int tColor, String name, String url) {
         Key = key;
         this.tColor = tColor;
         this.name = name;
         this.url = url;
     }
-
+    //Getter and setter
     public String getKey() {
         return Key;
     }

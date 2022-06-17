@@ -40,12 +40,19 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class LibraryFragment extends Fragment {
 
+    //Recycle view playlist
     RecyclerView rcvPlaylist;
+    //Recycle view artist
     RecyclerView rcvArtist;
+    //Avatar imageview
     CircleImageView avatarIv;
+    //Add new playlist IV
     ImageView addPlaylistIv;
+    //DAO playlist
     DAOPlaylist daoPlaylist = new DAOPlaylist();
+    //Playlist adapter
     private PlaylistVerticalAdapter playlistVerticalAdapter;
+    //Artist adapter
     private ArtistAdapter artistAdapter;
 
     @Override
@@ -89,6 +96,8 @@ public class LibraryFragment extends Fragment {
             }
         });
 
+        //Move to new playlist activity
+
         addPlaylistIv = view.findViewById(R.id.fragmentLibrary_addPlaylistIv);
         addPlaylistIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +130,7 @@ public class LibraryFragment extends Fragment {
 
         return view;
     }
+    //Get playlist list
     private List<Playlist> getListPlaylist(String userId) {
         List<Playlist> list = new ArrayList<>();
 
@@ -147,6 +157,7 @@ public class LibraryFragment extends Fragment {
         return list;
     }
 
+    //Get list artist
     private List<Artist> getListArtist() {
         List<Artist> list = new ArrayList<>();
 

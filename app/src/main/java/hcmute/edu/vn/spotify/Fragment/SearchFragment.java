@@ -106,6 +106,7 @@ public class SearchFragment extends Fragment {
         return list;
     }
 
+    //Get random number to set to color
     public int getNumber() {
         double rand = (Math.random()) * (6 + 1) + 0;
         return (int) rand;

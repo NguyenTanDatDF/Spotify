@@ -31,23 +31,35 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class SettingActivity extends AppCompatActivity {
 
+    //variables (Declare all the component in Setting activity)
+
+    // layout for rules,users support, ...
     LinearLayout rules;
     LinearLayout support;
     LinearLayout thirdside;
     LinearLayout terms;
+
+    //User information component
     ConstraintLayout userCl;
+    //Back to previous activity
     ImageView backIv;
+    //Check premium
     LinearLayout premiumLl;
+    //Log out
     LinearLayout logoutLl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //Handle activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        //Define user object using singleton
         User user = new User();
         //user = SigninActivity.definedUser;
          ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
         user = singleton.user;
-         Log.e(user.getName().trim(), "Blaaa");
+
+        //Set data for user by name, email
         TextView name_tv = (TextView) findViewById(R.id.activitySetting_usernameTv);
         name_tv.setText(user.getName().trim());
         TextView email_tv = (TextView) findViewById(R.id.activitySetting_emailTv);
@@ -93,29 +105,37 @@ public class SettingActivity extends AppCompatActivity {
         });
 
 
+        // Go to webpage written by react (User's rules, support, ...)
         rules = findViewById(R.id.activitySetting_rulesLl);
         support = findViewById(R.id.activitySetting_supportLl);
         thirdside = findViewById(R.id.activitySetting_thirdPartLl);
         terms = findViewById(R.id.activitySetting_termsLl);
 
+        //Go to rules website
         rules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoUrl("https://spotify-seven-sepia.vercel.app/rules");
             }
         });
+
+        //Go to support website
         support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoUrl("https://www.facebook.com/SpotifyVietnam");
             }
         });
+
+        //Go to thirdside webpage
         thirdside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoUrl("https://spotify-seven-sepia.vercel.app/third-side");
             }
         });
+
+        //Go to terms webpage
         terms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +146,7 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    //Function to go to webpage URL
     private void gotoUrl(String s) {
         Uri uri = Uri.parse(s);
         startActivity(new Intent(Intent.ACTION_VIEW, uri));

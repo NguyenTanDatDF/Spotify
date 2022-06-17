@@ -21,33 +21,42 @@ import hcmute.edu.vn.spotify.Model.Album;
 import hcmute.edu.vn.spotify.R;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>{
 
+    //Context
     private Context mContext;
+    //Get list album
     private List<Album> albumList;
 
     public AlbumAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
+    //Set data for list album
     public void setData(List<Album> list)
     {
         this.albumList = list;
         notifyDataSetChanged();
     }
+
+    //Binding view
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.AlbumViewHolder holder, int position) {
+        //Get defined album
         Album album = albumList.get(position);
         if(album == null)
         {
             return;
         }
         else {
+            //Set text, images for component
             Glide.with(mContext).load(album.getResourceId()).into(holder.imgUser);
             holder.tvName.setText(album.getName());
             holder.tvDescription.setText(album.getArtistName());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //create intent
                     Intent album_music = new Intent(mContext, AlbumMusicActivity.class);
+                    //Create bundle to send album's information to another activity
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("object_album", album);
                     album_music.putExtras(bundle);
@@ -57,6 +66,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         }
     }
 
+    //Limit the album that shown (5)
     private final int limit = 5;
     @Override
     public int getItemCount() {
@@ -69,6 +79,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         }
     }
 
+    //Create view holder
     @NonNull
     @Override
     public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -87,6 +98,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         public AlbumViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            //Mapping
             imgUser = itemView.findViewById(R.id.img_user);
             tvName = itemView.findViewById(R.id.tvName);
             tvDescription = itemView.findViewById(R.id.tvDescription);

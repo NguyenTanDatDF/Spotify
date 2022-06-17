@@ -36,13 +36,19 @@ import hcmute.edu.vn.spotify.R;
 public class SearchActivity extends AppCompatActivity {
 
     //Variables
+    //Recycle view artist
     private RecyclerView rcvArtist;
+    //Artist adapter
     private ArtistAdapter artistAdapter;
+    //Track adapter
     private TrackAdapter trackAdapter;
-    SearchView searchView;
-    ImageView backIv;
+    //Search view
+    private SearchView searchView;
+    //Back btn
+    private ImageView backIv;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //Create activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         //Set data
@@ -68,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
+        //Back to previous button
         backIv = findViewById(R.id.activitySearch_backIv);
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,12 +147,6 @@ public class SearchActivity extends AppCompatActivity {
         trackAdapter = new TrackAdapter(this);
         LinearLayoutManager linearLayoutTrackManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvArtist.setLayoutManager(linearLayoutTrackManager);
-
-//        List<Track> tracks = new ArrayList<>();
-//        tracks.add(data.get(0));
-//        tracks.add(data.get(1));
-//        tracks.add(data.get(2));
-//        tracks.add(data.get(3));
         trackAdapter.setData(getListTrack());
         rcvArtist.setAdapter(trackAdapter);
     }

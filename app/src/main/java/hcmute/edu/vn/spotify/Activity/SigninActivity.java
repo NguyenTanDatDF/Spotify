@@ -31,19 +31,26 @@ public class SigninActivity extends AppCompatActivity {
     //private static User definedUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //Create view for sign in activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
+        //Get list user
         List<User> users = getListUser();
 
         //variables
+        //back to previous activity (Welcome)
         ImageView backIv = (ImageView) findViewById(R.id.activitySignin_backIv);
+        //Get username value
         EditText username_et = (EditText) findViewById(R.id.activitySignin_usernameEt);
+        //Get password value
         EditText password_et = (EditText) findViewById(R.id.activitySignin_passwordEt);
+        //Sign in button
         Button signin_btn = (Button) findViewById(R.id.activitySignin_singinBt);
 
         Log.e("context",  getClass().getSimpleName());
 
-        //Set on click event
+        //Set on click event for back button
         backIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,16 +58,21 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+        //Sign in with username and password
         signin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //First get all user from firebase after that check if the username and password are correct or not
                 for(User user: users){
                     if(username_et.getText().toString().equals(user.getUsername().trim()) && password_et.getText().toString().equals(user.getPassword().trim()))
                     {
+                        //If the username and password is correct, show the toast and move to app
                         Toast.makeText(SigninActivity.this, "Login Successfully!", Toast.LENGTH_SHORT);
                         Intent main_activity = new Intent(SigninActivity.this, MainActivity.class);
 
+                        // Also get the user information to use for another activity
                         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+
                         MainActivity.logout = false;
                         //definedUser = user;
                         startActivity(main_activity);
@@ -68,23 +80,31 @@ public class SigninActivity extends AppCompatActivity {
                     }
                     else if(username_et.getText().toString().isEmpty() || password_et.getText().toString().isEmpty())
                     {
+                        //IF the field is blank, please enter value
                         Toast.makeText(SigninActivity.this, "Please enter your username and password!", Toast.LENGTH_SHORT);
                     }
                     else{
+                        //else, cannot login
                         Toast.makeText(SigninActivity.this, "Login fail", Toast.LENGTH_SHORT);
                     }
                 }
 
             }
         });
-    }private List<User> getListUser()
+    }
+
+    //Get list user from database
+    private List<User> getListUser()
     {
+        //Define list user
         List<User> list = new ArrayList<>();
 
+        //Call DAO user method from Database
         DAOUser daoUser = new DAOUser();
         daoUser.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //add data to list user
                 for(DataSnapshot data: snapshot.getChildren()){
                     User user = data.getValue(User.class);
                     list.add(user);
@@ -99,6 +119,7 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+        //Return list of user
         return list;
     }
 

@@ -9,6 +9,7 @@ import java.util.Map;
 import hcmute.edu.vn.spotify.Interface.Prototyte;
 
 public class User implements Serializable, Prototyte {
+    //Create properties
     @Exclude
     private String key;
 
@@ -20,6 +21,7 @@ public class User implements Serializable, Prototyte {
     private boolean isAdmin;
     private boolean isPremium;
 
+    //Create mapping
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -28,10 +30,11 @@ public class User implements Serializable, Prototyte {
         return result;
     }
 
+    //Create Empty User constructor
     public User() {
 
     }
-
+    //Create User constructor
     public User(String userId, String username, String password, String name, String email, boolean isAdmin, boolean isPremium) {
         this.userId = userId;
         this.username = username;
@@ -42,6 +45,7 @@ public class User implements Serializable, Prototyte {
         this.isPremium = isPremium;
     }
 
+    //Getter and setter
     public String getKey() {
         return key;
     }

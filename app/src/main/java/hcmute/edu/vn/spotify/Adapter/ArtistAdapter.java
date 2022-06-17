@@ -23,16 +23,22 @@ import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.R;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>{
+    //Artist context
     private Context pContext;
+    //Get list artist
     private List<Artist> pArtist;
+
     public ArtistAdapter(Context pContext) {
         this.pContext = pContext;
     }
 
+    //Set data for artist list
     public void setData (List<Artist> list) {
         this.pArtist = list;
         notifyDataSetChanged();
     }
+
+    //Create view holder
     @NonNull
     @Override
     public ArtistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,8 +46,11 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         return new ArtistViewHolder(view);
     }
 
+    //Create bind view holder
+
     @Override
     public void onBindViewHolder(@NonNull ArtistViewHolder holder, int position) {
+        //Get defined artist
         Artist artist = pArtist.get(position);
         if(artist == null){
             return;
@@ -51,10 +60,13 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Create new intent when click to artist component
                 Intent artist_music = new Intent(pContext, ArtistMusicActivity.class);
+                //Create bundle to move artist's information to next activity
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object_artist", artist);
                 artist_music.putExtras(bundle);
+                //Start activity
                 pContext.startActivity(artist_music);
             }
         });
@@ -72,6 +84,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         }
     }
 
+    //View holder
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView artistImage;

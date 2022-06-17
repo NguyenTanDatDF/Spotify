@@ -32,21 +32,27 @@ import hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton;
 
 public class UserActivity extends AppCompatActivity {
 
+    //Edit button
     Button editUserBt;
+    //Back to previous activity
     ImageView backIv;
 
+    //Recycle view user playlist
     private RecyclerView rcvPlaylist;
+    //Playlist adapter
     private PlaylistAdapter playlistAdapter;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //create view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
         //set user name
         TextView username_tv = (TextView) findViewById(R.id.activityUser_usernameTv);
 
+        //defined new user
         User user = new User();
 
         //user = SigninActivity.definedUser;
@@ -81,6 +87,8 @@ public class UserActivity extends AppCompatActivity {
         playlistAdapter.setData(getListPlaylist());
         rcvPlaylist.setAdapter(playlistAdapter);
     }
+
+    //Get all user's playlist
     private List<Playlist> getListPlaylist() {
         List<Playlist> list = new ArrayList<>();
 
