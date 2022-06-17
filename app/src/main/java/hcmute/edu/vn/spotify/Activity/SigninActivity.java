@@ -41,6 +41,7 @@ public class SigninActivity extends AppCompatActivity {
         EditText password_et = (EditText) findViewById(R.id.activitySignin_passwordEt);
         Button signin_btn = (Button) findViewById(R.id.activitySignin_singinBt);
 
+        Log.e("context",  getClass().getSimpleName());
 
         //Set on click event
         backIv.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +61,7 @@ public class SigninActivity extends AppCompatActivity {
                         Intent main_activity = new Intent(SigninActivity.this, MainActivity.class);
 
                         ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
-
+                        MainActivity.logout = false;
                         //definedUser = user;
                         startActivity(main_activity);
                         break;

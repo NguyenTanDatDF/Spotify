@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User implements Serializable {
+import hcmute.edu.vn.spotify.Interface.Prototyte;
+
+public class User implements Serializable, Prototyte {
     @Exclude
     private String key;
 
@@ -102,5 +104,9 @@ public class User implements Serializable {
 
     public void setPremium(boolean premium) {
         isPremium = premium;
+    }
+
+    public Prototyte createClone() {
+        return new User( userId,  username,  password,  name,  email,  isAdmin,  isPremium);
     }
 }

@@ -52,6 +52,9 @@ public class PlayTrackActivity extends AppCompatActivity {
         prvious = findViewById(R.id.previous);
         img_track = findViewById(R.id.img_track);
         back = findViewById(R.id.btn_back);
+
+
+
 //step 2
         mLyricView = (LyricView)findViewById(R.id.custom_lyric_view);
 
@@ -68,6 +71,11 @@ public class PlayTrackActivity extends AppCompatActivity {
         LyricFacade lyricFacade = new LyricFacade();
         File file = lyricFacade.createFileObjectWithLyric(PlayTrackActivity.this, MainActivity.track.gettLyric());
         mLyricView.setLyricFile(file);
+
+
+
+
+
 
       PlayMedia(pvMain);
 
@@ -89,7 +97,16 @@ public class PlayTrackActivity extends AppCompatActivity {
         MainActivity.player.addListener(new Player.Listener() {
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-                MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+                if(MainActivity.typePlaying.equals("list"))
+                {
+                    MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+                }
+//                else
+//                {
+//                    MainActivity.track = MainActivity.playlist.get(MainActivity.player.getCurrentMediaItemIndex());
+//                }
+
+
                 StartService();
                 Player.Listener.super.onTracksChanged(trackGroups, trackSelections);
                 img_track.setImageBitmap(MyService.getBitmapFromURL(MainActivity.track.getImage()));

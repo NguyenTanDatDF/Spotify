@@ -88,6 +88,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent welcome_activity = new Intent(SettingActivity.this, WelcomeActivity.class);
                 startActivity(welcome_activity);
+                MainActivity.logout = true;
             }
         });
 

@@ -10,41 +10,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.net.URL;
 
 import hcmute.edu.vn.spotify.Activity.MainActivity;
-import hcmute.edu.vn.spotify.Model.Track;
+
 import hcmute.edu.vn.spotify.R;
 
 public class MyService extends Service {
@@ -194,6 +176,30 @@ public class MyService extends Service {
                 .build();
         startForeground(1, notification);
     }
+
+//    private void sendNotifycation()
+//    {
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+//        Bitmap bitmap = MyService.getBitmapFromURL("https://i.ytimg.com/vi/IZa0XtlGTPE/maxresdefault.jpg");
+//        MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(this, "tag");
+//        Notification notificationBuilder = new NotificationCompat.Builder(this, CHANEL_ID)
+//                .setSmallIcon(R.drawable.ic_note)
+//                .setSubText("Spotify")
+//                .setContentText(MainActivity.track.getName())
+//                .setContentText(MainActivity.track.gettArtist().getNameArtist())
+//                .setLargeIcon(bitmap)
+//                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+//                .setShowActionsInCompactView(1)
+//                .setMediaSession(mediaSessionCompat.getSessionToken()))
+//                .build();
+//
+////        Notification notification = notificationBuilder.build();
+//        startForeground(1, notificationBuilder);
+//    }
+
+
+
 
 
     private PendingIntent getPedingIntent(Context context, int action)
