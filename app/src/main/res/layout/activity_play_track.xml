@@ -50,17 +50,18 @@
         android:layout_marginLeft="20dp"
         android:src="@drawable/ic_back"
         />
+
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/pv_main2"
 
         android:layout_width="370dp"
         android:layout_height="80dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_track"
         android:layout_marginTop="20dp"
         app:controller_layout_id="@layout/track_player"
         app:hide_on_touch="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_track"
         app:show_timeout="0"
         app:shutter_background_color="#009F9292"
         app:use_artwork="false">

@@ -1,11 +1,9 @@
 package hcmute.edu.vn.spotify.Activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,5 +109,14 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         return list;
+    }
+
+    public static class Videoplaying extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_videoplaying);
+        }
     }
 }

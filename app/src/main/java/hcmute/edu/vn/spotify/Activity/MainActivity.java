@@ -36,6 +36,7 @@ import hcmute.edu.vn.spotify.Database.DAOTrack;
 import hcmute.edu.vn.spotify.Fragment.LibraryFragment;
 import hcmute.edu.vn.spotify.Fragment.SearchFragment;
 import hcmute.edu.vn.spotify.Fragment.HomeFragment;
+import hcmute.edu.vn.spotify.Fragment.VIdeoFragment;
 import hcmute.edu.vn.spotify.Model.Favorite;
 import hcmute.edu.vn.spotify.Model.Playlist;
 import hcmute.edu.vn.spotify.Model.PlaylistTrack;
@@ -106,12 +107,21 @@ public class MainActivity extends AppCompatActivity {
         // set the circle color of navigation bar
         bottomNavigation.setCircleColor(2);
 
+        // get user by singleton pattern
+        User user = new User();
+        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
+        user = singleton.user;
         // add icon of every part of fragment
         bottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
         bottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_search_nav));
         bottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_music));
-
+        User finalUser4 = user;
+        if(finalUser4.getName().equals("Premium Member"))
+        {
+            bottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.ic_video));
+        }
         // when user click to the part of navigation bar it will replace the current fragment by other fragment
+
         bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
             public Unit invoke(MeowBottomNavigation.Model model) {
@@ -127,6 +137,13 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         replace(new LibraryFragment());
                         break;
+                    case 4:
+                        if(finalUser4.getName().equals("Premium Member"))
+                        {
+                            replace(new VIdeoFragment());
+                            break;
+                        }
+
                 }
                 return null;
             }
@@ -153,10 +170,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // get user by singleton pattern
-        User user = new User();
-        ThreadSafeLazyUserSingleton singleton = ThreadSafeLazyUserSingleton.getInstance(user);
-        user = singleton.user;
 
 
         // this will init the music player and attach it with music controller

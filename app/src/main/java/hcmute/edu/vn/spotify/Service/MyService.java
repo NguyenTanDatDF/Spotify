@@ -58,7 +58,7 @@ public class MyService extends Service {
         if(bundle !=null)
         {
             // send to notification bar
-            sendNotifycation();
+          //  sendNotifycation();
         }
         // get action of music from broadcast receiver
         int actionMusic = intent.getIntExtra("action_music_service",0);

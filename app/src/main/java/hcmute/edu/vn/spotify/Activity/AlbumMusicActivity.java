@@ -128,7 +128,6 @@ public class AlbumMusicActivity extends AppCompatActivity {
         List<Track>  list = new ArrayList<>();
         // Create DAO to get data
         DAOTrack daoTrack = new DAOTrack();
-
         // this listener will listen from firebase continuously and get data
         daoTrack.getByKey().addValueEventListener(new ValueEventListener() {
             @Override
@@ -153,9 +152,7 @@ public class AlbumMusicActivity extends AppCompatActivity {
                         }
                     }
                     catch (Exception e){
-
                     }
-
                 }
                 // Update the global current playlist
                 MainActivity.playlist= list;
@@ -163,14 +160,10 @@ public class AlbumMusicActivity extends AppCompatActivity {
                 trackAdapter.notifyDataSetChanged();
                 trackAdapter.setData(list);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
         return list;
     }
 

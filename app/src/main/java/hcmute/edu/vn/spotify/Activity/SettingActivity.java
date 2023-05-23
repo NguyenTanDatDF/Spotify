@@ -1,5 +1,6 @@
 package hcmute.edu.vn.spotify.Activity;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -115,7 +116,10 @@ public class SettingActivity extends AppCompatActivity {
         rules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoUrl("https://spotify-seven-sepia.vercel.app/rules");
+                //gotoUrl("https://spotify-seven-sepia.vercel.app/rules");
+                Intent welcome_activity = new Intent(SettingActivity.this, TrackVideo.class);
+                startActivity(welcome_activity);
+
             }
         });
 

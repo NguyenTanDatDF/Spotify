@@ -24,6 +24,7 @@ public class Topic implements Serializable {
         this.name = name;
         this.url = url;
     }
+
     //Getter and setter
     public String getKey() {
         return Key;
